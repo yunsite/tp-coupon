@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'cate_id', 1 => 'cate_name', 2 => 'sort_order', '_autoinc' => true, '_pk' => 'cate_id', '_type' => array ( 'cate_id' => 'smallint(5) unsigned', 'cate_name' => 'varchar(50)', 'sort_order' => 'smallint(5) unsigned', ), ); ?>
