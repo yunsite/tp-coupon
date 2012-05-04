@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'c_id', 1 => 'expiry', 2 => 'sort_order', '_autoinc' => false, '_type' => array ( 'c_id' => 'mediumint(8) unsigned', 'expiry' => 'int(11) unsigned', 'sort_order' => 'smallint(5) unsigned', ), ); ?>

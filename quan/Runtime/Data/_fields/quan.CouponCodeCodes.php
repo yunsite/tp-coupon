@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'c_id', 2 => 'code', 3 => 'user_id', 4 => 'nick', 5 => 'fetch_time', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'int(11) unsigned', 'c_id' => 'mediumint(8) unsigned', 'code' => 'varchar(30)', 'user_id' => 'mediumint(8) unsigned', 'nick' => 'varchar(50)', 'fetch_time' => 'int(11) unsigned', ), ); ?>

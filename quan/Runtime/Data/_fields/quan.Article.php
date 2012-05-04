@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'article_id', 1 => 'cate_id', 2 => 'title', 3 => 'alias', 4 => 'content', 5 => 'addtime', '_autoinc' => true, '_pk' => 'article_id', '_type' => array ( 'article_id' => 'smallint(6) unsigned', 'cate_id' => 'smallint(5) unsigned', 'title' => 'varchar(100)', 'alias' => 'varchar(50)', 'content' => 'text', 'addtime' => 'int(11) unsigned', ), ); ?>
