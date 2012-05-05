@@ -20,4 +20,8 @@
 
 7、确定 Runtime 与 Public/Uploads 目录及其子目录可写
 
-8、管理员用户名：admin   密码：888888
+8、管理员用户名：admin    密码：888888
+
+9、后台访问地址 admin.php
+
+官方QQ群：19385220
