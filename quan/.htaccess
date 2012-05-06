@@ -1,0 +1,14 @@
+# 将 RewriteEngine 模式打开
+RewriteEngine On
+
+# 修改以下语句中的 /quan 为你的应用目录地址，如果程序放在根目录中，请将 /quan 修改为 /
+#RewriteBase /quan
+
+# Rewrite 系统规则请勿修改
+RewriteRule ^index\.html$       index\.php [L]
+RewriteRule ^(code|mall|article|user|payment)-([a-z_A-Z]+)\.html$ index\.php\?m=$1&a=$2 [L]
+RewriteRule ^code-view-id-([0-9]+)\.html$       index\.php\?m=Code&a=view&id=$1 [L]
+RewriteRule ^mall-(how2use|out|view)-id-([0-9]+)\.html$       index\.php\?m=Mall&a=$1&id=$2 [L]
+RewriteRule ^code-lastestpulled-p-([0-9]+)\.html$       index\.php\?m=Code&a=lastestpulled&p=$1 [L]
+RewriteRule ^code-latest-cate_id-([0-9]+)-t_type-([0-9]+)-cate_id2-([0-9]+)-p-([0-9]+).html$       index\.php\?m=Code&a=latest&cate_id=$1&t_type=$2&cate_id2=$3&p=$4 [L]
+RewriteRule ^code-hot-cate_id-([0-9]+)-type-([0-9]+)-cate_id2-([0-9]+)-p-([0-9]+).html$       index\.php\?m=Code&a=hot&cate_id=$1&type=$2&cate_id2=$3&p=$4 [L]
