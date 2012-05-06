@@ -12,11 +12,8 @@
 	<project_entity ID="project_roots">
 		<vfile name="E:\APMServ5.2.6\www\quan"/>
 	</project_entity>
-	<project_entity ID="javaBridge" JRE_Name="1.5.0_06"/>
 	<project_entity ID="bookmarks"/>
-	<project_entity ID="editor_component" selectedEditor="0">
-		<openEditors/>
-	</project_entity>
+	<project_entity ID="javaBridge" JRE_Name="1.5.0_06"/>
 	<project_entity ID="Subversion">
 		<svnCmdArguments>
 			<SubversionCommand commandType="update"/>
@@ -28,6 +25,9 @@
 			<SubversionCommand commandType="revert"/>
 			<SubversionCommand commandType="resolve"/>
 		</svnCmdArguments>
+	</project_entity>
+	<project_entity ID="editor_component" selectedEditor="0">
+		<openEditors/>
 	</project_entity>
 	<project_entity ID="CVS">
 		<lastArguments>
