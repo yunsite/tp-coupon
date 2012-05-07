@@ -6,6 +6,7 @@ RewriteEngine On
 
 # Rewrite 系统规则请勿修改
 RewriteRule ^index\.html$       index\.php [L]
+RewriteRule ^user-bind-type-([a-z_A-Z]+)\.html$       index\.php\?m=User&a=bind&type=$1 [L]
 RewriteRule ^(code|mall|article|user|payment)-([a-z_A-Z]+)\.html$ index\.php\?m=$1&a=$2 [L]
 RewriteRule ^code-view-id-([0-9]+)\.html$       index\.php\?m=Code&a=view&id=$1 [L]
 RewriteRule ^mall-(how2use|out|view)-id-([0-9]+)\.html$       index\.php\?m=Mall&a=$1&id=$2 [L]
