@@ -392,7 +392,7 @@ class CodeAction extends HomeCommonAction
 				//付费
 				if($detail['price_type'] == 2){
 					if($user['money'] < $detail['price']){
-						$this->ajaxReturn('', '您的账户金额不足，请先到帐号中心充值再来购买。请点击<a href="'.reUrl('User/pay').'" target="_blank">在线充值</a>', 0);
+						$this->ajaxReturn('', '您的账户金额不足，请先到帐号中心充值再来购买。请点击<a href="'.reUrl('Payment/pay').'" target="_blank">在线充值</a>', 0);
 					}
 					$spend = Consume::spend($this->_user['user_id'], $detail['price'], Consume::TYPE_MONEY);
 				}
