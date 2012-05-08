@@ -72,7 +72,7 @@ function check_nick_valid()
 		$('#tip_nick').text('');
 		return false;
 	}
-	var url = "index.php?g="+g+"&m="+m+"&a=check_nick_valid&nick="+encodeURIComponent(nick);
+	var url = "index.php?g="+g+"&m="+m+"&ajax=1&a=check_nick_valid&nick="+encodeURIComponent(nick);
 		$.getJSON(url, function(data){
 									if(data.status == 0){
 										$('#tip_nick').text('该帐号已存在');
@@ -97,6 +97,7 @@ function reg()
 		},
 		success: function(result){
 			if(result.status==1){
+				alert('注册成功');
 				window.location.href = u_index_url;
 			}else{
 				alert(result.info);
