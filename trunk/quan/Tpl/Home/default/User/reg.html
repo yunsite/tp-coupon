@@ -72,7 +72,7 @@ function check_nick_valid()
 		$('#tip_nick').text('');
 		return false;
 	}
-	var url = "?g="+g+"&m="+m+"&a=check_nick_valid&nick="+encodeURIComponent(nick);
+	var url = "index.php?g="+g+"&m="+m+"&a=check_nick_valid&nick="+encodeURIComponent(nick);
 		$.getJSON(url, function(data){
 									if(data.status == 0){
 										$('#tip_nick').text('该帐号已存在');
