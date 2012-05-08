@@ -165,7 +165,7 @@ function reUrl($url, $params=array(), $redirect=false, $suffix=true) {
             $url   =  __ROOT__ . '/index.php/'.$url;
         }else{
             //$url   =  __APP__.'/'.implode($depr,array_reverse($var));
-            $url   =  implode($depr,array_reverse($var));
+            $url   =  __ROOT__ . '/' . implode($depr,array_reverse($var));
         }
         if(!empty($vars)) { // 添加参数
             $vars = http_build_query($vars);
@@ -847,20 +847,21 @@ function str_to_unicode_string($str)
 //分词
 function segment($text, $num=null)
 {
+	if(strtolower(C('DEFAULT_CHARSET')) == 'utf-8' || strtolower(C('DEFAULT_CHARSET')) == 'utf8'){
+		$charset = 'utf8';
+	}else{
+		$charset = strtolower(C('DEFAULT_CHARSET'));
+	}
 	$list = array();
 	if(empty($text)) return $list;
-	if(defined('DOC_ROOT_PATH')){
-		$root = DOC_ROOT_PATH . str_replace('./', '', LIB_PATH);
-	}else{
-		$root = LIB_PATH;
-	}
+	$root = LIB_PATH;
 	//检测是否已安装php_scws扩展
 	if(function_exists("scws_open"))
 	{
 		$sh = scws_open();
-		scws_set_charset($sh,'utf8');
-		scws_set_dict($sh, $root.'ORG/scws/dict.utf8.xdb');
-		scws_set_rule($sh, $root.'ORG/scws/rules.utf8.ini');
+		scws_set_charset($sh,$charset);
+		scws_set_dict($sh, $root.'ORG/scws/dict.'.$charset.'.xdb');
+		scws_set_rule($sh, $root.'ORG/scws/rules.'.$charset.'.ini');
 		scws_set_ignore($sh,true);
 		scws_send_text($sh, $text);
 		if(is_int($num)){
@@ -883,8 +884,9 @@ function segment($text, $num=null)
 	{
 		import('@.ORG.scws.pscws4');
 		$pscws = new PSCWS4();
-		$pscws->set_dict($root.'ORG/scws/dict.utf8.xdb');
-		$pscws->set_rule($root.'ORG/scws/rules.utf8.ini');
+		$pscws->set_charset($charset);
+		$pscws->set_dict($root.'ORG/scws/dict.'.$charset.'.xdb');
+		$pscws->set_rule($root.'ORG/scws/rules.'.$charset.'.ini');
 		$pscws->set_ignore(true);
 		$pscws->send_text($text);
 		if(is_int($num)){
