@@ -1,5 +1,5 @@
 <?php
-$config = require("./Conf/db_config.php");
+$config = require(rtrim(dirname(__FILE__), '/\\') . DIRECTORY_SEPARATOR . "db_config.php");
 $array = array(
 'DB_FIELDS_CACHE'=>true, //缓存字段信息，开发时不缓存
 'DB_FIELDTYPE_CHECK'=>true,  // 开启字段类型检测

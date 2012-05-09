@@ -297,7 +297,7 @@ class CodeAction extends HomeCommonAction
 			if($detail['c_type'] ==1){
 				$title .= '满'.$detail['money_max'].'减'.$detail['money_reduce'].'元优惠券';
 			}else{
-				$title .= $detail['money_amount'] . '代金券';
+				$title .= $detail['money_amount'] . '元代金券';
 			}
 		}
 		$detail['title'] = $title;
@@ -332,6 +332,7 @@ class CodeAction extends HomeCommonAction
 		$record_top100 = $record_top100 ? $record_top100 : array();
 		$this->assign('record_top100', $record_top100);
 		$this->assign('record_top_amount', count($record_top100));
+		$this->assign('nowtime', $localTimeObj->gmtime()-intval($this->_CFG['code_in_secret'])*60);
 		$this->assign('page_title', $title . ' - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);

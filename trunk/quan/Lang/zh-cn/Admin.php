@@ -43,6 +43,8 @@ return array(
 									'alipay_seller_email'	=> '签约支付宝账号',
 									'alipay_type'		=> '支付宝签约类型',
 									'icp_number'		=> 'ICP备案号',
+									'url_rewrite'		=> '开启伪静态',
+									'code_in_secret'	=> '优惠券保密时间',
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
@@ -96,9 +98,15 @@ return array(
 															'direct' =>	'直接交易类型',
 															'warrant'=>	'担保交易类型'
 															),
+										'url_rewrite'=> array(
+															0 =>	'不开启',
+															1 =>	'开启'
+															),
 										),
 					'cfg_desc'	=>	array(
 										'data_cache_time'	=>	'(单位：小时)',
+										'url_rewrite'		=>	'开启伪静态前请确认您的服务器支持url_rewrite',
+										'code_in_secret'	=>	'被领取的优惠券代码超过该时间后将被公开。(单位：分钟)',
 										),
 					),
 );

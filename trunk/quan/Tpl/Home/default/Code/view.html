@@ -27,8 +27,8 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                         <div class="normal_m nw500">
                             <h1>{$detail.title}</h1>
                             <ul class="normal_m_u detail clear">
-                            	<li><em>购买价格：</em><!--{if $detail.price_type==1}-->免费<!--{elseif $detail.price_type==2}--><i>{$item.price}</i>元<!--{elseif $detail.price_type==3}--><i>{$detail.price}</i>积分<!--{/if}--></li>
-                                <li><em>优&nbsp;&nbsp;惠&nbsp;&nbsp;额：</em><!--{if $detail.c_type==1}-->满<i>{$detail.money_max}</i>减<i>{$detail.money_reduce}</i><!--{else}--><i>{$detail.money_amount}</i>代金券<!--{/if}--></li>
+                            	<li><em>购买价格：</em><!--{if $detail.price_type==1}-->免费<!--{elseif $detail.price_type==2}--><i>{$detail.price}</i>元<!--{elseif $detail.price_type==3}--><i>{$detail.price}</i>积分<!--{/if}--></li>
+                                <li><em>优&nbsp;&nbsp;惠&nbsp;&nbsp;额：</em><!--{if $detail.c_type==1}-->满<i>{$detail.money_max}</i>减<i>{$detail.money_reduce}</i><!--{else}--><i>{$detail.money_amount}</i>元代金券<!--{/if}--></li>
                                 
                                 <li><em>有&nbsp;&nbsp;效&nbsp;&nbsp;期：</em><!--{if $detail.expiry_type==1}--><!--{if $detail.expiry==0}-->已结束<!--{else}-->还剩 <i>{$detail.expiry}</i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></li>
                                 
@@ -68,7 +68,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                                     
                                     <b>{$record_top100[r].pull_time|date_format:"%m-%d %H:%M"}</b>
                                     
-                                    <em>仅领取者本人知道</em>
+                                    <em><!--{if $user.user_id==$record_top100[r].user_id || $record_top100[r].pull_time<=$nowtime}-->{$record_top100[r].code}<!--{else}-->仅领取者本人知道<!--{/if}--></em>
                                 </li>
                                 <!--{/section}-->
                                 <!--{if $record_top_amount>5}-->
@@ -80,7 +80,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                                     
                                     <b>{$record_top100[r].pull_time|date_format:"%m-%d %H:%M"}</b>
                                     
-                                    <em>仅领取者本人知道</em>
+                                    <em><!--{if $user.user_id==$record_top100[r].user_id || $record_top100[r].pull_time<=$nowtime}-->{$record_top100[r].code}<!--{else}-->仅领取者本人知道<!--{/if}--></em>
                                 </li>
                                 <!--{/section}-->
                                 <!--{/if}-->
@@ -143,9 +143,9 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                                 <img src="{$item.logo|fixed_uploadfile_url}"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
                                     <p class="btn_wrap">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>立即领取</span></a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>立即领取</span></a></p>
                                     <p class="score_now">
                                         已领：{$item.fetched_amount}张</p>
                                     <p class="score_old">
@@ -179,7 +179,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                             领取最多的优惠券列表</h3>
                         <ol class="rank_coupon">
                             <!--{foreach from=$hot10 item=item}-->  
-                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}代金券{/if}</a></li>
+                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></li>
                             <!--{/foreach}-->
                         </ol>
                     </li>
@@ -189,7 +189,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                         <ol class="rank_coupon">
                             
                             <!--{foreach from=$latest10 item=item}-->  
-                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}代金券{/if}</a></li>
+                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></li>
                             <!--{/foreach}-->
                             
                         </ol>
@@ -203,7 +203,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                                 <img src="{$item.logo|fixed_uploadfile_url}"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}代金券{/if}</a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
                                     <p>
                                         已领数量：{$item.fetched_amount}张</p>
                                     <p>
@@ -224,6 +224,41 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
 <script type="text/javascript">
 coupon.init();
 <!--{literal}-->
+$(".pulledlist li").bind("copy",function(){
+                var opened = $(this).parent().attr("opened");
+                if(opened===undefined || parseInt(opened)<3){
+					$.fn.jmodal({
+                    	data: {},
+                    	title: '温馨提示',
+                    	content: '复制成功！请在新窗口中使用优惠券',
+                    	buttonText: { ok: '确定', cancel: '' },
+                    	fixed: false,
+						marginTop: 200,
+						okEvent: function(data, args) {
+                        	args.hide();
+                    	}
+               	   	});
+                    window.open(shopping_url);
+                    opened = opened===undefined ? 1 : parseInt(opened)+1;
+                    $(".pulledlist").attr("opened",opened);
+                }else{
+                    $.fn.jmodal({
+                    	data: {},
+                    	title: '温馨提示',
+                    	content: '复制优惠券代码成功！',
+                    	buttonText: { ok: '确定', cancel: '' },
+                    	fixed: false,
+						marginTop: 200,
+						okEvent: function(data, args) {
+                        	args.hide();
+                    	}
+               	   	});
+                }
+            });
+$(".pulledlist li em").bind("mouseup",function(){
+                $(".newtips").remove();
+                coupon.tips("<font color=green>进行复制操作后将会弹出商家的网站<br />请务必在弹出的商家网站中使用优惠券！</font>", 350, $(this).offset().top - 125, 'up', 50 ,$('#main'));
+            });
 $('a.expand').click(function(){
 							 $('ul.pulledlist>li.h').removeClass('h');
 							 });

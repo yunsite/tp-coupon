@@ -13,5 +13,3 @@ define('UC_CHARSET', 'utf-8');
 define('UC_IP', '');
 define('UC_APPID', '7');
 define('UC_PPP', '20');
-define('UC_APPID', '6');
-define('UC_PPP', '20');

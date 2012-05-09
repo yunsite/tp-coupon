@@ -83,7 +83,8 @@ $.extend($.fn, {
                             position: (ps.fixed ? 'fixed' : 'absolute'),
                             width: ps.width,
                             left: (ps.docWidth - ps.width) / 2,
-                            top: (ps.marginTop + document.documentElement.scrollTop)
+                            //top: (ps.marginTop + document.documentElement.scrollTop)
+							top: ($(window).height() - cache.modal.outerHeight())/2 + $(document).scrollTop()
                         }).fadeIn();
         }
         cache.title.html(ps.title);

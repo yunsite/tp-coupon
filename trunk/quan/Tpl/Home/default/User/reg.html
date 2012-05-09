@@ -30,7 +30,7 @@
   </tr>
   <tr>
     <td align="right">&nbsp;</td>
-    <td><input name="agree" id="agree" type="checkbox" value="1" />&nbsp;<a href="Html/article/policy.html" target="_blank" id="label_agree">同意注册协议</a></td>
+    <td><input name="agree" id="agree" type="checkbox" value="1" />&nbsp;<a href="__ROOT__/Html/policy.html" target="_blank" id="label_agree">同意注册协议</a></td>
   </tr>
   <tr>
     <td align="right">&nbsp;</td>
@@ -87,7 +87,6 @@ function check_nick_valid()
 }
 function reg()
 {
-	check_nick_valid();
 	if(! dosubmit) return false;
 	$.ajax({
 		url: reg_url,
@@ -105,7 +104,7 @@ function reg()
                     title: '温馨提示',
                     content: '注册成功<br>现在您可以会员身份登陆',
                     buttonText: { ok: '确定', cancel: '' },
-                    fixed: true,
+                    fixed: false,
 					marginTop: 200,
 					okEvent: function(data, args) {
                         window.location.href = u_index_url;
@@ -117,7 +116,7 @@ function reg()
                     title: '温馨提示',
                     content: result.info,
                     buttonText: { ok: '确定', cancel: '' },
-                    fixed: true,
+                    fixed: false,
 					marginTop: 200,
 					okEvent: function(data, args) {
                         args.hide();

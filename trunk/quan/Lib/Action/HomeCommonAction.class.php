@@ -16,6 +16,11 @@ class HomeCommonAction extends CommonAction
     	if(in_array(MODULE_NAME.'.'.strtolower(ACTION_NAME), C('APP_ACTION_DENY_LIST'))){
     		die('Hacking attempt.');
     	}
+    	if(intval($this->_CFG['url_rewrite']) == 1){
+    		C('URL_MODEL', 2);
+    	}else{
+    		C('URL_MODEL', 0);
+    	}
     	//初始化用户信息
     	$this->_init_user();
     	//验证登陆
