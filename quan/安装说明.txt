@@ -3,25 +3,12 @@
    本优惠券系统的会员基于ucenter，因此必须先安装ucenter才能安装本优惠券系统。
    如果已经安装过ucenter则可略过此步
 
-2、修改数据库配置
-   打开 Conf/config.php 文件，按提示修改数据库名称、数据库用户名、数据库密码、数据库端口四项
-
-3、修改ucenter配置
-   打开Conf/congif_ucenter.php按提示修改，其中 UC_CONNECT 的值必须为空
-
-4、导入数据库
-   根目录下quan.sql文件导入数据库中
-
-5、配置QQ开放平台
+2、配置QQ开放平台
    要开放QQ帐号登陆请打开 Addons/plugins/login/qq/config.php 文件，按提示配置相关参数
 
-6、配置新浪微博开放平台
+3、配置新浪微博开放平台
    要开放新浪微博帐号登陆请打开 Addons/plugins/login/sina/config.php 文件，按提示配置相关参数
 
-7、确定 Runtime 与 Public/Uploads 目录及其子目录可写
-
-8、管理员用户名：admin    密码：888888
-
-9、后台访问地址 admin.php
+4、后台访问地址 admin.php
 
 官方QQ群：19385220
