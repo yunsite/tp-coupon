@@ -44,7 +44,7 @@ var coupon = {
 															data: {},
                     										title: '温馨提示',
                     										content: html,
-                    										buttonText: { ok: '确定', cancel: '取消' },
+                    										buttonText: { ok: '确定', cancel: '' },
                     										fixed: true,
 															marginTop: 200,
 															okEvent: function(data, args) {

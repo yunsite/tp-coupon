@@ -1,6 +1,8 @@
 {include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/header.html"}
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
+<link rel="Stylesheet" type="text/css" href="__PUBLIC__/Js/jmodal/jquery.jmodal.css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jmodal/jquery.jmodal.js"></script>
 {include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/nav.html"}
 <div class="w990 clear">
         <div id="main">
@@ -85,6 +87,7 @@ function check_nick_valid()
 }
 function reg()
 {
+	check_nick_valid();
 	if(! dosubmit) return false;
 	$.ajax({
 		url: reg_url,
@@ -97,10 +100,29 @@ function reg()
 		},
 		success: function(result){
 			if(result.status==1){
-				alert('注册成功');
-				window.location.href = u_index_url;
+				$.fn.jmodal({
+                    data: {},
+                    title: '温馨提示',
+                    content: '注册成功<br>现在您可以会员身份登陆',
+                    buttonText: { ok: '确定', cancel: '' },
+                    fixed: true,
+					marginTop: 200,
+					okEvent: function(data, args) {
+                        window.location.href = u_index_url;
+                    }
+                });
 			}else{
-				alert(result.info);
+				$.fn.jmodal({
+                    data: {},
+                    title: '温馨提示',
+                    content: result.info,
+                    buttonText: { ok: '确定', cancel: '' },
+                    fixed: true,
+					marginTop: 200,
+					okEvent: function(data, args) {
+                        args.hide();
+                    }
+                });
 			}
 		}
 	});
