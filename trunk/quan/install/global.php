@@ -24,6 +24,9 @@ if(!IS_CLI) {
 		define('__ROOT__',   $_root);
 	}
 }
+define('CHARSET', 'utf-8');
+define('DBCHARSET', 'utf8');
+define('ORIG_TABLEPRE', 'dbs_');
 require_once('./includes/func.php');
 require_once ('./classes/template.class.php');
 $options = array(
