@@ -15,3 +15,6 @@
 5、后台访问地址 admin.php
 
 官方QQ群：19385220
+
+项目网址：http://code.google.com/p/tp-coupon
+演示站：http://www.qfanqie.com
