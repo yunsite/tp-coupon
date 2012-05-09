@@ -1,4 +1,7 @@
 <?php
+if(! is_file('./Runtime/install.lock')){
+	exit('<center><strong><a href="./install/">请先执行安装程序</a></strong></center>');
+}
 //解决linux下文件名大小问题
 if(! isset($_GET['a'])){
 	$_GET['a'] = 'index';
