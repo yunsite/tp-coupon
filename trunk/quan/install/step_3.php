@@ -49,43 +49,48 @@ if(isPost()){
 function create_db_conf()
 {
 	$dbinfo = $_POST['dbinfo'];
-	$value = "array('DB_TYPE'=> 'mysql',\n";
-	$value .= "'DB_HOST'=> '$dbinfo[dbhost]',\n";
-	$value .= "'DB_NAME'=>'$dbinfo[dbname]',\n";
-	$value .= "'DB_USER'=>'$dbinfo[dbuser]',\n";
-	$value .= "'DB_PWD'=>'$dbinfo[dbpw]',\n";
-	$value .= "'DB_PORT'=>'3306',\n";
-	$value .= "'DB_PREFIX'=>'$dbinfo[tablepre]')";
-	$content = "<?php\nreturn " . var_export($value, true) . ";\n?>";
+	$value = "array(\"DB_TYPE\"=> \"mysql\",\n";
+	$value .= "\"DB_HOST\"=> \"$dbinfo[dbhost]\",\n";
+	$value .= "\"DB_NAME\"=>\"$dbinfo[dbname]\",\n";
+	$value .= "\"DB_USER\"=>\"$dbinfo[dbuser]\",\n";
+	$value .= "\"DB_PWD\"=>\"$dbinfo[dbpw]\",\n";
+	$value .= "\"DB_PORT\"=>\"3306\",\n";
+	$value .= "\"DB_PREFIX\"=>\"$dbinfo[tablepre]\")";
+	$content = "<?php\nreturn " . $value . ";\n?>";
 	file_put_contents('../Conf/db_config.php', $content);
 }
 
 function create_uc_conf()
 {
 	$ucinfo = $_POST['uc'];
-	$value = "define('UC_CONNECT', '');\n";
-	$value .= "define('UC_DBHOST', '$ucinfo[UC_DBHOST]');\n";
-	$value .= "define('UC_DBUSER', '$ucinfo[UC_DBUSER]');\n";
-	$value .= "define('UC_DBPW', '$ucinfo[UC_DBPW]');\n";
-	$value .= "define('UC_DBNAME', '$ucinfo[UC_DBNAME]');\n";
-	$value .= "define('UC_DBCHARSET', '".DBCHARSET."');\n";
-	$value .= "define('UC_DBTABLEPRE', '$ucinfo[UC_DBTABLEPRE]');\n";
-	$value .= "define('UC_DBCONNECT', '0');\n";
-	$value .= "define('UC_KEY', '$ucinfo[UC_KEY]');\n";
-	$value .= "define('UC_API', '$ucinfo[UC_API]');\n";
-	$value .= "define('UC_CHARSET', '".CHARSET."');\n";
-	$value .= "define('UC_IP', '');\n";
-	$value .= "define('UC_APPID', '$ucinfo[UC_APPID]');\n";
-	$value .= "define('UC_PPP', '$ucinfo[UC_PPP]');";
-	$content = "<?php\nreturn " . var_export($value, true) . "\n?>";
+	$value = "define(\"UC_CONNECT\", \"\");\n";
+	$value .= "define(\"UC_DBHOST\", \"".$ucinfo['UC_DBHOST']."\");\n";
+	$value .= "define(\"UC_DBUSER\", \"".$ucinfo['UC_DBUSER']."\");\n";
+	$value .= "define(\"UC_DBPW\", \"".$ucinfo['UC_DBPW']."\");\n";
+	$value .= "define(\"UC_DBNAME\", \"".$ucinfo['UC_DBNAME']."\");\n";
+	$value .= "define(\"UC_DBCHARSET\", \"".DBCHARSET."\");\n";
+	$value .= "define(\"UC_DBTABLEPRE\", \"".$ucinfo['UC_DBTABLEPRE']."\");\n";
+	$value .= "define(\"UC_DBCONNECT\", 0);\n";
+	$value .= "define(\"UC_KEY\", \"".$ucinfo['UC_KEY']."\");\n";
+	$value .= "define(\"UC_API\", \"".$ucinfo['UC_API']."\");\n";
+	$value .= "define(\"UC_CHARSET\", \"".CHARSET."\");\n";
+	$value .= "define(\"UC_IP\", \"\");\n";
+	$value .= "define(\"UC_APPID\", ".$ucinfo['UC_APPID'].");\n";
+	$value .= "define(\"UC_PPP\", ".$ucinfo['UC_PPP'].");";
+	$content = "<?php\n" . $value . "\n?>";
 	file_put_contents('../Conf/config_ucenter.php', $content);
+}
+
+function create_install_lock()
+{
+	file_put_contents('../Runtime/install.lock', '');
 }
 
 function init_administrator()
 {
 	global $tablepre, $db;
 	$admininfo = $_POST['admininfo'];
-	$sql = "INSERT INTO `".$tablepre."admin_users` (`user_name`, `password`) VALUES ('$admininfo[user_name]', '$admininfo[founderpw]')";
+	$sql = "INSERT INTO `".$tablepre."admin_users` (`user_name`, `password`, `is_super`) VALUES ('$admininfo[user_name]', '".md5(md5($admininfo['founderpw']))."', 1)";
 	$db->query($sql);
 }
 
