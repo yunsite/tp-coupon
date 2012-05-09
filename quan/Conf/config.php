@@ -1,12 +1,6 @@
 <?php
-return array(
-'DB_TYPE'=> 'mysql',   // 数据库类型
-'DB_HOST'=> 'localhost', // 数据库服务器地址
-'DB_NAME'=>'quan',  // 数据库名称
-'DB_USER'=>'root', // 数据库用户名
-'DB_PWD'=>'root', // 数据库密码
-'DB_PORT'=>'3306', // 数据库端口
-'DB_PREFIX'=>'dbs_', // 数据表前缀
+$config = require("./Conf/db_config.php");
+$array = array(
 'DB_FIELDS_CACHE'=>true, //缓存字段信息，开发时不缓存
 'DB_FIELDTYPE_CHECK'=>true,  // 开启字段类型检测
 
@@ -54,3 +48,5 @@ return array(
 
 'OPEN_PLATFORM'			=>	array('sina', 'qq'),//开启的开放平台
 );
+
+return array_merge($config,$array);

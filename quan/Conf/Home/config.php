@@ -1,6 +1,6 @@
 <?php
 return array(
-'URL_MODEL'				=> 0,//URL模式,0:普通模式、2：REWRITE模式
+'URL_MODEL'				=> 2,//URL模式,0:普通模式、2：REWRITE模式
 'URL_HTML_SUFFIX'		=> '.html',
 'URL_PATHINFO_DEPR'		=> '-',
 'LOGIN_MODULES'			=> array('User', 'Payment'),//需要登陆的模块
