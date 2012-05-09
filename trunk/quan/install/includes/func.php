@@ -81,3 +81,60 @@ function gd_version()
 
 	return $version;
 }
+
+if(!function_exists('file_put_contents')) {
+	function file_put_contents($filename, $s) {
+		$fp = @fopen($filename, 'w');
+		@fwrite($fp, $s);
+		@fclose($fp);
+		return TRUE;
+	}
+}
+
+function runquery($sql) {
+	global $tablepre, $db;
+
+	if(!isset($sql) || empty($sql)) return;
+
+	$sql = str_replace("\r", "\n", str_replace(' `'.ORIG_TABLEPRE, ' `'.$tablepre, $sql));
+	$ret = array();
+	$num = 0;
+	foreach(explode(";\n", trim($sql)) as $query) {
+		$ret[$num] = '';
+		$queries = explode("\n", trim($query));
+		foreach($queries as $query) {
+			$ret[$num] .= (isset($query[0]) && $query[0] == '#') || (isset($query[1]) && isset($query[1]) && $query[0].$query[1] == '--') ? '' : $query;
+		}
+		$num++;
+	}
+	unset($sql);
+
+	foreach($ret as $query) {
+		$query = trim($query);
+		if($query) {
+
+			if(substr($query, 0, 12) == 'CREATE TABLE') {
+				$name = preg_replace("/CREATE TABLE `([a-z0-9_]+)` .*/is", "\\1", $query);
+				showjsmessage('建立数据表 '.$name.' ... 成功');
+				$db->query(createtable($query));
+			} else {
+				$db->query($query);
+			}
+
+		}
+	}
+
+}
+
+function createtable($sql) {
+	$type = strtoupper(preg_replace("/^\s*CREATE TABLE\s+.+\s+\(.+?\).*(ENGINE|TYPE)\s*=\s*([a-z]+?).*$/isU", "\\2", $sql));
+	$type = in_array($type, array('MYISAM', 'HEAP')) ? $type : 'MYISAM';
+	return preg_replace("/^\s*(CREATE TABLE\s+.+\s+\(.+?\)).*$/isU", "\\1", $sql).
+	(mysql_get_server_info() > '4.1' ? " ENGINE=$type DEFAULT CHARSET=".DBCHARSET : " TYPE=$type");
+}
+
+function showjsmessage($message) {
+	echo '<script type="text/javascript">showmessage(\''.addslashes($message).' \');</script>'."\r\n";
+	flush();
+	ob_flush();
+}
