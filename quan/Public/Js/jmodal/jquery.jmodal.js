@@ -43,7 +43,7 @@ $.extend($.fn, {
                             <div class="jmodal-title" />\
                             <div class="jmodal-content" id="jmodal-container-content" />\
                             <div class="jmodal-opts">\
-                                <input type="button"/>&nbsp;&nbsp;<input type="button" />\
+                                <input type="button"/>&nbsp;&nbsp;<input type="button" id="JmodelCancel" />\
                             </div>\
                         </div>\
                         <div class="jmodal-border-right jmodal-png-fiexed">&nbsp;</div>\
@@ -102,7 +102,11 @@ $.extend($.fn, {
             .next()
                 .val(ps.buttonText.cancel)
                     .one('click', function() { args.hide(); allSel.show(); });
-
+		if(ps.buttonText.cancel.length == 0){
+			$('#JmodelCancel').hide();
+		}else{
+			$('#JmodelCancel').show();
+		}
         if (typeof ps.content == 'string') {
             $('#jmodal-container-content').html(ps.content);
         }
