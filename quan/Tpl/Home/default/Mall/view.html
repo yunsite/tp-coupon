@@ -29,13 +29,13 @@
         <div class="scissors">
         </div>
         <h2>
-            <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}" target="_blank">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}</a>
+            <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}" target="_blank">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}</a>
             
             <!--<i class="hot">hot</i>-->
             
         </h2>
-        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}" class="coupon" target="_blank">
-            <span class="left"><span class="description"><!--{if $item.c_type==1}-->满<em>{$item.money_max}</em>减<em>{$item.money_reduce}</em><!--{else}--><em>{$item.money_amount}</em>代金券<!--{/if}-->
+        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}" class="coupon" target="_blank">
+            <span class="left"><span class="description"><!--{if $item.c_type==1}-->满<em>{$item.money_max}</em>减<em>{$item.money_reduce}</em><!--{else}--><em>{$item.money_amount}</em>元代金券<!--{/if}-->
             </span><span class="store-logo">
                 <img src="{$mall.logo|fixed_uploadfile_url}" style="display: block;"></span> </span>
             <span class="right">
@@ -82,7 +82,7 @@
                             领取最多的优惠券列表</h3>
                         <ol class="rank_coupon">
                             <!--{foreach from=$hot10 item=item}-->
-                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}代金券{/if}</a></li>
+                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}</a></li>
                             <!--{/foreach}-->
                         </ol>
                     </li>

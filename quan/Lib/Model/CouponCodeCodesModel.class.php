@@ -171,9 +171,10 @@ class CouponCodeCodesModel extends Model
      */
     public function record_top($c_id, $limit=100)
     {
-    	$_CFG = load_config();
-    	$timestamp = intval($_CFG['timezone'])*3600;
-    	$fields = 'user_id,nick,fetch_time+' .$timestamp . ' AS pull_time';
+    	//$_CFG = load_config();
+    	//$timestamp = intval($_CFG['timezone'])*3600;
+    	//$fields = 'user_id,nick,code,fetch_time+' .$timestamp . ' AS pull_time';
+    	$fields = 'user_id,nick,code,fetch_time AS pull_time';
     	return $this->field($fields)->where("c_id='$c_id' AND user_id>0")->order('fetch_time DESC')->limit($limit)->select();
     }
 }
