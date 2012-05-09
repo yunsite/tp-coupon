@@ -3,7 +3,7 @@
  * Locale: CN
  */
 jQuery.extend(jQuery.validator.messages, {
-        required: "此内容为必填项,请输入！",
+        required: "请输入！",
 		remote: "内容输入错误！",
 		email: "E-mail格式错误,请重新输入！",
 		url: "网址格式错误,请重新输入！",

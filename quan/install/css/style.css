@@ -81,3 +81,8 @@ table{ border-collapse:collapse; }
 	.license p{ line-height:150%; margin:10px 0; text-indent:25px; }
 	.license li{ line-height:150%; margin:5px 0; }
 .title{ margin:5px 0 -15px 60px; }
+
+/************jQuery.Validate插件样式开始********************/
+label.error{background: url(./images/error2.png) no-repeat 0px 0px;color: Red;padding-left: 20px; font-size:12px;}
+label.error2{color: Red;padding-left: 20px;font-size:12px;}
+input.error{border: dashed 1px red;}
