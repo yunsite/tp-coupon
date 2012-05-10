@@ -287,7 +287,10 @@ CREATE TABLE `dbs_user` (
   `is_locked` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '封锁',
   `money` float unsigned NOT NULL DEFAULT '0' COMMENT '金额',
   `credit` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '积分',
-  PRIMARY KEY (`user_id`)
+  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
+  `invite` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`),
+  KEY `invite` (`invite`)
 ) ENGINE=MyISAM ;
 
 DROP TABLE IF EXISTS dbs_user_platform;
