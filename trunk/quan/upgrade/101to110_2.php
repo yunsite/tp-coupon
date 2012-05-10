@@ -28,6 +28,7 @@ function add_site_config()
 
 function edit_table_user()
 {
+	global $tablepre, $db;
 	$sql = "ALTER TABLE `".$tablepre."user` ADD `invite` MEDIUMINT( 8 ) UNSIGNED NOT NULL DEFAULT '0',ADD INDEX ( `invite` )";
 	$db->query($sql);
 	$sql = "ALTER TABLE `".$tablepre."user` ADD `addtime` INT( 11 ) UNSIGNED NOT NULL DEFAULT '0' AFTER `credit`";
