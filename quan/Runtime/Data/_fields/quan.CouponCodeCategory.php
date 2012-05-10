@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'name', 2 => 'sort_order', 3 => 'parent_id', 4 => 'show_index', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'smallint(5) unsigned', 'name' => 'varchar(100)', 'sort_order' => 'smallint(5) unsigned', 'parent_id' => 'smallint(5) unsigned', 'show_index' => 'tinyint(1) unsigned', ), ); ?>

@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'id', 1 => 'c_id', 2 => 'position', 3 => 'sort_order', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'smallint(6) unsigned', 'c_id' => 'smallint(5) unsigned', 'position' => 'tinyint(3) unsigned', 'sort_order' => 'smallint(5) unsigned', ), ); ?>
