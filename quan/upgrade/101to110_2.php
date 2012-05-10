@@ -11,7 +11,7 @@ if(isPost()){
 	$db = new dbstuff;
 	$db->connect($conf['DB_HOST'], $conf['DB_USER'], $conf['DB_PWD'], $conf['DB_NAME'], DBCHARSET);
 	
-	include($template->getfile('1.01to1.10_2'));
+	include($template->getfile('101to110_2'));
 }
 
 function add_site_config()
