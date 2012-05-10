@@ -27,12 +27,14 @@
                         <img alt="{$_CFG.site_name}" style="width: 303px; height: 82px;" src="__PUBLIC__/Images/Home/logo.jpg"></a></div>
                 <div class="search">
                     <div class="search_f">
-                        <form action="{fixedUrl url="Home/Mall/search"}" method="post" id="searchform" name="searchform" onSubmit="if(this.kw.value==this.kw.defaultValue)return false;">
+                        <form action="__ROOT__/index.php" method="get" id="searchform" name="searchform" onSubmit="if(this.kw.value==this.kw.defaultValue)return false;">
                         <ul>
                             <li id="search_c">
                                 <input type="text" value="输入要搜索的商家名称，比如：京东或当当" autocomplete="off" id="search_i" name="kw" onFocus="if(this.value==this.defaultValue)this.value=''" onBlur="if(!this.value.length)this.value=this.defaultValue"></li>
                         </ul>
                         <div id="search_b"><input name="sub" type="image" value="搜索" src="__PUBLIC__/Images/Home/search.jpg"></div>
+                        <input name="m" type="hidden" value="mall">
+                        <input name="a" type="hidden" value="search">
                         </form>
                     </div>
                     <div class="search_t">
