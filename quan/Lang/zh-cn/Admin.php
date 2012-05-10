@@ -45,6 +45,7 @@ return array(
 									'icp_number'		=> 'ICP备案号',
 									'url_rewrite'		=> '开启伪静态',
 									'code_in_secret'	=> '优惠券保密时间',
+									'invite_credit'		=> '邀请好友奖励积分',
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
