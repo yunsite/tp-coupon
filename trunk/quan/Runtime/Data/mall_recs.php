@@ -1,2 +1,0 @@
-<?php
-return array ( 102 => array ( 0 => array ( 'id' => '6', 'c_id' => '1', 'position' => '102', 'sort_order' => '1', 'name' => '红孩子', 'logo' => '201204/a6504c30db5481e8ce67c947c94224b7.jpg', ), ), 101 => array ( 0 => array ( 'id' => '8', 'c_id' => '1', 'position' => '101', 'sort_order' => '1', 'name' => '红孩子', 'logo' => '201204/a6504c30db5481e8ce67c947c94224b7.jpg', ), ), ); ?>

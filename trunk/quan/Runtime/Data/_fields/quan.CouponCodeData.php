@@ -1,2 +1,0 @@
-<?php
-return array ( 0 => 'c_id', 1 => 'fetch_limit', 2 => 'directions', 3 => 'prompt', 4 => 'yesterdayfetched', 5 => 'dayfetched', 6 => 'weekfetched', 7 => 'monthfetched', 8 => 'updatetime', '_autoinc' => false, '_type' => array ( 'c_id' => 'mediumint(8) unsigned', 'fetch_limit' => 'tinyint(3) unsigned', 'directions' => 'text', 'prompt' => 'text', 'yesterdayfetched' => 'mediumint(8) unsigned', 'dayfetched' => 'mediumint(8) unsigned', 'weekfetched' => 'mediumint(8) unsigned', 'monthfetched' => 'mediumint(8) unsigned', 'updatetime' => 'int(11) unsigned', ), ); ?>
