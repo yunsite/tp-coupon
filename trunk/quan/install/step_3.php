@@ -109,7 +109,7 @@ function insert_config()
 (505, 5, 'smtp_mail', 'text', '', '', '', 1),
 (506, 5, 'mail_charset', 'select', 'UTF8,GB2312,BIG5', '', 'UTF8', 1),
 (507, 5, 'mail_service', 'select', '0,1', '', '1', 0),
-(919, 1, 'site_keywords', 'textarea', '', '', '', 3),
+(919, 1, 'site_keywords', 'textarea', '', '', '网购 优惠券 京东优惠券 当当优惠券 凡客优惠券', 3),
 (617, 6, 'captcha', 'hidden', '', '', '61', 1),
 (618, 6, 'captcha_width', 'hidden', '', '', '100', 1),
 (619, 6, 'captcha_height', 'hidden', '', '', '35', 1),
@@ -128,7 +128,7 @@ function insert_config()
 (926, 1, 'thumb_width', 'text', '', '', '75', 9),
 (927, 1, 'thumb_height', 'text', '', '', '75', 10),
 (928, 1, 'image_water_path', 'text', '', '', './Public/Images/logo.png', 11),
-(929, 1, 'site_domain', 'text', '', '', '', 12),
+(929, 1, 'site_domain', 'text', '', '', 'www.qfanqie.com', 12),
 (930, 1, 'data_cache_time', 'text', '', '', '2', 13),
 (931, 1, 'service_qq', 'text', '', '', '89249294', 14),
 (932, 1, 'weibo_sina', 'text', '', '', 'jihaoju', 15),
@@ -137,7 +137,10 @@ function insert_config()
 (935, 934, 'alipay_partner', 'text', '', '', '', 16),
 (936, 934, 'alipay_key', 'password', '', '', '', 17),
 (937, 934, 'alipay_seller_email', 'text', '', '', '', 18),
-(938, 1, 'icp_number', 'text', '', '', '', 19),
-(939, 934, 'alipay_type', 'options', 'direct,warrant', '', 'warrant', 20)";
+(938, 1, 'icp_number', 'text', '', '', '浙ICP备11023469号', 19),
+(939, 934, 'alipay_type', 'options', 'direct,warrant', '', 'warrant', 20),
+(942, 1, 'code_in_secret', 'text', '', '', '4', 22),
+(941, 1, 'url_rewrite', 'options', '0,1', '', '1', 21),
+(943, 1, 'invite_credit', 'text', '', '', '6', 23)";
 	$db->query($sql);
 }
