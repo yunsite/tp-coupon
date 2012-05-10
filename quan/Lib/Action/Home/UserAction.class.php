@@ -36,7 +36,15 @@ class UserAction extends HomeCommonAction
 				//本地注册
 				$uModel = D('User');
 				if(! $uModel->info($uid)){
-					$uModel->_add(array('user_id'=>$uid,'nick'=>$nick, 'email'=>$email,'password'=>md5($pw)));
+					//添加邀请记录
+					$invite = 0;
+					if(cookie('invite')){
+						$invite = intval(authcode(cookie('invite'), 'DECODE', C('AUTH')));
+						//奖励邀请者积分
+						Consume::increase($invite, $this->_CFG['invite_credit'], Consume::TYPE_CREDIT);
+					}
+					$addtime = LocalTime::getInstance()->gmtime();
+					$uModel->_add(array('user_id'=>$uid,'nick'=>$nick, 'email'=>$email,'password'=>md5($pw),'invite'=>$invite,'addtime'=>$addtime));
 				}
 				if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'dobind'){
 					if($_REQUEST['type'] == 'sina'){
@@ -60,6 +68,9 @@ class UserAction extends HomeCommonAction
 			}else{
 				$this->ajaxReturn('', $uid, 0);
 			}
+		}
+		if(isset($_REQUEST['invite']) && $_REQUEST['invite']){
+			cookie('invite', authcode($_REQUEST['invite'], 'AECODE', C('AUTH')));
 		}
 		$this->assign('hash', buildFormToken('hash'));
 		$this->assign('page_title', '用户注册 - ');
@@ -483,6 +494,48 @@ class UserAction extends HomeCommonAction
 		$pagelink=$p->showStyle(3);
 		$this->assign('pagelink', $pagelink);
 		$this->assign('page_title', '消费记录 - ');
+		$this->assign('page_keywords', $this->_CFG['site_keywords']);
+		$this->assign('page_description', $this->_CFG['site_description']);
+		$this->display();
+	}
+	
+	public function invite()
+	{
+		$invite_link = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/?m=User&a=reg&invite=' . $this->_user['user_id'];
+		$this->assign('invite_link', $invite_link);
+		$this->assign('page_title', '邀请好友 - ');
+		$this->assign('page_keywords', $this->_CFG['site_keywords']);
+		$this->assign('page_description', $this->_CFG['site_description']);
+		$this->display();
+	}
+	
+	public function myinvite()
+	{
+		$page = isset($_REQUEST['p']) && $_REQUEST['p'] >= 1 ? $_REQUEST['p'] : 1;
+		$pageLimit = 15;
+		$localTimeObj = LocalTime::getInstance();
+		$c_count = M('user')->where("invite='".$this->_user['user_id']."'")->count();
+		$res = M('user')->field('user_id,nick,addtime')->where("invite='".$this->_user['user_id']."'")
+								   ->order("user_id DESC")
+								   ->limit(($page-1)*$pageLimit.", ".$pageLimit)
+								   ->select();
+		$users = array();
+		foreach ($res as $rs){
+			$rs['addtime']		=	$localTimeObj->local_date($this->_CFG['time_format'], $rs['addtime']);
+			$users[] = $rs;
+		}
+		$this->assign('users', $users);
+		$page_url = reUrl(MODULE_NAME."/".ACTION_NAME."?p=[page]");
+		$page_url = str_replace('%5bpage%5d', '[page]', $page_url);
+		$p=new Page($page,
+		$pageLimit,
+		$c_count,
+		$page_url,
+		5,
+		5);
+		$pagelink=$p->showStyle(3);
+		$this->assign('pagelink', $pagelink);
+		$this->assign('page_title', '我的邀请记录 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
 		$this->display();

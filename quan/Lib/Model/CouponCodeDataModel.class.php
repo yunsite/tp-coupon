@@ -86,7 +86,7 @@ class CouponCodeDataModel extends Model
     	}
 	    $res = $this->query("SELECT COUNT(*) AS c_count" . $sql . " LIMIT 1");
 	    $result['count'] = empty($res) ? 0 : $res[0]['c_count'];
-	    $sql .= " ORDER BY cd.".$params['order']." DESC, c.sort_order ASC, c.c_id DESC";
+	    $sql .= " ORDER BY cd.".$params['order']." DESC, c.sort_order ASC, c.c_id DESC, c.expiry DESC";
 	    if(isset($limit['begin']) && isset($limit['offset'])){
     		$sql .= " LIMIT $limit[begin],$limit[offset]";
     	}
@@ -106,7 +106,7 @@ class CouponCodeDataModel extends Model
     	$sql .= " FROM " . $this->getTableName() . " AS cd";
     	$sql .= " LEFT JOIN " . M('coupon_code')->getTableName() . ' AS c ON c.c_id=cd.c_id';
     	$sql .= " LEFT JOIN " . M('coupon_code_mall')->getTableName() . ' AS m ON m.id=c.m_id';
-    	$sql .= " WHERE c.is_active=1 AND ".$type."fetched>0 ORDER BY ".$type."fetched DESC LIMIT $limit";
+    	$sql .= " WHERE c.is_active=1 AND ".$type."fetched>0 ORDER BY ".$type."fetched DESC, c.expiry DESC LIMIT $limit";
     	return $this->query($sql);
     }
 }

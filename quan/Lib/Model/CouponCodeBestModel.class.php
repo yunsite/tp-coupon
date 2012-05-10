@@ -88,7 +88,7 @@ class CouponCodeBestModel extends Model
     				->join(M('coupon_code')->getTableName() . ' AS c ON c.c_id=cb.c_id')
     				->join(M('coupon_code_mall')->getTableName() . ' AS m ON m.id=c.m_id')
     				->where("cb.expiry>='$time'")
-    				->order('cb.sort_order ASC')
+    				->order('cb.sort_order ASC, c.expiry DESC')
     				->limit($limit)
     				->select();
     	return $res;
