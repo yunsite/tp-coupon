@@ -135,7 +135,7 @@ class CouponCodeCodesModel extends Model
     	$sql .= " GROUP BY `temp`.c_id";
     	$res = $this->query("SELECT COUNT(*) AS tp_count $sql LIMIT 1");
     	$result['count'] = empty($res) ? 0 : $res[0]['tp_count'];
-    	$sql .= " LIMIT $limit[begin], $limit[offset]";
+    	$sql .= " ORDER BY `temp`.fetch_time DESC, c.expiry DESC LIMIT $limit[begin], $limit[offset]";
     	$result['data'] = $this->query($select . $sql);
     	return $result;
     }
@@ -148,7 +148,7 @@ class CouponCodeCodesModel extends Model
     public function fetch_latest($limit=10)
     {
     	$sql = "SELECT c_id,fetch_time,user_id,nick FROM (SELECT c_id,fetch_time,user_id,nick FROM ".$this->getTableName()." WHERE user_id>0 ORDER BY fetch_time DESC) `temp`";
-    	$sql .= " GROUP BY c_id LIMIT $limit";
+    	$sql .= " GROUP BY c_id ORDER BY fetch_time DESC LIMIT $limit";
     	$res = $this->query($sql);
     	$data = array();
     	foreach ($res as $rs){
@@ -171,10 +171,10 @@ class CouponCodeCodesModel extends Model
      */
     public function record_top($c_id, $limit=100)
     {
-    	//$_CFG = load_config();
-    	//$timestamp = intval($_CFG['timezone'])*3600;
-    	//$fields = 'user_id,nick,code,fetch_time+' .$timestamp . ' AS pull_time';
-    	$fields = 'user_id,nick,code,fetch_time AS pull_time';
+    	$_CFG = load_config();
+    	$timestamp = intval($_CFG['timezone'])*3600;
+    	$fields = 'user_id,nick,code,fetch_time+' .$timestamp . ' AS pull_time';
+    	//$fields = 'user_id,nick,code,fetch_time AS pull_time';
     	return $this->field($fields)->where("c_id='$c_id' AND user_id>0")->order('fetch_time DESC')->limit($limit)->select();
     }
 }

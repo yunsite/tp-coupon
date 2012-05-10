@@ -117,7 +117,7 @@ class CouponCodeModel extends RelationModel
     	}
 	    $res = $this->query("SELECT COUNT(*) AS c_count" . $sql . " LIMIT 1");
 	    $result['count'] = empty($res) ? 0 : $res[0]['c_count'];
-	    $sql .= " ORDER BY c.sort_order ASC, c.c_id DESC";
+	    $sql .= " ORDER BY c.sort_order ASC, c.c_id DESC, c.expiry DESC";
 	    if(isset($limit['begin']) && isset($limit['offset'])){
     		$sql .= " LIMIT $limit[begin],$limit[offset]";
     	}
@@ -139,7 +139,7 @@ class CouponCodeModel extends RelationModel
     	if($m_id){
     		$sql .= " AND c.m_id='$m_id'";
     	}
-    	$sql .= " ORDER BY c.c_id DESC LIMIT $limit";
+    	$sql .= " ORDER BY c.c_id DESC,c.expiry DESC LIMIT $limit";
     	$res = $this->query("SELECT $fields" . $sql);
     	return $res;
     }
@@ -152,7 +152,7 @@ class CouponCodeModel extends RelationModel
      */
     public function all4mall($m_id)
     {
-    	return $this->where("is_active=1 AND m_id='$m_id'")->order("c_id DESC")->select();
+    	return $this->where("is_active=1 AND m_id='$m_id'")->order("c_id DESC,expiry DESC")->select();
     }
     
     /**
@@ -166,7 +166,7 @@ class CouponCodeModel extends RelationModel
     	$fields = 'c.*, m.logo';
     	$sql = " FROM " . $this->getTableName() . " AS c LEFT JOIN " . M('coupon_code_mall')->getTableName() . " AS m ON m.id=c.m_id";
     	$sql .= " WHERE c.is_active=1 AND m.c_id IN ($cate_id)";
-    	$sql .= " ORDER BY c.sort_order ASC,c.c_id DESC LIMIT $limit";
+    	$sql .= " ORDER BY c.sort_order ASC,c.c_id DESC,c.expiry DESC LIMIT $limit";
     	$res = $this->query("SELECT $fields" . $sql);
     	return $res;
     }

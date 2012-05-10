@@ -101,6 +101,8 @@ class CouponCodeAction extends AdminCommonAction
 			}
 			if($_REQUEST['expiry_type'] == 1){
 				$data['expiry'] = $localTimeObj->local_strtotime($_REQUEST['expiry'] . ' 23:59:59');
+			}else if($_REQUEST['expiry_type'] == 2){
+				$data['expiry'] = $localTimeObj->local_strtotime('2029-12-31 23:59:59');
 			}
 			if($_REQUEST['price_type'] == 2){
 				$data['price'] = floatval($_REQUEST['price_2']);
