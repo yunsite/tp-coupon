@@ -88,15 +88,16 @@ class CouponCodeMallModel extends Model
     
     public function search($kw)
     {
-    	$where = '';
+    	$where = 'is_active=1';
     	$match = segment($kw);
     	if(empty($match)){
-    		$where = "`name` LIKE '%$kw%'";
+    		$where .= " AND `name` LIKE '%$kw%'";
     	}else{
     		$match = implode(' ', array_unique($match));
-    		$where = "(`name` LIKE '%$kw%' ) OR (MATCH(name_match) AGAINST('*$match*' IN BOOLEAN MODE))";
+    		$where .= " AND (`name` LIKE '%$kw%' ) OR (MATCH(name_match) AGAINST('*$match*' IN BOOLEAN MODE))";
     	}
-    	return $this->field("id,yesterdaysearched,daysearched,weeksearched,monthsearched,updatetime")->where($where)->find();
+    	$fields = "id,name,logo,description,yesterdaysearched,daysearched,weeksearched,monthsearched,updatetime";
+    	return $this->field($fields)->where($where)->order('id DESC')->select();
     }
     
     public function hottest($type, $limit=10)

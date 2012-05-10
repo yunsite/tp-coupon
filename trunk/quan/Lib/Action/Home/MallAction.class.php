@@ -167,7 +167,9 @@ class MallAction extends HomeCommonAction
     	if(empty($kw)) redirect(reUrl('Mall/lists'));
     	$mallModel = D('CouponCodeMall');
     	$mall = $mallModel->search($kw);
-    	if($mall){
+    	//只有一个结果符合，直接跳转到商家信息页
+    	if(count($mall) == 1){
+    		$mall =current($mall);
     		$localTimeObj = LocalTime::getInstance();
 			$nowtime = $localTimeObj->gmtime();
 			$yestoday = $nowtime-24*3600;
@@ -184,8 +186,32 @@ class MallAction extends HomeCommonAction
 							);
 			$mallModel->update($mall['id'], $data);
     		redirect(reUrl('Mall/view?id='.$mall['id']));
+    	}else if(count($mall) > 1){
+    		$localTimeObj = LocalTime::getInstance();
+			$nowtime = $localTimeObj->gmtime();
+			$yestoday = $nowtime-24*3600;
+    		foreach ($mall as $m){
+    			$yesterdaysearched = (date('Ymd', $m['updatetime']) == date('Ymd', $yestoday)) ? $m['daysearched'] : $m['yesterdaysearched'];
+    			$daysearched = (date('Ymd', $m['updatetime']) == date('Ymd', $nowtime)) ? ($m['daysearched'] + 1) : 1;
+    			$weeksearched = (date('YW', $m['updatetime']) == date('YW', $nowtime)) ? ($m['weeksearched'] + 1) : 1;
+    			$monthsearched = (date('Ym', $m['updatetime']) == date('Ym', $nowtime)) ? ($m['monthsearched'] + 1) : 1;
+    			$data = array(
+    			'yesterdaysearched'		=>	$yesterdaysearched,
+    			'daysearched'			=>	$daysearched,
+    			'weeksearched'			=>	$weeksearched,
+    			'monthsearched'			=>	$monthsearched,
+    			'updatetime'			=>	$nowtime
+    			);
+    			$mallModel->update($m['id'], $data);
+    		}
+    		$this->assign('malls', $mall);
+    		$this->assign('kw', $kw);
+    		$this->assign('page_title', $kw . '搜索结果 - ');
+    		$this->assign('page_keywords', $this->_CFG['site_keywords']);
+    		$this->assign('page_description', $this->_CFG['site_description']);
+    		$this->display();
     	}else{
-    		$this->error('没有找到您搜索的商家');
+    		$this->error('没有找到您要搜索的商家');
     	}
     }
     
