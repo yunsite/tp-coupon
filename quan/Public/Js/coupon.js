@@ -73,7 +73,7 @@ var coupon = {
             $("#close_"+id).click(function(){
                 //关闭层和写Cookie
                 $("#tips_"+id).fadeOut();
-                document.setCookie('close_'+id,1,86400);
+                document.setCookie('close_'+id,1,3600);
                 if(closefunc!=undefined){
                     closefunc();
                 }
