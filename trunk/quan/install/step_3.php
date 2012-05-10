@@ -58,6 +58,7 @@ function create_db_conf()
 	$value .= "\"DB_PREFIX\"=>\"$dbinfo[tablepre]\")";
 	$content = "<?php\nreturn " . $value . ";\n?>";
 	file_put_contents('../Conf/db_config.php', $content);
+	showjsmessage('创建数据库配置文件 ... 成功');
 }
 
 function create_uc_conf()
@@ -79,6 +80,7 @@ function create_uc_conf()
 	$value .= "define(\"UC_PPP\", ".$ucinfo['UC_PPP'].");";
 	$content = "<?php\n" . $value . "\n?>";
 	file_put_contents('../Conf/config_ucenter.php', $content);
+	showjsmessage('创建Ucenter配置文件 ... 成功');
 }
 
 function create_install_lock()
@@ -92,6 +94,7 @@ function init_administrator()
 	$admininfo = $_POST['admininfo'];
 	$sql = "INSERT INTO `".$tablepre."admin_users` (`user_name`, `password`, `is_super`) VALUES ('$admininfo[user_name]', '".md5(md5($admininfo['founderpw']))."', 1)";
 	$db->query($sql);
+	showjsmessage('创建系统创始人帐号 ... 成功');
 }
 
 function insert_config()
@@ -143,4 +146,5 @@ function insert_config()
 (941, 1, 'url_rewrite', 'options', '0,1', '', '1', 21),
 (943, 1, 'invite_credit', 'text', '', '', '6', 23)";
 	$db->query($sql);
+	showjsmessage('初始化系统设置 ... 成功');
 }
