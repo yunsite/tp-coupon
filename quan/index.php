@@ -16,7 +16,7 @@ define('THINK_PATH', DOC_ROOT_PATH . 'ThinkPHP/');
 define('APP_NAME', '');   
 define('APP_PATH', DOC_ROOT_PATH);
 //项目版本
-define('APP_VERSION', '1.02');
+define('APP_VERSION', '1.10');
 //开启Debug模式
 define('APP_DEBUG',        false);
 /* 验证码 */
