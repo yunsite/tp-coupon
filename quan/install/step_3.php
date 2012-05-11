@@ -154,7 +154,7 @@ function insert_config()
 (938, 1, 'icp_number', 'text', '', '', '浙ICP备11023469号', 19),
 (939, 934, 'alipay_type', 'options', 'direct,warrant', '', 'warrant', 20),
 (942, 1, 'code_in_secret', 'text', '', '', '4', 22),
-(941, 1, 'url_rewrite', 'options', '0,1', '', '1', 21),
+(941, 1, 'url_rewrite', 'options', '0,1', '', '0', 21),
 (943, 1, 'invite_credit', 'text', '', '', '6', 23)";
 	$db->query($sql);
 	showjsmessage('初始化系统设置 ... 成功');
