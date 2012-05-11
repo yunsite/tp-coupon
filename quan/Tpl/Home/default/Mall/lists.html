@@ -7,7 +7,7 @@
                     <div class="main_l_c_c">
                     <!--{foreach from=$malls4cate name=malls4cate item=item1}-->
                     <h1 {if !$smarty.foreach.malls4cate.first}class="mt10"{/if}>{$item1.cate.name}</h1>
-                    <ul class="mall-list">
+                    <ul class="mall-list clear">
                     <!--{foreach from=$item1.malls item=item}-->                      
 					<li>
     				<a href="{fixedUrl url="Mall/view?id=`$item.id`"}" target="_blank"><img src="{$item.logo|fixed_uploadfile_url}" class="mlogo"></a>
@@ -15,6 +15,7 @@
 					</li>
 					<!--{/foreach}-->
 					</ul>
+                    <div class="clear"></div>
 					<!--{/foreach}-->
 </div>
 </div>
