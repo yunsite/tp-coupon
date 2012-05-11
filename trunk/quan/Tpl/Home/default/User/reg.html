@@ -22,7 +22,7 @@
   </tr>
   <tr>
     <td align="right">密码：</td>
-    <td><input name="pw" id="pw" type="password" style="width:200px;" /></td>
+    <td><input name="pw" id="pw" type="password" style="width:200px;" onblur="check_nick_valid();" /></td>
   </tr>
   <tr>
     <td align="right">确认密码：</td>
@@ -77,10 +77,10 @@ function check_nick_valid()
 	var url = "index.php?g="+g+"&m="+m+"&ajax=1&a=check_nick_valid&nick="+encodeURIComponent(nick);
 		$.getJSON(url, function(data){
 									if(data.status == 0){
-										$('#tip_nick').text('该帐号已存在');
+										$('#tip_nick').html('该帐号已存在');
 										dosubmit = false;
 									}else{
-										$('#tip_nick').text('');
+										$('#tip_nick').html('<font color="green">该帐号可以使用</font>');
 										dosubmit = true;
 									}
 									});
