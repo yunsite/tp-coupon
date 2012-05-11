@@ -332,7 +332,7 @@ class CodeAction extends HomeCommonAction
 		$record_top100 = $record_top100 ? $record_top100 : array();
 		$this->assign('record_top100', $record_top100);
 		$this->assign('record_top_amount', count($record_top100));
-		$this->assign('nowtime', $localTimeObj->gmtime()-intval($this->_CFG['code_in_secret'])*60)+intval($this->_CFG['timezone'])*3600;
+		$this->assign('nowtime', $localTimeObj->gmtime()-intval($this->_CFG['code_in_secret'])*60+intval($this->_CFG['timezone'])*3600);
 		$this->assign('page_title', $title . ' - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
