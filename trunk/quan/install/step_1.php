@@ -14,7 +14,7 @@ foreach ($dirs as $dir){
 $files = array('../Conf/db_config.php', '../Conf/config_ucenter.php');
 foreach ($files as $file){
 	if(! is_file($file)){
-		file_put_contents($file, '<?php\n?>');
+		file_put_contents($file, "<?php\n?>");
 	}
 }
 include($template->getfile('step_1'));
