@@ -92,6 +92,7 @@ class CouponCodeAction extends AdminCommonAction
 			$data = array(
 						'm_id'			=>	intval($_REQUEST['m_id']),
 						'm_name'		=>	$_REQUEST['m_name'],
+						'title'			=>	$_REQUEST['title'],
 						'c_type'		=>	$_REQUEST['c_type'],
 						'expiry_type'	=>	$_REQUEST['expiry_type'],
 						'price_type'	=>	$_REQUEST['price_type'],
@@ -163,6 +164,7 @@ class CouponCodeAction extends AdminCommonAction
 			$data = array(
 						'm_id'			=>	intval($_REQUEST['m_id']),
 						'm_name'		=>	$_REQUEST['m_name'],
+						'title'			=>	$_REQUEST['title'],
 						'c_type'		=>	$_REQUEST['c_type'],
 						'expiry_type'	=>	$_REQUEST['expiry_type'],
 						'price_type'	=>	$_REQUEST['price_type'],
