@@ -54,7 +54,7 @@ function create_db_conf()
 	$value .= "\"DB_NAME\"=>\"$dbinfo[dbname]\",\n";
 	$value .= "\"DB_USER\"=>\"$dbinfo[dbuser]\",\n";
 	$value .= "\"DB_PWD\"=>\"$dbinfo[dbpw]\",\n";
-	$value .= "\"DB_PORT\"=>\"3306\",\n";
+	$value .= "\"DB_PORT\"=>\"$dbinfo[dbport]\",\n";
 	$value .= "\"DB_PREFIX\"=>\"$dbinfo[tablepre]\")";
 	$content = "<?php\nreturn " . $value . ";\n?>";
 	file_put_contents('../Conf/db_config.php', $content);
