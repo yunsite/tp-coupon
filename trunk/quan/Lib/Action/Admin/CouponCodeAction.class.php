@@ -564,6 +564,7 @@ class CouponCodeAction extends AdminCommonAction
 			$c_id = 0;
 			$c['info']['amount'] = count($c['codes']);
 			$c['info']['addtime'] = $nowtime;
+			$c['info']['is_active'] = 0;
 			if($c_id = $ccModel->_add($c['info'])){
 				//插入附属表数据
 				$_data = array(

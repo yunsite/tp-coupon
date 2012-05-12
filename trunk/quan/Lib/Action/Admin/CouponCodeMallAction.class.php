@@ -12,6 +12,7 @@
  */
 class CouponCodeMallAction extends AdminCommonAction
 {
+	private $_is_active = null;
 	public function index()
 	{
 		$page = isset($_REQUEST['page']) && $_REQUEST['page'] >= 1 ? $_REQUEST['page'] : 1;
@@ -20,7 +21,8 @@ class CouponCodeMallAction extends AdminCommonAction
     	$cccService = service('CouponCodeCategory');
     	$params = array(
     					'c_id'		=>	isset($_REQUEST['c_id']) && $_REQUEST['c_id'] ? intval($_REQUEST['c_id']) : 0,
-    					'kw'		=>	isset($_REQUEST['kw']) && $_REQUEST['kw'] ? $_REQUEST['kw'] : ''
+    					'kw'		=>	isset($_REQUEST['kw']) && $_REQUEST['kw'] ? $_REQUEST['kw'] : '',
+    					'is_active' =>	$this->_is_active,
     					);
     	$keys = array('id,c_id,name,tel,website,is_active,sort_order');
     	$res = $ccmModel->getAll($keys, $params, array('begin'=>($page-1)*$pageLimit, 'offset'=>$pageLimit));
@@ -371,6 +373,7 @@ class CouponCodeMallAction extends AdminCommonAction
 	
 	public function select()
 	{
+		$this->_is_active = 1;
 		$this->index();
 	}
 }
