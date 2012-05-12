@@ -118,6 +118,9 @@ class CouponCodeMallModel extends Model
     		$fields = implode(',', $keys);
     	}
     	$where = '1=1';
+    	if(isset($params['is_active']) && $params['is_active'] !== null){
+    		$where .= " AND is_active='$params[is_active]'";
+    	}
     	if(isset($params['c_id']) && $params['c_id']){
     		$where .= " AND c_id='$params[c_id]'";
     	}
