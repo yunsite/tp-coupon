@@ -559,7 +559,7 @@ class CouponCodeAction extends AdminCommonAction
 		$ccModel = D('CouponCode');
 		$ccdModel = D('CouponCodeData');
 		$codesModel = D('CouponCodeCodes');
-		$nowtime = $localTimeObj->gmtime();
+		$nowtime = $localTimeobj->gmtime();
 		foreach ($coupons as $c){
 			$c_id = 0;
 			$c['info']['amount'] = count($c['codes']);
