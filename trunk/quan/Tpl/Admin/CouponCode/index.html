@@ -60,6 +60,7 @@ $(document).ready(function(){
 </script>
 <div class="handle-btns">
 	<div class="img-button "><p><input type="button" class="addData" onclick="window.location.href='?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=add'" value="添加" name="addData" id="addData"></p></div>
+    	<div class="img-button "><p><input type="button" class="addData" onclick="window.location.href='?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=import'" value="批量导入" name="addData" id="addData"></p></div>
     <div class="img-button "><p><input type="button" class="addData" onclick="set_best()" value="设为每日精选" name="addData" id="addData"></p></div>
 </div>
 <div class="search-box">
@@ -92,7 +93,7 @@ $(document).ready(function(){
 <!--{foreach from=$codes item=item}-->
 <tr id="tt-item-{$item.c_id}">
 <td class="first"><input type="checkbox" value="{$item.c_id}" name="id[]"></td>
-<td align="left"><!--{if $item.title}-->{$item.title}<!--{else}--><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=view&c_id={$item.c_id}">{$item.m_name}<!--{/if}--><!--{if $item.c_type==1}-->满{$item.money_max}减{$item.money_reduce}元优惠券<!--{else}-->{$item.money_amount}代金券<!--{/if}--></a></td>
+<td align="left"><!--{if $item.title}--><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=view&c_id={$item.c_id}">{$item.title}</a><!--{else}--><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=view&c_id={$item.c_id}">{$item.m_name}<!--{if $item.c_type==1}-->满{$item.money_max}减{$item.money_reduce}元优惠券<!--{else}-->{$item.money_amount}代金券<!--{/if}--></a><!--{/if}--></td>
 <td align="left"><!--{if $item.expiry_type==1}-->{$item.expiry}<!--{else}-->无限制<!--{/if}--></td>
 <td align="left"><!--{if $item.price_type==1}-->免费<!--{elseif $item.price_type==2}-->{$item.price}元<!--{elseif $item.price_type==3}-->{$item.price}积分<!--{/if}--></td>
 <td align="left">{$item.amount}</td>
