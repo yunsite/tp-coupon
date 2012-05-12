@@ -143,9 +143,9 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                                 <img src="{$item.logo|fixed_uploadfile_url}"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></p>
                                     <p class="btn_wrap">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>立即领取</span></a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>立即领取</span></a></p>
                                     <p class="score_now">
                                         已领：{$item.fetched_amount}张</p>
                                     <p class="score_old">
@@ -179,7 +179,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                             领取最多的优惠券列表</h3>
                         <ol class="rank_coupon">
                             <!--{foreach from=$hot10 item=item}-->  
-                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></li>
+                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/foreach}-->
                         </ol>
                     </li>
@@ -189,7 +189,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                         <ol class="rank_coupon">
                             
                             <!--{foreach from=$latest10 item=item}-->  
-                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></li>
+                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/foreach}-->
                             
                         </ol>
@@ -203,7 +203,7 @@ var shopping_url = '{fixedUrl url="Mall/out?id=`$detail.m_id`"}';
                                 <img src="{$item.logo|fixed_uploadfile_url}"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></p>
                                     <p>
                                         已领数量：{$item.fetched_amount}张</p>
                                     <p>
