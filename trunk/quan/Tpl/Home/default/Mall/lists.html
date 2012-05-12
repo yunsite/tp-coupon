@@ -28,13 +28,13 @@
                             每日精选促销({$smarty.now|date_format:"%m-%d"})</h3>
                         <ul class="hot_coupon">
                             <!--{foreach from=$daybest10 item=item}-->
-                            <li><a target="_blank" title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" class="img_wrap" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">
-                                <img alt="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" src="{$item.logo|fixed_uploadfile_url}" align="absmiddle"></a>
+                            <li><a target="_blank" title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="img_wrap" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">
+                                <img alt="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" src="{$item.logo|fixed_uploadfile_url}" align="absmiddle"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a target="_blank" title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}</a> </p>
+                                        <a target="_blank" title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}</a> </p>
                                     <p class="btn_wrap">
-                                        <a target="_blank" title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>去看看</span></a></p>
+                                        <a target="_blank" title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>去看看</span></a></p>
                                         
                                        <p class="score_old flwindex_tuijian">
                                     </p>
@@ -53,9 +53,9 @@
                                 <img src="{$item.logo|fixed_uploadfile_url}"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></p>
                                     <p class="btn_wrap">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>立即领取</span></a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="btn" href="{fixedUrl url="Code/view?id=`$item.c_id`"}"><span>立即领取</span></a></p>
                                     <p class="score_now">
                                         已领：{$item.fetched_amount}张</p>
                                     <p class="score_old">
@@ -75,7 +75,7 @@
                                 <img src="{$item.logo|fixed_uploadfile_url}"></a>
                                 <div class="img_detail">
                                     <p class="name">
-                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></p>
+                                        <a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></p>
                                     <p>
                                         已领数量：{$item.fetched_amount}张</p>
                                     <p>
@@ -95,7 +95,7 @@
                         <ol class="rank_coupon">
                             
                             <!--{foreach from=$latest10 item=item}-->  
-                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{/if}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}</a></li>
+                            <li><a title="{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{fixedUrl url="Code/view?id=`$item.c_id`"}">{if $item.title}{$item.title}{else}{$item.m_name}{if $item.c_type==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/foreach}-->
                             
                         </ol>
