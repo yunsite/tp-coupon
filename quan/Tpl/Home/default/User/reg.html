@@ -47,7 +47,7 @@
             
 
         <li class="yellow">
-            <h3>已有{$_CFG.site_name}帐号？</h3>
+            <h3>已有{$_CFG['site_name']}帐号？</h3>
             <div class="sidebar_s clear">
                 <ul class="twocol user_link">
                     <li><a class="login_btn" href="{fixedUrl url="User/login"}"></a></li>
@@ -162,4 +162,4 @@ $(document).ready(function() {
 });
 <!--{/literal}-->
 </script>
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/footer.html"}
+{template "../Public/footer"}
