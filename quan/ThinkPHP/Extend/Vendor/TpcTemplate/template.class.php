@@ -173,6 +173,7 @@ class Template
 		$template = str_replace("{LF}", "<?=\"\\n\"?>", $template);
 
 		//替换直接变量输出
+		$template = preg_replace("/\{(\\\$[a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)\}/s", "<?=\\1['\\2']?>", $template);
 		$varRegexp = "((\\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)"
 		. "(\[[a-zA-Z0-9_\-\.\"\'\[\]\$\x7f-\xff]+\])*)";
 		$template = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\.\x7f-\xff]+)\}/s", "<?=\\1?>", $template);
