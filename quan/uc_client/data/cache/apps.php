@@ -1,11 +1,11 @@
 <?php
 $_CACHE['apps'] = array (
-  1 => 
+  10 => 
   array (
-    'appid' => '1',
-    'type' => 'DISCUZX',
-    'name' => '极好居',
-    'url' => 'http://127.0.0.1/jihaoju/bbs',
+    'appid' => '10',
+    'type' => 'ECSHOP',
+    'name' => 'ECSHOP',
+    'url' => 'http://127.0.0.1/ecshop/',
     'ip' => '',
     'viewprourl' => '',
     'apifilename' => 'uc.php',
@@ -18,12 +18,12 @@ $_CACHE['apps'] = array (
     ),
     'recvnote' => '1',
   ),
-  6 => 
+  11 => 
   array (
-    'appid' => '6',
+    'appid' => '11',
     'type' => 'OTHER',
-    'name' => 'TP-COUPON',
-    'url' => 'http://www.quan.com',
+    'name' => '论坛优惠券',
+    'url' => 'http://127.0.0.1/jihaoju/quan',
     'ip' => '',
     'viewprourl' => '',
     'apifilename' => 'uc.php',
@@ -36,12 +36,29 @@ $_CACHE['apps'] = array (
     ),
     'recvnote' => '1',
   ),
+  6 => 
+  array (
+    'appid' => '6',
+    'type' => 'DISCUZX',
+    'name' => '论坛',
+    'url' => 'http://127.0.0.1/jihaoju/bbs',
+    'ip' => '',
+    'viewprourl' => '',
+    'apifilename' => 'uc.php',
+    'charset' => '',
+    'synlogin' => '1',
+    'extra' => 
+    array (
+      'apppath' => '',
+    ),
+    'recvnote' => '1',
+  ),
   7 => 
   array (
     'appid' => '7',
     'type' => 'OTHER',
-    'name' => 'PHPCMS',
-    'url' => 'http://127.0.0.1/phpcms/phpsso_server',
+    'name' => 'TP-COUPON',
+    'url' => 'http://127.0.0.1/quan',
     'ip' => '',
     'viewprourl' => '',
     'apifilename' => 'uc.php',
