@@ -21,7 +21,7 @@ class CacheAction extends AdminCommonAction
 			set_time_limit(0);
 			//清空数据缓存
 			clear_all_caches();
-			$this->ajaxReturn('', '', 1);
+			$this->ajaxReturn('', buildFormToken(), 1);
 		}
 		$this->assign('_hash_', buildFormToken());
 		$this->assign('ur_href', '清除系统缓存');
