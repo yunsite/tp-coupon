@@ -4,6 +4,4 @@
  */
 define('IN_TP_COUPON', TRUE);
 include_once('./global.php');
-$changelog = file_get_contents('changelog115.txt');
-$changelog = str_replace("\r\n", '<br>', $changelog);
 include($template->getfile('112to115'));
