@@ -46,6 +46,15 @@ return array(
 									'url_rewrite'		=> '开启伪静态',
 									'code_in_secret'	=> '优惠券保密时间',
 									'invite_credit'		=> '邀请好友奖励积分',
+									'statis_code'		=> '统计代码',
+									'open_platform'		=> '开放平台配置',
+									'qq_appid'			=> 'QQ开放平台appid',
+									'qq_appkey'			=> 'QQ开放平台appkey',
+									'qq_open'			=> '开启QQ开放平台登陆',
+									'sina_wb_akey'		=> '新浪微博App Key',
+									'sina_wb_skey'		=> '新浪微博App Secret',
+									'sina_wb_open'		=> '开启新浪微博开放平台登陆',
+									'sina_wb_office_id' => '官方新浪微博ID',
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
@@ -100,6 +109,14 @@ return array(
 															'warrant'=>	'担保交易类型'
 															),
 										'url_rewrite'=> array(
+															0 =>	'不开启',
+															1 =>	'开启'
+															),
+										'qq_open'	=> array(
+															0 =>	'不开启',
+															1 =>	'开启'
+															),
+										'sina_wb_open'=> array(
 															0 =>	'不开启',
 															1 =>	'开启'
 															),
