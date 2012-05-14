@@ -21,19 +21,20 @@ function add_site_config()
 	$db->query($sql);
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '0', 'open_platform', 'group', '', '', '', '24')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'qq_appid', 'text', '', '', '', '25')";
+	$parent_id = $db->insert_id();
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'qq_appid', 'text', '', '', '', '25')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'qq_appkey', 'text', '', '', '', '26')";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'qq_appkey', 'text', '', '', '', '26')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'qq_open', 'select', '0,1', '', '1', '27')";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'qq_open', 'select', '0,1', '', '1', '27')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'sina_wb_akey', 'text', '', '', '', '28')";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'sina_wb_akey', 'text', '', '', '', '28')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'sina_wb_skey', 'text', '', '', '', '29')";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'sina_wb_skey', 'text', '', '', '', '29')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'sina_wb_office_id', 'text', '', '', '', '30')";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'sina_wb_office_id', 'text', '', '', '', '30')";
 	$db->query($sql);
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '945', 'sina_wb_open', 'select', '0,1', '', '1', '31')";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, $parent_id, 'sina_wb_open', 'select', '0,1', '', '1', '31')";
 	$db->query($sql);
 	showjsmessage('增加新的系统设置项 ... 完成');
 }
