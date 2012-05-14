@@ -1,7 +1,7 @@
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/header.html"}
+{template '../Public/header'}
 <link rel="Stylesheet" type="text/css" href="__PUBLIC__/Js/jmodal/jquery.jmodal.css" />
 <script type="text/javascript" src="__PUBLIC__/Js/jmodal/jquery.jmodal.js"></script>
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/nav.html"}
+{template '../Public/nav'}
 <div class="w990 clear">
         <div id="main">
             <div class="main_l">
@@ -9,7 +9,7 @@
                     <h2>
                         我领取的优惠券</h2>
                     <ul class=" clear">
-<!--{foreach from=$codes item=item}-->                        
+<!--{loop $codes $item}-->                        
 <li class="normal clear commend">
     <div class="normal_l">
         <a href="{echo reUrl('Mall/view?id='.$item[m_id])}" title="查看《{$item.m_name}》发布的所有优惠券">
@@ -23,39 +23,39 @@
         <ul class="normal_m_u detail clear">
             
             <li><em>优惠券代码：</em></li>
-            <li class="red code" id="code_701677" rel="{fixedUrl url="Mall/out?id=`$item.m_id`"}"><b><font color="red">{$item.code}</font></b> </li>
+            <li class="red code" id="code_701677" rel="{echo reUrl('Mall/out?id='.$item[m_id])}"><b><font color="red">{$item.code}</font></b> </li>
             
-            <li><em>如何使用：</em><a href="{fixedUrl url="Mall/how2use?id=`$item.m_id`"}" target="_blank">{$item.m_name}优惠券使用方法</a></li>
+            <li><em>如何使用：</em><a href="{echo reUrl('Mall/how2use?id='.$item[m_id]);}" target="_blank">{$item.m_name}优惠券使用方法</a></li>
             
             <li><em>购买费用：</em><!--{if $item['price_type']==1}-->免费<!--{elseif $item['price_type']==2}-->{$item.price}元<!--{elseif $item['price_type']==3}-->{$item.price}积分<!--{/if}--></li>
             <li><em>领取时间：</em>{$item.fetch_time}</li>
-            <li><em>有效期：</em><!--{if $item.expiry_type==1}-->{$item.expiry}止<!--{else}-->长期有效<!--{/if}--></li>
+            <li><em>有效期：</em><!--{if $item['expiry_type']==1}-->{$item.expiry}止<!--{else}-->长期有效<!--{/if}--></li>
             <li><em>使用说明：</em>{$item.directions}</li>
         </ul>
     </div>
     <div class="normal_r nw80">
-        <a href="{fixedUrl url="Mall/out?id=`$item.m_id`"}" class="btn" type="coupon" sid="443" rel="nofollow" title="手工复制优惠券，然后去{$item.m_name}使用券" target="_blank">
+        <a href="{echo reUrl('Mall/out?id='.$item[m_id])}" class="btn" type="coupon" sid="443" rel="nofollow" title="手工复制优惠券，然后去{$item.m_name}使用券" target="_blank">
             <span>去使用</span></a>
         <br>
         <br>
-        <a href="{fixedUrl url="Mall/how2use?id=`$item.m_id`"}" class="btn" type="coupon" sid="443" title="{$item.m_name}优惠券如何使用？" target="_blank">
+        <a href="{echo reUrl('Mall/how2use?id='.$item[m_id]);}" class="btn" type="coupon" sid="443" title="{$item.m_name}优惠券如何使用？" target="_blank">
             <span>如何使用?</span></a>
         
     </div>
 </li>
-<!--{/foreach}-->
+<!--{/loop}-->
                     </ul>
                     <ul class="pager">{$pagelink}</ul>
                 </div>
             </div>
             <div class="main_r" style="width: 320px;">
     <ul class="sidebar">
-    {include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/`$smarty.const.MODULE_NAME`/profile.html"}
+    {template '../User/profile'}
                     <li class="gray">
                         <h3>
-                            每日精选促销({$smarty.now|date_format:"%m-%d"})</h3>
+                            每日精选促销({echo date('m-d');})</h3>
                         <ul class="hot_coupon">
-                            <!--{foreach from=$daybest10 item=item}-->
+                            <!--{loop $daybest10 $item}-->
                             <li><a target="_blank" title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
                                 <img alt="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" src="{echo FixedUploadedFileUrl($item[logo]);}"></a>
                                 <div class="img_detail">
@@ -69,7 +69,7 @@
                                     
                                 </div>
                             </li>
-                            <!--{/foreach}-->
+                            <!--{/loop}-->
                          </ul>
                     </li>
                     
@@ -102,7 +102,6 @@
         </div>
     </div>
 <script type="text/javascript">
-<!--{literal}-->
 $("li.code").bind("copy",function(){
                 var opened = $(this).attr("opened");
                 if(opened===undefined || parseInt(opened)<3){
@@ -134,6 +133,5 @@ $("li.code").bind("copy",function(){
                	   	});
                 }
             });
-<!--{/literal}-->
 </script>
 {template "../Public/footer"}

@@ -5,18 +5,20 @@
             <div class="main_l">
                 <div class="main_l_i">
                     <div class="main_l_c_c">
-                    <!--{foreach from=$malls4cate name=malls4cate item=item1}-->
-                    <h1 {if !$smarty.foreach.malls4cate.first}class="mt10"{/if}>{$item1.cate.name}</h1>
+                    <!--{eval $ii=0;}-->
+                    <!--{loop $malls4cate $item1}-->
+                    <h1 {if $ii>0}class="mt10"{/if}>{$item1['cate']['name']}</h1>
+                    <!--{eval $ii++;}-->
                     <ul class="mall-list clear">
-                    <!--{foreach from=$item1.malls item=item}-->                      
+                    <!--{loop $item1['malls'] $item}-->                      
 					<li>
-    				<a href="{fixedUrl url="Mall/view?id=`$item.id`"}" target="_blank"><img src="{echo FixedUploadedFileUrl($item[logo]);}" class="mlogo"></a>
-                    <h2><a href="{fixedUrl url="Mall/view?id=`$item.id`"}" target="_blank">{$item.name}优惠券</a></h2>
+    				<a href="{echo reUrl('Mall/view?id='.$item['id']);}" target="_blank"><img src="{echo FixedUploadedFileUrl($item[logo]);}" class="mlogo"></a>
+                    <h2><a href="{echo reUrl('Mall/view?id='.$item['id']);}" target="_blank">{$item.name}优惠券</a></h2>
 					</li>
-					<!--{/foreach}-->
+					<!--{/loop}-->
 					</ul>
                     <div class="clear"></div>
-					<!--{/foreach}-->
+					<!--{/loop}-->
 </div>
 </div>
 </div>
@@ -25,9 +27,9 @@
                     
                     <li class="gray">
                         <h3>
-                            每日精选促销({$smarty.now|date_format:"%m-%d"})</h3>
+                            每日精选促销({echo date('m-d');})</h3>
                         <ul class="hot_coupon">
-                            <!--{foreach from=$daybest10 item=item}-->
+                            <!--{loop $daybest10 $item}-->
                             <li><a target="_blank" title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
                                 <img alt="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" src="{echo FixedUploadedFileUrl($item[logo]);}" align="absmiddle"></a>
                                 <div class="img_detail">
@@ -41,7 +43,7 @@
                                     
                                 </div>
                             </li>
-                            <!--{/foreach}-->
+                            <!--{/loop}-->
                          </ul>
                     </li>
                     <li class="gray">
@@ -99,29 +101,7 @@
                             <!--{/loop}-->
                             
                         </ol>
-                    </li>
-                    <!--
-                    <li class="gray_b">
-                        <h3>
-                            最新加入{$_CFG['site_name']}的会员</h3>
-                        <ul class="user">
-                            <li><a title="Elaine粉红色小苦逼" href="http://www.quanmama.com/u/1935967727@weibo.com.html" target="_blank">
-                                <img src="http://tp4.sinaimg.cn/1935967727/50/5624282828/0" alt="Elaine粉红色小苦逼">Elaine粉红色小苦逼</a></li>
-                            <li><a title="一淘仲由" href="http://www.quanmama.com/u/1081719795@weibo.com.html" target="_blank">
-                                <img src="http://tp4.sinaimg.cn/1081719795/50/5597314250/1" alt="一淘仲由">一淘仲由</a></li>
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        <div class="clear">
-                        </div>
-                        <div class="hot_you rightTit">
-                            <a rel="nofollow" href="http://www.57zhe.com/?source=quanmama" target="_blank">
-                                <img width="300px" src="/images/57zhe.jpg"></a>
-                        </div>
-                    </li>
-                    -->
-                    
+                    </li>                    
                     <li class="green">
                         <h3>
                             热门搜索</h3>

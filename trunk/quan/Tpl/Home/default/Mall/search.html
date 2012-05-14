@@ -8,23 +8,23 @@
                         <font color="red"><b>
                             {$kw}</b></font>的搜索结果</h2>
                     <ul class="search_l">
-                        <!--{foreach from=$malls item=item}-->
+                        <!--{loop $malls $item}-->
                         <li class="normal clear">
                             <div class="normal_l">
-                                <a href="{fixedUrl url="Mall/view?id=`$item.id`"}" target="_blank">
+                                <a href="{echo reUrl('Mall/view?id='.$item['id']);}" target="_blank">
                                     <img src="{echo FixedUploadedFileUrl($item[logo]);}" alt="{$item.name}优惠券"></a>
                                 <br>
-                                <a href="{fixedUrl url="Mall/view?id=`$item.id`"}" target="_blank">{$item.name}优惠券</a>
+                                <a href="{echo reUrl('Mall/view?id='.$item['id']);}" target="_blank">{$item.name}优惠券</a>
                             </div>
                             <div class="normal_m nw850">
                                 <h6>
-                                    <a href="{fixedUrl url="Mall/view?id=`$item.id`"}" target="_blank">{$item.name}优惠券</a></h6>
+                                    <a href="{echo reUrl('Mall/view?id='.$item['id']);}" target="_blank">{$item.name}优惠券</a></h6>
                                 <ul class="normal_m_u">
-                                    <li class="content">{$item.description|truncate:200:"..."}</li>
+                                    <li class="content">{echo msubstr($item['description'], 0, 200, 'utf-8');}</li>
                                 </ul>
                             </div>
                         </li>
-                        <!--{/foreach}-->
+                        <!--{/loop}-->
                     </ul>
                 </div>
             </div>

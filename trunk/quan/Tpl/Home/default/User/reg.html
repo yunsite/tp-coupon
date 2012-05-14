@@ -1,16 +1,16 @@
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/header.html"}
+{template '../Public/header'}
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
 <link rel="Stylesheet" type="text/css" href="__PUBLIC__/Js/jmodal/jquery.jmodal.css" />
 <script type="text/javascript" src="__PUBLIC__/Js/jmodal/jquery.jmodal.js"></script>
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/nav.html"}
+{template '../Public/nav'}
 <div class="w990 clear">
         <div id="main">
             <div class="main_l">
                 <div id="main_l_l" class="clear">
                     <h2 class="login_t">会员注册</h2>
                     <ul class="clear">
-                    <form action="{fixedUrl url='User/reg'}" method="post" id="reg_form" name="reg_form">
+                    <form action="{echo reUrl('User/reg')}" method="post" id="reg_form" name="reg_form">
                     <table width="100%" border="0" class="login_form">
   <tr>
     <td width="100" align="right">帐号：</td>
@@ -50,7 +50,7 @@
             <h3>已有{$_CFG['site_name']}帐号？</h3>
             <div class="sidebar_s clear">
                 <ul class="twocol user_link">
-                    <li><a class="login_btn" href="{fixedUrl url="User/login"}"></a></li>
+                    <li><a class="login_btn" href="{echo reUrl('User/login')}"></a></li>
                 </ul>
             </div>
         </li>
@@ -60,13 +60,12 @@
         </div>
     </div>
 <script type="text/javascript">
-var g = '{$smarty.const.GROUP_NAME}';
-var m = '{$smarty.const.MODULE_NAME}';
-var a = '{$smarty.const.ACTION_NAME}';
-var reg_url = "{fixedUrl url='User/reg'}";
-var u_index_url = "{fixedUrl url='User/index'}";
+var g = '{GROUP_NAME}';
+var m = '{MODULE_NAME}';
+var a = '{ACTION_NAME}';
+var reg_url = "{echo reUrl('User/reg')}";
+var u_index_url = "{echo reUrl('User/index')}";
 var dosubmit = false;
-<!--{literal}-->
 function check_nick_valid()
 {
 	var nick = $('#nick').val();
@@ -160,6 +159,5 @@ $(document).ready(function() {
 						 		required: true
 						});
 });
-<!--{/literal}-->
 </script>
 {template "../Public/footer"}

@@ -1,12 +1,10 @@
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/header.html"}
+{template '../Public/header'}
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
 <style type="text/css">
-<!--{literal}-->
 .users li u{ width:300px;}
-<!--{/literal}-->
 </style>
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/nav.html"}
+{template '../Public/nav'}
 <div class="w990 clear">
         <div id="main">
             <div class="main_l">
@@ -16,9 +14,9 @@
                         <div class="normal_m">
                             <ul class="consumelist users">
                                 <li><u>会员</u><em>注册时间</em></li>
-                                <!--{foreach from=$users item=item}-->
+                                <!--{loop $users $item}-->
                                 <li><u>{$item.nick}</u><em>{$item.addtime}</em></li>
-                                <!--{/foreach}-->
+                                <!--{/loop}-->
                             </ul>
                             <ul class="pager">{$pagelink}</ul>
                         </div>
@@ -28,7 +26,7 @@
             </div>
              <div class="main_r" style="width: 320px;">
     <ul class="sidebar">
-    {include file="../User/profile.html"}
+    {template '../User/profile'}
 	</ul>
 	</div>
 </div>

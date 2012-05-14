@@ -1,14 +1,14 @@
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/header.html"}
+{template '../Public/header'}
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
-{include file="`$smarty.const.GROUP_NAME`/`$smarty.const.THEME_NAME`/Public/nav.html"}
+{template '../Public/nav'}
 <div class="w990 clear">
         <div id="main">
             <div class="main_l">
                 <div id="main_l_l" class="clear">
                     <h2 class="login_t">会员登陆</h2>
                     <ul class="clear">
-                    <form action="{fixedUrl url='User/login'}" method="post" name="login_form" id="login_form">
+                    <form action="{echo reUrl('User/login');}" method="post" name="login_form" id="login_form">
                     <table width="100%" border="0" class="login_form">
   <tr>
     <td width="100" align="right">帐号：</td>
@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <td align="right">密码：</td>
-    <td colspan="2"><input name="pw" id="pw" type="password" style="width:200px;" />&nbsp;<a href="{fixedUrl url="User/getpwd"}">忘记密码？</a></td>
+    <td colspan="2"><input name="pw" id="pw" type="password" style="width:200px;" />&nbsp;<a href="{echo reUrl('User/getpwd');}">忘记密码？</a></td>
   </tr>
   <tr>
     <td align="right">&nbsp;</td>
@@ -25,7 +25,7 @@
   <tr>
     <td align="right">&nbsp;</td>
     <td width="150"><input type="submit" value="登陆" name="commit" id="signup-submit" class="formbutton"></td>
-    <td><a href="{fixedUrl url="User/login_sina"}"><img src="__PUBLIC__/Images/Home/sina_logo_big.gif" align="absbottom" /></a>&nbsp;&nbsp;<a href="{fixedUrl url="User/login_qq"}"><img src="__PUBLIC__/Images/Home/qqlogin.png" align="absbottom" /></a></td>
+    <td><a href="{echo reUrl('User/login_sina');}"><img src="__PUBLIC__/Images/Home/sina_logo_big.gif" align="absbottom" /></a>&nbsp;&nbsp;<a href="{echo reUrl('User/login_qq');}"><img src="__PUBLIC__/Images/Home/qqlogin.png" align="absbottom" /></a></td>
   </tr>
 </table>
 <input name="_hash_" type="hidden" value="{$_hash_}" />
@@ -41,7 +41,7 @@
             <h3>还没有{$_CFG['site_name']}帐号？</h3>
             <div class="sidebar_s clear">
             	<div class="sidebar_s_l">
-                    <a class="signUp" href="{fixedUrl url="User/reg"}"></a>
+                    <a class="signUp" href="{echo reUrl('User/reg');}"></a>
                 </div>
             </div>
         </li>
@@ -51,11 +51,10 @@
         </div>
     </div>
 <script type="text/javascript">
-var g = '{$smarty.const.GROUP_NAME}';
-var m = '{$smarty.const.MODULE_NAME}';
-var a = '{$smarty.const.ACTION_NAME}';
-var u_index_url = "{fixedUrl url='User/index'}";
-<!--{literal}-->
+var g = '{GROUP_NAME}';
+var m = '{MODULE_NAME}';
+var a = '{ACTION_NAME}';
+var u_index_url = "{echo reUrl('User/index');}";
 $(document).ready(function() {
 			$("#login_form").validate({
 						 submitHandler:function(form){
@@ -71,6 +70,5 @@ $(document).ready(function() {
 								rangelength: [6,15]
 						});
 });
-<!--{/literal}-->
 </script>
 {template "../Public/footer"}
