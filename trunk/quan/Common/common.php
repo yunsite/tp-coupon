@@ -25,6 +25,11 @@ function clear_all_caches()
 		del_dir(DATA_PATH);
 		mk_dir(DATA_PATH . '_fields/', 0755);
 	}
+	if(is_dir(CACHE_PATH)){
+		del_dir(CACHE_PATH);
+		mk_dir(CACHE_PATH, 0755);
+	}
+	if(is_file(RUNTIME_PATH . '~runtime.php')) @unlink(RUNTIME_PATH . '~runtime.php');
 }
 
 /**
