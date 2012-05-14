@@ -427,6 +427,9 @@ class CouponCodeAction extends AdminCommonAction
 	//批量导入
 	public function import()
 	{
+		if(! is_file(LIB_PATH . 'ORG/phpExcel/PHPExcel.php')){
+			$this->error('请先上传PHPExcel类库');
+		}
 		if($this->isPost()){
 			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST, 'hash')){
 				die('hack attemp.');
