@@ -73,14 +73,14 @@ class Template
 		switch ($name) {
 			case 'template_dir':
 				$value = $this->_trimpath($value);
-				mk_dir($value);
+				if(! is_dir($value)) mk_dir($value);
 				if (!file_exists($value))
 				$this->_throwException("未找到指定的模板目录 \"$value\"");
 				$this->_options['template_dir'] = $value;
 				break;
 			case 'cache_dir':
 				$value = $this->_trimpath($value);
-				mk_dir($value);
+				if(! is_dir($value)) mk_dir($value);
 				if (!file_exists($value))
 				$this->_throwException("未找到指定的缓存目录 \"$value\"");
 				$this->_options['cache_dir'] = $value;
@@ -295,7 +295,8 @@ class Template
      */
 	protected function _getTplFile($file)
 	{
-		return $this->_trimpath($this->_options['template_dir'] . self::DIR_SEP . $file);
+		return $file = $this->_trimpath($this->_options['template_dir'] . self::DIR_SEP . $file);
+		//return realpath(dirname($file) . self::DIR_SEP . basename($file));
 	}
 
 	/**
@@ -307,7 +308,8 @@ class Template
 	protected function _getCacheFile($file)
 	{
 		$file = preg_replace('/\.[a-z0-9\-_]+$/i', '.cache.php', $file);
-		return $this->_trimpath($this->_options['cache_dir'] . self::DIR_SEP . $file);
+		return $file = $this->_trimpath($this->_options['cache_dir'] . self::DIR_SEP . $file);
+		//return realpath(dirname($file) . self::DIR_SEP . basename($file));
 	}
 
 	/**
