@@ -25,7 +25,7 @@ class TempFileAction extends AdminCommonAction
 	 */
 	public function clean()
 	{
-		if($this->isPost()){
+		if($this->isPost() && $this->isAjax()){
 			if(C('TOKEN_ON') && ! checkFormToken($_POST)){
 				die('hack attemp.');
 			}
@@ -54,8 +54,7 @@ class TempFileAction extends AdminCommonAction
 				}
 			}
 			@closedir($dirhandle);
-			$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME);
-			$this->success('清除完毕');
+			$this->ajaxReturn('', buildFormToken(), 1);
 		}
 	}
 }

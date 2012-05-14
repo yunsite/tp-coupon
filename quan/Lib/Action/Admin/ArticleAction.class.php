@@ -274,22 +274,10 @@ class ArticleAction extends AdminCommonAction
 	
 	private function _buildHtml($article_id)
 	{
-		$aModel = D('Article');
-		$article = $aModel->info($article_id);
-		if($article['alias']){
-			$htmlfile = $article['alias'];
-		}else{
-			$htmlfile = $article_id;
-		}
-		import('@.Com.Util.Ubb');
-		$article['content'] = Ubb::ubb2html($article['content']);
-		$this->assign('article', $article);
-		//其他文章
-		$other_articles = $aModel->getByCateId($article['cate_id'], array('article_id','title','alias'));
-		$this->assign('other_articles', $other_articles);
-		$page_title = $article['title'] . ' - ';
-		$_CFG = $this->_CFG;
-		$this->assign(array('page_title'=>$page_title, '_CFG'=>$_CFG));
-		$this->buildHtml($htmlfile, HTML_PATH, TMPL_PATH . 'Home/default/Article/article.html');
+		$time = time();
+		$auth = md5($article_id . $time . C('AUTH'));
+		$url = 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/index.php';
+		$data = 'g=Home&m=Article&a=build_html&article_id=' . $article_id . '&time=' . $time . '&auth=' . $auth;
+		dCurl($url, $data, false);
 	}
 }

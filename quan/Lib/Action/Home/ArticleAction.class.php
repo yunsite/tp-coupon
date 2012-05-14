@@ -25,4 +25,30 @@ class ArticleAction extends HomeCommonAction
     	$this->assign('page_description', $this->_CFG['site_description']);
     	$this->display();
     }
+    
+    public function build_html()
+    {
+    	$article_id = intval($_REQUEST['article_id']);
+    	$time = intval($_REQUEST['time']);
+    	$auth = $_REQUEST['auth'];
+    	if((time()-$time)>5 || md5($article_id . $time . C('AUTH')) != $auth){
+    		exit();
+    	}
+    	$aModel = D('Article');
+		$article = $aModel->info($article_id);
+		if($article['alias']){
+			$htmlfile = $article['alias'];
+		}else{
+			$htmlfile = $article_id;
+		}
+		import('@.Com.Util.Ubb');
+		$article['content'] = Ubb::ubb2html($article['content']);
+		$this->assign('article', $article);
+		//其他文章
+		$other_articles = $aModel->getByCateId($article['cate_id'], array('article_id','title','alias'));
+		$this->assign('other_articles', $other_articles);
+		$page_title = $article['title'] . ' - ';
+		$this->assign(array('page_title'=>$page_title));
+		$this->buildHtml($htmlfile, HTML_PATH, 'article');
+    }
 }

@@ -21,7 +21,7 @@ class SearchIndexAction extends AdminCommonAction
 			set_time_limit(0);
 			$mallModel = D('CouponCodeMall');
 			$mallModel->_updateFullIndex();
-			$this->ajaxReturn('', '', 1);
+			$this->ajaxReturn('', buildFormToken(), 1);
 		}
 		$this->assign('_hash_', buildFormToken());
 		$this->assign('ur_href', '更新整站全文索引');
