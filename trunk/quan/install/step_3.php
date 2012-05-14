@@ -158,13 +158,13 @@ function insert_config()
 (943, 1, 'invite_credit', 'text', '', '', '6', 23),
 (944, 1, 'statis_code', 'textarea', '', '', '', 23),
 (945, 0, 'open_platform', 'group', '', '', '', 24),
-(946, 945, 'qq_appid', 'text', '', '', '100262384', 25),
-(947, 945, 'qq_appkey', 'text', '', '', '77b5d77425ddf6fc8d59c646cb6f3612', 26),
-(948, 945, 'qq_open', 'select', '0,1', '', '1', 27),
-(949, 945, 'sina_wb_akey', 'text', '', '', '4193950756', 28),
-(950, 945, 'sina_wb_skey', 'text', '', '', '441db20ba5bfdcff4da6dbc8ee9dcc9c', 29),
-(951, 945, 'sina_wb_office_id', 'text', '', '', '2634544391', 30),
-(953, 945, 'sina_wb_open', 'select', '0,1', '', '1', 31)";
+(946, 945, 'qq_appid', 'text', '', '', '', 25),
+(947, 945, 'qq_appkey', 'text', '', '', '', 26),
+(948, 945, 'qq_open', 'select', '0,1', '', '0', 27),
+(949, 945, 'sina_wb_akey', 'text', '', '', '', 28),
+(950, 945, 'sina_wb_skey', 'text', '', '', '', 29),
+(951, 945, 'sina_wb_office_id', 'text', '', '', '0', 30),
+(953, 945, 'sina_wb_open', 'select', '0,1', '', '0', 31)";
 	$db->query($sql);
 	showjsmessage('初始化系统设置 ... 成功');
 }
