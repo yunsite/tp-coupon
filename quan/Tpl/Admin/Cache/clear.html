@@ -17,10 +17,16 @@ function update()
 			$('#mask,#loading').hide();
      		var result = eval("("+msg+")");
 			if(result.status == 0){
-				alert(result.info);
+				$('#dialog>p').html(result.info);
+				$('#dialog').dialog('open');
 				return false;
 			}else{
-				alert('操作成功');
+				_hash_ = result.info;
+				$('#dialog>p').html('操作成功');
+				$('#dialog').dialog('open');
+				setTimeout(function(){
+									$('#dialog').dialog("close"); 
+									},2000);
 			}
    		}
 		});

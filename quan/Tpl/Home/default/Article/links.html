@@ -8,20 +8,20 @@
                         友情链接</h2>
                     <div class="w630">
                         <ul class="flink">
-                            <!--{foreach from=$friendlinks item=item}-->
-                            <!--{if $item.link_type==1}-->
-                            <li><a href="{$item.link_url}" target="_blank">{if $item.link_code}{$item.link_code}{else}{$item.site_name}{/if}</a></li>
+                            <!--{loop $friendlinks $item}-->
+                            <!--{if $item['link_type']==1}-->
+                            <li><a href="{$item.link_url}" target="_blank">{if $item['link_code']}{$item.link_code}{else}{$item.site_name}{/if}</a></li>
                             <!--{/if}-->
-                            <!--{/foreach}-->
+                            <!--{/loop}-->
                         </ul>
                         <div class="clear">
                         </div>
                         <ul class="flink_img">
-                            <!--{foreach from=$friendlinks item=item}-->
-                            <!--{if $item.link_type==2}-->
-                            <li><a href="{$item.link_url}" target="_blank"><img src="{$item.link_code|fixed_uploadfile_url}" width="75" height="45" /></a></li>
+                            <!--{loop $friendlinks $item}-->
+                            <!--{if $item['link_type']==2}-->
+                            <li><a href="{$item.link_url}" target="_blank"><img src="{echo FixedUploadedFileUrl($item[link_code]);}" width="75" height="45" /></a></li>
                             <!--{/if}-->
-                            <!--{/foreach}-->
+                            <!--{/loop}-->
                         </ul>
                         <div class="clear">
                         </div>

@@ -41,8 +41,10 @@ function buildHtml()
 		$('#dialog').dialog('open');
 		return false;
 	}
+	$('#mask,#loading').show();
 	var url = "?g="+g+"&m="+m+"&a=build_html&id="+id+"&ajax=1&_hash_="+_hash_;
 	$.getJSON(url, function(data){
+			$('#mask,#loading').hide();
 			if(data.status == 0){
 				$('#dialog>p').html('操作失败');
 				$('#dialog').dialog('open');
@@ -58,6 +60,7 @@ function buildHtml()
 }
 
 $(document).ready(function(){
+	$('#mask,#loading').css({'height':$(document).height(),'width':$(document).width()});
 	$(".table-list").SetTableBgColor({
             odd:"even",
             even:"",
@@ -97,4 +100,6 @@ $(document).ready(function(){
 <!--{/foreach}-->
 </tbody></table>
 <div class="pager">{$pagelink}</div>
+<div id="mask" style="background:#000 none repeat scroll 0% 0%; position: fixed; z-index: 9998;top: 0px; left: 0px; display:none; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; opacity: 0.8;filter:Alpha(Opacity=80)"></div>
+<div id="loading" style=" position:absolute; z-index: 9999;top: 0px; left: 0px; display:none;text-align:center"><img src="__PUBLIC__/Images/loading.gif" height="37" width="37" style="position:relative; top:160px;" /></div>
 {include file="../Public/footer.html"}
