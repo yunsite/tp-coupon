@@ -23,4 +23,4 @@ if (defined("QQDEBUG") && QQDEBUG)
 }
 
 //QQ授权api接口.按需调用
-define('QQ_SCOPE', "get_user_info,add_share,list_album,add_album,upload_pic,add_topic,add_one_blog,add_weibo");
+define('QQ_SCOPE', "get_user_info,add_share,list_album,add_album,upload_pic,add_topic,add_one_blog,add_weibo,add_t,add_pic_t");

@@ -1,6 +1,33 @@
 <?php
 class qqauth_utils
 {
+	/*
+	 * POST 请求
+	 */
+	public static function post($sUrl,$aPOSTParam){
+		$oCurl = curl_init();
+		if(stripos($sUrl,"https://")!==FALSE){
+			curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, FALSE);
+			curl_setopt($oCurl, CURLOPT_SSL_VERIFYHOST, false);
+		}
+		$aPOST = array();
+		foreach($aPOSTParam as $key=>$val){
+			$aPOST[] = $key."=".urlencode($val);
+		}
+		curl_setopt($oCurl, CURLOPT_URL, $sUrl);
+		curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1 );
+		curl_setopt($oCurl, CURLOPT_POST,true);
+		curl_setopt($oCurl, CURLOPT_POSTFIELDS, join("&", $aPOST));
+		$sContent = curl_exec($oCurl);
+		$aStatus = curl_getinfo($oCurl);
+		curl_close($oCurl);
+		if(intval($aStatus["http_code"])==200){
+			return $sContent;
+		}else{
+			return FALSE;
+		}
+	}
+
 	public static function do_post($url, $data)
 	{
 		$ch = curl_init();
@@ -165,6 +192,25 @@ class qqauth
 		$info = qqauth_utils::get_url_contents($get_user_info);
 		$arr = qqauth_utils::parseJson($info);
 
+		return $arr;
+	}
+	
+	/**
+	 * 发表一条微博
+	 *
+	 */
+	public function add_t($text, $token, $openid)
+	{
+		$url = "https://graph.qq.com/t/add_t";
+		$data = array(
+            "access_token" 			=> $token,
+            "oauth_consumer_key"    => $this->_appid,
+            "openid"                => $openid,
+            "format"                => "json",
+            "content"               => $text
+        );
+		$info = qqauth_utils::post($url, $data);
+		$arr = qqauth_utils::parseJson($info);
 		return $arr;
 	}
 }
