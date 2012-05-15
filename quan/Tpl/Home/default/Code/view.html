@@ -52,7 +52,15 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                 </li>
                                 <li class="red" style="margin-top: 10px;">温馨提示： </li>
                                 
-                                <li style="padding: 10px 10px 5px 10px; width: auto;" class="gray">{$detail['data']['prompt']}</li>
+                                <li style="padding: 10px 10px 5px 10px; width: auto;" class="gray">
+                                <!--{if $detail['data']['prompt']}-->
+                                {$detail['data']['prompt']}
+                                <!--{else}-->
+                                1.为确保优惠券能正常使用，请务必在新弹出的 网站中使用优惠券。<br />
+                                2.领取的券请在{$_CFG['code_in_secret']}分钟内使用，{$_CFG['code_in_secret']}分钟后会在当前页面显示出来，请大家珍惜每张优惠券!<br />
+                                3.如果当前账号已经不能领了，请不要再注册新号来领取，以免您的IP被封杀
+                                <!--{/if}-->
+                                </li>
                                 
                             </ul>
                             <div class="clear">
