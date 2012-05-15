@@ -29,7 +29,7 @@ class HomeCommonAction extends CommonAction
     		//热门搜索
     		$mall_hot20 = array();
     		$mallService = service('CouponCodeMall');
-    		$mall_hot20 = $mallService->hottest('week', 20);
+    		$mall_hot20 = $mallService->hottest('week', 10);
     		$this->assign('mall_hot20', $mall_hot20);
     	}
     	//初始化开放平台信息
