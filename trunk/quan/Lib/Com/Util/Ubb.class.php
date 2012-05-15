@@ -17,7 +17,7 @@ class Ubb
 
 		global $emotPath,$cnum,$arrcode,$bUbb2htmlFunctionInit;$cnum=0;$arrcode=array();
 
-		$emotPath= WEB_PUBLIC_PATH . '/Js/xheditor-1.1.13/xheditor_emot/';//表情根路径
+		$emotPath= __ROOT__ . '/Public/Js/xheditor-1.1.13/xheditor_emot/';//表情根路径
 
 		if(!$bUbb2htmlFunctionInit){
 			function saveCodeArea($match)
@@ -48,13 +48,13 @@ class Ubb
 				$sHtml=preg_replace("/\[\/(color|size|font|back)\]/i",'</span>',$sHtml);
 
 				for($i=0;$i<3;$i++)$sHtml=preg_replace('/\[align\s*=\s*([^\]"]+?)(?:"[^\]]*?)?\s*\](((?!\[align(?:\s+[^\]]+)?\])[\s\S])*?)\[\/align\]/','<p align="$1">$2</p>',$sHtml);
-				$sHtml=preg_replace('/\[img\]\s*(((?!")[\s\S])+?)(?:"[\s\S]*?)?\s*\[\/img\]/i','<img src="$1" alt="" />',$sHtml);
+				$sHtml=preg_replace('/\[img\]\s*(((?!")[\s\S])+?)(?:"[\s\S]*?)?\s*\[\/img\]/i','<img src="'.__ROOT__.'/'.'$1" alt="" />',$sHtml);
 				if(!$bUbb2htmlFunctionInit){
 					function getImg($match)
 					{
 						$alt=$match[1];$p1=$match[2];$p2=$match[3];$p3=$match[4];$src=$match[5];
 						$a=$p3?$p3:(!is_numeric($p1)?$p1:'');
-						return '<img src="'.$src.'" alt="'.$alt.'"'.(is_numeric($p1)?' width="'.$p1.'"':'').(is_numeric($p2)?' height="'.$p2.'"':'').($a?' align="'.$a.'"':'').' />';
+						return '<img src="'.__ROOT__.'/'.$src.'" alt="'.$alt.'"'.(is_numeric($p1)?' width="'.$p1.'"':'').(is_numeric($p2)?' height="'.$p2.'"':'').($a?' align="'.$a.'"':'').' />';
 					}}
 					$sHtml=preg_replace_callback('/\[img\s*=([^,\]]*)(?:\s*,\s*(\d*%?)\s*,\s*(\d*%?)\s*)?(?:,?\s*(\w+))?\s*\]\s*(((?!")[\s\S])+?)(?:"[\s\S]*)?\s*\[\/img\]/i','getImg',$sHtml);
 					if(!$bUbb2htmlFunctionInit){
