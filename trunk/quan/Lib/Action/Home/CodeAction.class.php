@@ -428,6 +428,35 @@ class CodeAction extends HomeCommonAction
 							'updatetime'			=>	$nowtime
 							);
 				$ccdModel->update($c_id, $data);
+				//发表一条新浪微博
+				if(($this->_CFG['sina_wb_open'] && $_SESSION['sina']['token']['access_token'])
+					|| ($this->_CFG['qq_open'] && $_SESSION['qq']["access_token"])){
+					$ccmService = service('CouponCodeMall');
+					$mall = $ccmService->info($detail['m_id']);
+					$title = '';
+					if($detail['title']){
+						$title .= $detail['title'];
+					}else{
+						$title .= $mall['name'];
+						if($detail['c_type'] ==1){
+							$title .= '满'.$detail['money_max'].'减'.$detail['money_reduce'].'元优惠券';
+						}else{
+							$title .= $detail['money_amount'] . '元代金券';
+						}
+					}
+					$url = 'http://' . $_SERVER['HTTP_HOST'] . reUrl('Code/view?id='.$c_id);
+					$pic_path = 'http://' . $_SERVER['HTTP_HOST'] . FixedUploadedFileUrl($mall['figure_image']);
+					$text = '我刚刚在#'.$this->_CFG['site_name'].'#领取了一张【'.$title.'】，数量有限，抢完为止，一般人我不告诉！'.$url;
+					if($this->_CFG['sina_wb_open'] && $_SESSION['sina']['token']['access_token']){
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/sina.class.php' );
+						$sina = new sina();
+						$sina->upload($text, $pic_path);
+					}else if ($this->_CFG['qq_open'] && $_SESSION['qq']["access_token"]){
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/qq.class.php' );
+						$qq = new qq();
+						$qq->add_t($text);
+					}
+				}
 				$this->ajaxReturn(array('code'=>$code), '领取成功', 1);
 			}else{
 				$this->ajaxReturn('', '领取失败', 0);

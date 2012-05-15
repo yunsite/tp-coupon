@@ -8,26 +8,6 @@
  */
 class UserAction extends HomeCommonAction
 {
-	protected function _initialize()
-	{
-		parent::_initialize();
-		if($this->_CFG['qq_open']){
-			if(! defined('QQ_APPID')) define('QQ_APPID', $this->_CFG['qq_appid']);
-			if(! defined('QQ_APPKEY')) define('QQ_APPKEY', $this->_CFG['qq_appkey']);
-			if(! defined('QQ_CALLBACK')){
-				define('QQ_CALLBACK', 'http://'.$_SERVER['HTTP_HOST'].__ROOT__ . '/?m=User&a=qq_callback');
-			}
-		}
-		
-		if($this->_CFG['sina_wb_open']){
-			if(! defined('WB_AKEY')) define('WB_AKEY', $this->_CFG['sina_wb_akey']);
-			if(! defined('WB_SKEY')) define('WB_SKEY', $this->_CFG['sina_wb_skey']);
-			if(! defined('WB_OFFICE_UID')) define('WB_OFFICE_UID', $this->_CFG['sina_wb_office_id']);
-			if(! defined('WB_CALLBACK_URL')){
-				define('WB_CALLBACK_URL', 'http://'.$_SERVER['HTTP_HOST'].__ROOT__.'/?m=User&a=sina_callback' );
-			}
-		}
-	}
 	/**
      * 默认操作
      * 
