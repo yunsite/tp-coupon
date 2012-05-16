@@ -115,7 +115,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                         {$mall.name}优惠券使用方法</a>
                                 </div>
                                 <br>
-                                {$mall.how2use}
+                                <div id="how2use">{$mall.how2use}</div>
                             </div>
                             <div id="c_coupon" class="tabs_c  hidden">{$mall.description}</div>
                         </div>
@@ -286,5 +286,8 @@ $('div.tabs_t>ul>li').each(function(i){
 									 					}
 													   });
 									});
+$(document).ready(function() {
+	ReImgSize('how2use',620,580);
+						   });
 </script>
 {template "../Public/footer"}
