@@ -9,6 +9,6 @@
 
 3、将 Runtime/ 目录中除 install.lock 以外所有的文件和文件夹全部删除
 
-4、访问 upgrade/112to116.php 执行升级程序
+4、访问 upgrade/112to116.php 执行升级程序，升级完成后请将 upgrade 目录删除
 
 5、祝您升级成功
