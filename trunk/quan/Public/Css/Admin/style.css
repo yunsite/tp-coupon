@@ -219,6 +219,10 @@ input.resetbutton{border-top:#ebebeb 1px solid;border-left: #ebebeb 1px solid;wi
 .label_box label{float:left; padding:3px; margin:3px 10px 3px 0;background:#E6E6E6; cursor:pointer;}
 .label_box label.active{background:#3964b4; color:#fff;}
 
+#office_forum{ padding-left:10px;}
+#office_forum a{ color:#FFF; text-decoration:none;}
+#office_forum a:hover{ text-decoration:underline;}
+
 /************jQuery.Validate插件样式开始********************/
 label.error{background: url(./Images/error2.png) no-repeat 0px 0px;color: Red;padding-left: 20px;}
 label.error2{color: Red;padding-left: 20px;}
