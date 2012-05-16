@@ -111,60 +111,167 @@ function finish_install()
 function insert_config()
 {
 	global $tablepre, $db;
-	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES
-(1, 0, 'site_info', 'group', '', '', '', 1),
-(5, 0, 'smtp', 'group', '', '', '', 1),
-(6, 0, 'hidden', 'hidden', '', '', '', 1),
-(101, 1, 'site_name', 'text', '', '', 'TP-COUPON', 1),
-(501, 5, 'smtp_host', 'text', '', '', '', 1),
-(502, 5, 'smtp_port', 'text', '', '', '25', 1),
-(503, 5, 'smtp_user', 'text', '', '', '', 1),
-(504, 5, 'smtp_pass', 'password', '', '', '', 1),
-(505, 5, 'smtp_mail', 'text', '', '', '', 1),
-(506, 5, 'mail_charset', 'select', 'UTF8,GB2312,BIG5', '', 'UTF8', 1),
-(507, 5, 'mail_service', 'select', '0,1', '', '1', 0),
-(919, 1, 'site_keywords', 'textarea', '', '', '网购 优惠券 京东优惠券 当当优惠券 凡客优惠券', 3),
-(617, 6, 'captcha', 'hidden', '', '', '61', 1),
-(618, 6, 'captcha_width', 'hidden', '', '', '100', 1),
-(619, 6, 'captcha_height', 'hidden', '', '', '35', 1),
-(912, 1, 'time_format', 'text', '', '', 'Y-m-d H:i:s', 6),
-(913, 1, 'date_format', 'text', '', '', 'Y-m-d', 5),
-(914, 1, 'timezone', 'options', '-12,-11,-10,-9,-8,-7,-6,-5,-4,-3.5,-3,-2,-1,0,1,2,3,3.5,4,4.5,5,5.5,5.75,6,6.5,7,8,9,9.5,10,11,12', '', '8', 7),
-(917, 1, 'open_gzip', 'select', '0,1', '', '1', 8),
-(918, 1, 'site_title', 'text', '', '', '中国领先的优惠券平台', 2),
-(920, 1, 'site_description', 'textarea', '', '', '中国领先的优惠券平台', 4),
-(7, 0, 'sms', 'group', '', '', '', 1),
-(921, 7, 'sms_url_send', 'text', '', '', '', 1),
-(922, 7, 'sms_url_sendtime', 'text', '', '', '', 1),
-(923, 7, 'sms_url_get', 'text', '', '', '', 1),
-(924, 7, 'sms_cdkey', 'text', '', '', '', 1),
-(925, 7, 'sms_password', 'text', '', '', '', 1),
-(926, 1, 'thumb_width', 'text', '', '', '75', 9),
-(927, 1, 'thumb_height', 'text', '', '', '75', 10),
-(928, 1, 'image_water_path', 'text', '', '', './Public/Images/logo.png', 11),
-(929, 1, 'site_domain', 'text', '', '', '', 12),
-(930, 1, 'data_cache_time', 'text', '', '', '2', 13),
-(931, 1, 'service_qq', 'text', '', '', '89249294', 14),
-(932, 1, 'weibo_sina', 'text', '', '', 'jihaoju', 15),
-(933, 1, 'weibo_qq', 'text', '', '', 'jihaoju', 16),
-(934, 0, 'payment', 'group', '', '', '', 1),
-(935, 934, 'alipay_partner', 'text', '', '', '', 16),
-(936, 934, 'alipay_key', 'password', '', '', '', 17),
-(937, 934, 'alipay_seller_email', 'text', '', '', '', 18),
-(938, 1, 'icp_number', 'text', '', '', '', 19),
-(939, 934, 'alipay_type', 'options', 'direct,warrant', '', 'warrant', 20),
-(942, 1, 'code_in_secret', 'text', '', '', '4', 22),
-(941, 1, 'url_rewrite', 'options', '0,1', '', '0', 21),
-(943, 1, 'invite_credit', 'text', '', '', '6', 23),
-(944, 1, 'statis_code', 'textarea', '', '', '', 23),
-(945, 0, 'open_platform', 'group', '', '', '', 24),
-(946, 945, 'qq_appid', 'text', '', '', '', 25),
-(947, 945, 'qq_appkey', 'text', '', '', '', 26),
-(948, 945, 'qq_open', 'select', '0,1', '', '0', 27),
-(949, 945, 'sina_wb_akey', 'text', '', '', '', 28),
-(950, 945, 'sina_wb_skey', 'text', '', '', '', 29),
-(951, 945, 'sina_wb_office_id', 'text', '', '', '0', 30),
-(953, 945, 'sina_wb_open', 'select', '0,1', '', '0', 31)";
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, 0, 'site_info', 'group', '', '', '', 1)";
+	$db->query($sql);
+	$group_site_info_id = $db->insert_id();
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, 0, 'smtp', 'group', '', '', '', 1)";
+	$db->query($sql);
+	$group_smtp_id = $db->insert_id();
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, 0, 'hidden', 'hidden', '', '', '', 1)";
+	$db->query($sql);
+	$group_hidden_id = $db->insert_id();
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, 0, 'sms', 'group', '', '', '', 1)";
+	$db->query($sql);
+	$group_sms_id = $db->insert_id();
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, 0, 'payment', 'group', '', '', '', 1)";
+	$db->query($sql);
+	$group_payment_id = $db->insert_id();
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, 0, 'open_platform', 'group', '', '', '', 24)";
+	$db->query($sql);
+	$group_open_platform_id = $db->insert_id();
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'smtp_host', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'smtp_port', 'text', '', '', '25', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'smtp_user', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'smtp_pass', 'password', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'smtp_mail', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'mail_charset', 'select', 'UTF8,GB2312,BIG5', '', 'UTF8', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_smtp_id', 'mail_service', 'select', '0,1', '', '1', 0)";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'site_name', 'text', '', '', 'TP-COUPON', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'site_title', 'text', '', '', '中国领先的优惠券平台', 2)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'site_keywords', 'textarea', '', '', '网购 优惠券 京东优惠券 当当优惠券 凡客优惠券', 3)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'site_description', 'textarea', '', '', '中国领先的优惠券平台', 4)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'time_format', 'text', '', '', 'Y-m-d H:i:s', 6)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'date_format', 'text', '', '', 'Y-m-d', 5)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'timezone', 'options', '-12,-11,-10,-9,-8,-7,-6,-5,-4,-3.5,-3,-2,-1,0,1,2,3,3.5,4,4.5,5,5.5,5.75,6,6.5,7,8,9,9.5,10,11,12', '', '8', 7)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'open_gzip', 'select', '0,1', '', '1', 8)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'thumb_width', 'text', '', '', '75', 9)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'thumb_height', 'text', '', '', '75', 10)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'image_water_path', 'text', '', '', './Public/Images/logo.png', 11)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'site_domain', 'text', '', '', '', 12)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'data_cache_time', 'text', '', '', '2', 13)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'service_qq', 'text', '', '', '89249294', 14)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'weibo_sina', 'text', '', '', 'jihaoju', 15)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'weibo_qq', 'text', '', '', 'jihaoju', 16)";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'icp_number', 'text', '', '', '', 19)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'code_in_secret', 'text', '', '', '4', 22)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'url_rewrite', 'options', '0,1', '', '0', 21)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'invite_credit', 'text', '', '', '6', 23)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'statis_code', 'textarea', '', '', '', 23)";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_sms_id', 'sms_url_send', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_sms_id', 'sms_url_sendtime', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_sms_id', 'sms_url_get', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_sms_id', 'sms_cdkey', 'text', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_sms_id', 'sms_password', 'text', '', '', '', 1)";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_payment_id', 'alipay_partner', 'text', '', '', '', 16)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_payment_id', 'alipay_key', 'password', '', '', '', 17)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_payment_id', 'alipay_seller_email', 'text', '', '', '', 18)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_payment_id', 'alipay_type', 'options', 'direct,warrant', '', 'warrant', 20)";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'qq_appid', 'text', '', '', '', 25)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'qq_appkey', 'text', '', '', '', 26)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'qq_open', 'select', '0,1', '', '0', 27)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'sina_wb_akey', 'text', '', '', '', 28)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'sina_wb_skey', 'text', '', '', '', 29)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'sina_wb_office_id', 'text', '', '', '0', 30)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_open_platform_id', 'sina_wb_open', 'select', '0,1', '', '0', 31)";
 	$db->query($sql);
 	showjsmessage('初始化系统设置 ... 成功');
 }
