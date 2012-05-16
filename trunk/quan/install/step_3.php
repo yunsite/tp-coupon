@@ -101,9 +101,10 @@ function finish_install()
 {
 	global $tablepre, $db;
 	$sql = "INSERT INTO `".$tablepre."friend_link` (`link_id`, `site_name`, `position_id`, `link_type`, `link_url`, `sort_order`, `link_code`) VALUES
-(1, '嫁娶网', 101, 1, 'http://www.ijiaqu.com', 1, '嫁娶网'),
-(3, '极好居', 101, 1, 'http://www.jihaoju.com', 2, '极好居'),
-(4, '青番茄', 101, 1, 'http://www.qfanqie.com', 3, '青番茄')";
+(null, '嫁娶网', 101, 1, 'http://www.ijiaqu.com', 1, '嫁娶网'),
+(null, '极好居', 101, 1, 'http://www.jihaoju.com', 2, '极好居'),
+(null, '青番茄', 101, 1, 'http://www.qfanqie.com', 3, '青番茄'),
+(null, '青番茄', 101, 1, 'http://www.tp-coupon.com', 4, 'TP-COUPON')";
 	$db->query($sql);
 	showjsmessage('安装完成');
 }
