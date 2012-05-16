@@ -54,7 +54,7 @@ class AdminCommonAction extends CommonAction
     	}
     	
     	if(! $this->isAjax() && ! $this->isPost()){
-			$this->assign('copyright', sprintf('%s 版权所有 &copy; 2012-%s  系统版本 <span id="version_tip">v%s</span>', 'TP-COUPON', date('Y'), APP_VERSION));
+			$this->assign('copyright', sprintf('%s 版权所有 &copy; 2012-%s  系统版本 <span id="version_tip">v%s</span><span id="office_forum"><a href="http://www.tp-coupon.com" target="_blank">官方论坛</a></span>', 'TP-COUPON', date('Y'), APP_VERSION));
 		}
 	}
 	
