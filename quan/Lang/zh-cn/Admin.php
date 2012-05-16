@@ -55,6 +55,7 @@ return array(
 									'sina_wb_skey'		=> '新浪微博App Secret',
 									'sina_wb_open'		=> '开启新浪微博开放平台登陆',
 									'sina_wb_office_id' => '官方新浪微博ID',
+									'max_left_days'		=> '最大剩余天数',
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
@@ -125,6 +126,7 @@ return array(
 										'data_cache_time'	=>	'(单位：小时)',
 										'url_rewrite'		=>	'开启伪静态前请确认您的服务器支持url_rewrite',
 										'code_in_secret'	=>	'被领取的优惠券代码超过该时间后将被公开。(单位：分钟)',
+										'max_left_days'		=>	'当优惠券真实剩余天数超过该值时则显示为该值(单位：天)',
 										),
 					),
 );
