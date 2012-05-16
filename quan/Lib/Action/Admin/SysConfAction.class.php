@@ -39,7 +39,7 @@ class SysConfAction extends AdminCommonAction
 		/* 可选语言 */
 		$_LANG = L('SysConfig');
 		$lang_list = array();
-		$this->assign('group_list',   $this->_get_settings(null, array('9','8'), $_LANG));
+		$this->assign('group_list',   $this->_get_settings(null, null, $_LANG));
 		$this->assign('lang_list',    array());
 		$this->assign('lang',    $_LANG);
 		$this->assign('ur_href', '系统管理 &gt; 系统设置');
