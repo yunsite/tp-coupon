@@ -4,15 +4,9 @@
    ucenter 下载和安装说明请访问 ： http://www.comsenz.com
    如果已经安装过ucenter则可略过此步
 
-2、配置QQ开放平台
-   要开放QQ帐号登陆请打开 Addons/plugins/login/qq/config.php 文件，按提示配置相关参数
+2、访问 install/ 执行安装程序，安装完后请将 install 目录删除，并将Conf目录设为只读
 
-3、配置新浪微博开放平台
-   要开放新浪微博帐号登陆请打开 Addons/plugins/login/sina/config.php 文件，按提示配置相关参数
-
-4、访问 install/ 执行安装程序，安装完后请将 install 目录删除
-
-5、后台访问地址 admin.php
+3、后台访问地址 admin.php
 
 官方QQ群：19385220
 
