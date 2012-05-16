@@ -19,6 +19,8 @@ function add_site_config()
 	global $tablepre, $db;
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '1', 'statis_code', 'textarea', '', '', '', '23')";
 	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '1', 'max_left_days', 'text', '', '', '2', '32')";
+	$db->query($sql);
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '0', 'open_platform', 'group', '', '', '', '24')";
 	$db->query($sql);
 	$parent_id = $db->insert_id();
