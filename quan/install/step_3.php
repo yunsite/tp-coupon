@@ -223,6 +223,9 @@ function insert_config()
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
 			 VALUES(null, '$group_site_info_id', 'statis_code', 'textarea', '', '', '', 23)";
 	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_site_info_id', 'max_left_days', 'text', '', '', '2', '32')";
+	$db->query($sql);
 	
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
 			 VALUES(null, '$group_sms_id', 'sms_url_send', 'text', '', '', '', 1)";
