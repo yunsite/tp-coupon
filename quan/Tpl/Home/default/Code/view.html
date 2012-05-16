@@ -30,7 +30,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                             	<li><em>购买价格：</em><!--{if $detail['price_type']==1}-->免费<!--{elseif $detail['price_type']==2}--><i>{$detail.price}</i>元<!--{elseif $detail['price_type']==3}--><i>{$detail.price}</i>积分<!--{/if}--></li>
                                 <li><em>优&nbsp;&nbsp;惠&nbsp;&nbsp;额：</em><!--{if $detail['c_type']==1}-->满<i>{$detail.money_max}</i>减<i>{$detail.money_reduce}</i><!--{else}--><i>{$detail.money_amount}</i>元代金券<!--{/if}--></li>
                                 
-                                <li><em>有&nbsp;&nbsp;效&nbsp;&nbsp;期：</em><!--{if $detail['expiry_type']==1}--><!--{if $detail['expiry']==0}-->已结束<!--{else}-->还剩 <i>{$detail.expiry}</i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></li>
+                                <li><em>有&nbsp;&nbsp;效&nbsp;&nbsp;期：</em><!--{if $detail['expiry_type']==1}--><!--{if $detail['expiry']==0}-->已结束<!--{else}-->还剩 <i><!--{if $detail['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$detail.expiry}<!--{/if}--></i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></li>
                                 
                                 <li><em>领取数量：</em> 已发放 <i>{$detail.fetched_amount}</i> 张</li>
                                 

@@ -48,7 +48,7 @@
         
         <div class="info">
             
-            <span><!--{if $item['expiry_type']==1}--><!--{if $item['expiry']==0}-->已结束<!--{else}-->还剩 <i>{$item.expiry}</i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></span><span>已领:<i>{$item.fetched_amount}</i></span><span>剩余:<i>{echo $item['amount']-$item['fetched_amount'];}</i></span>
+            <span><!--{if $item['expiry_type']==1}--><!--{if $item['expiry']==0}-->已结束<!--{else}-->还剩 <i><!--{if $item['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$item.expiry}<!--{/if}--></i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></span><span>已领:<i>{$item.fetched_amount}</i></span><span>剩余:<i>{echo $item['amount']-$item['fetched_amount'];}</i></span>
             
             <span><a class="store-from" href="{echo reUrl('Mall/view?id='.$item[m_id])}">{$item.m_name}优惠券</a></span>
         </div>
