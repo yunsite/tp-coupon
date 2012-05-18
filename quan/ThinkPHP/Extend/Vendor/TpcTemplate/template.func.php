@@ -42,3 +42,12 @@ function tpc_stripblock($var, $s) {
     $s = str_replace('<?', "\nEOF;\n", $s);
     return "<?\n$constadd\$$var = <<<EOF\n" . $s . "\nEOF;\n?>";
 }
+
+// 循环创建目录
+function dmkdir($dir, $mode = 0777) {
+    if (is_dir($dir) || @mkdir($dir, $mode))
+        return true;
+    if (!dmkdir(dirname($dir), $mode))
+        return false;
+    return @mkdir($dir, $mode);
+}
