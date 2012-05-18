@@ -320,6 +320,8 @@ class Template
      */
 	protected function _makepath($path)
 	{
+		@dmkdir(dirname($this->_trimpath($path)));
+		/*
 		$dirs = explode(self::DIR_SEP, dirname($this->_trimpath($path)));
 		$tmp = '';
 		foreach ($dirs as $dir) {
@@ -327,6 +329,7 @@ class Template
 			if (!file_exists($tmp) && !@mkdir($tmp, 0777))
 			return $tmp;
 		}
+		*/
 		return true;
 	}
 
