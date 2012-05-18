@@ -103,7 +103,7 @@ class CouponCodeMallModel extends Model
     public function hottest($type, $limit=10)
     {
     	$order = $type."searched DESC";
-    	return $this->field("id,name")->order($order)->select();
+    	return $this->field("id,name")->order($order)->limit($limit)->select();
     }
 
     public function getAll(
