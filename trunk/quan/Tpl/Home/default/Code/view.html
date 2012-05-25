@@ -149,6 +149,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                         <h3>
                             更多{$mall.name}优惠券</h3>
                         <ul class="hot_coupon">
+                        	<!--{eval $top10=coupon_codes_latest($mall['id']);}--> 
                             <!--{loop $top10 $item}-->  
                             <li><a class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
                                 <img src="{echo FixedUploadedFileUrl($item[logo]);}"></a>
@@ -189,7 +190,8 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                         <h3>
                             领取最多的优惠券列表</h3>
                         <ol class="rank_coupon">
-                            <!--{loop $hot10 $item}-->  
+                            <!--{eval $hot=coupon_codes_hot('week', 10);}-->
+                            <!--{loop $hot $item}-->  
                             <li><a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/loop}-->
                         </ol>
@@ -199,7 +201,8 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                             最新发布优惠券</h3>
                         <ol class="rank_coupon">
                             
-                            <!--{loop $latest10 $item}-->  
+                            <!--{eval $latest=coupon_codes_latest();}--> 
+                            <!--{loop $latest $item}-->
                             <li><a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/loop}-->
                             
@@ -209,7 +212,8 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                         <h3>
                             最新被领取的优惠券</h3>
                         <ul class="hot_coupon">
-                        	<!--{loop $fetched10 $item}-->
+                        	<!--{eval $fetched=coupon_codes_fetched(10);}-->
+                        	<!--{loop $fetched $item}-->
                             <li><a class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
                                 <img src="{echo FixedUploadedFileUrl($item[logo]);}"></a>
                                 <div class="img_detail">
@@ -218,7 +222,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                     <p>
                                         已领数量：{$item.fetched_amount}张</p>
                                     <p>
-                                        领取时间：{$item.fetch_time}</p>
+                                        领取时间：{echo date('H:i:s',$item['fetch_time'])}</p>
                                     <p>
                                         领取用户：
                                         {$item.nick}

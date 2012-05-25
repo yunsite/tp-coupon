@@ -36,7 +36,7 @@
   </tr>
 </table>
 <input name="hash" type="hidden" value="{$hash}" />
-<input name="action" type="hidden" value="dobind" />
+<input name="ac" type="hidden" value="dobind" />
 <input name="type" type="hidden" value="{$type}" />
 </form>
 				</ul>
@@ -49,7 +49,7 @@
         <li class="yellow">
             <h3>已有{$_CFG['site_name']}帐号？直接登陆</h3>
             <div class="sidebar_s clear">
-            	<form action="{echo reUrl('User/bind?type='.$type.'&action=dobind');}" method="post" name="login_form" id="login_form" onsubmit="return false;">
+            	<form action="{echo reUrl('User/bind?type='.$type.'&ac=dobind');}" method="post" name="login_form" id="login_form" onsubmit="return false;">
                     <table width="100%" border="0" class="login_form">
   <tr>
     <td width="100" align="right">帐号：</td>
@@ -66,7 +66,7 @@
   </tr>
 </table>
 <input name="_hash_" type="hidden" value="{$_hash_}" />
-<input name="action" type="hidden" value="dobind" />
+<input name="ac" type="hidden" value="dobind" />
 <input name="type" type="hidden" value="{$type}" />
 </form>
             </div>
@@ -81,7 +81,7 @@ var g = '{GROUP_NAME}';
 var m = '{MODULE_NAME}';
 var a = '{ACTION_NAME}';
 var type = '{$type}';
-var r_url = 'index.php?m='+m+'&a='+a+'&type='+type+'&action=dobind';
+var r_url = 'index.php?m='+m+'&a='+a+'&type='+type+'&ac=dobind';
 var reg_url = "{echo reUrl('User/reg');}";
 var login_url = "{echo reUrl('User/login');}";
 var dosubmit = false;
