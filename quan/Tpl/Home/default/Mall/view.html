@@ -81,7 +81,8 @@
                         <h3>
                             领取最多的优惠券列表</h3>
                         <ol class="rank_coupon">
-                            <!--{loop $hot10 $item}-->
+                            <!--{eval $hot=coupon_codes_hot('week', 10);}-->
+                            <!--{loop $hot $item}-->
                             <li><a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/loop}-->
                         </ol>
@@ -90,6 +91,7 @@
                         <h3>
                             推荐商城</h3>
                         <ul class="twocol img">
+                        	<!--{eval $mall_recs=rec_malls(102);}-->
                             <!--{loop $mall_recs $item}-->
                             <li><a title="{$item.name}优惠券" href="{echo reUrl('Mall/view?id='.$item[c_id])}">
                                 <img width="90" src="{echo FixedUploadedFileUrl($item[logo]);}"><br>
