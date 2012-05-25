@@ -90,21 +90,6 @@ class CodeAction extends HomeCommonAction
 		$this->assign('t_type', $t_type);
 		$this->assign('cate_id', $cate_id);
 		$this->assign('cate_id2', $cate_id2);
-		$ccService = service('CouponCode');
-		//最新10个优惠券
-		$latest10 = $ccService->mall_latest();
-		$this->assign('latest10', $latest10);
-		//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
-		//最近被领取的10个优惠券
-		$fetched10 = array();
-		$data = $ccService->fetch_latest(10);
-		foreach ($data as $d){
-			$d['fetch_time'] = $localTimeObj->local_date('H:i:s', $d['fetch_time']);
-			$fetched10[] = $d;
-		}
-		$this->assign('fetched10', $fetched10);
 		$this->assign('page_title', '最新优惠券 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
@@ -193,21 +178,6 @@ class CodeAction extends HomeCommonAction
 		$this->assign('type', $type);
 		$this->assign('cate_id', $cate_id);
 		$this->assign('cate_id2', $cate_id2);
-		$ccService = service('CouponCode');
-		//最新10个优惠券
-		$latest10 = $ccService->mall_latest();
-		$this->assign('latest10', $latest10);
-		//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
-		//最近被领取的10个优惠券
-		$fetched10 = array();
-		$data = $ccService->fetch_latest(10);
-		foreach ($data as $d){
-			$d['fetch_time'] = $localTimeObj->local_date('H:i:s', $d['fetch_time']);
-			$fetched10[] = $d;
-		}
-		$this->assign('fetched10', $fetched10);
 		$this->assign('page_title', '热门优惠券 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
@@ -249,13 +219,6 @@ class CodeAction extends HomeCommonAction
 		5);
 		$pagelink=$p->showStyle(3);
 		$this->assign('pagelink', $pagelink);
-		$ccService = service('CouponCode');
-		//最新10个优惠券
-		$latest10 = $ccService->mall_latest();
-		$this->assign('latest10', $latest10);
-		//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
 		$this->assign('page_title', '最近被领取的优惠券 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
@@ -308,24 +271,6 @@ class CodeAction extends HomeCommonAction
 		$mall['how2use'] = Ubb::ubb2html($mall['how2use']);
 		$this->assign('detail', $detail);
 		$this->assign('mall', $mall);
-		//商家最新10个优惠券
-		$ccService = service('CouponCode');
-		$top10 = $ccService->mall_latest($detail['m_id']);
-		$this->assign('top10', $top10);
-		//最新10个优惠券
-		$latest10 = $ccService->mall_latest();
-		$this->assign('latest10', $latest10);
-		//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
-		//最近被领取的10个优惠券
-		$fetched10 = array();
-		$data = $ccService->fetch_latest(10);
-		foreach ($data as $d){
-			$d['fetch_time'] = $localTimeObj->local_date('H:i:s', $d['fetch_time']);
-			$fetched10[] = $d;
-		}
-		$this->assign('fetched10', $fetched10);
 		//前100位领取此优惠券的会员
 		$cccModel = D('CouponCodeCodes');
 		$record_top100 = $cccModel->record_top($c_id, 100);

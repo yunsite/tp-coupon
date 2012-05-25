@@ -46,7 +46,7 @@ class UserAction extends HomeCommonAction
 					$addtime = LocalTime::getInstance()->gmtime();
 					$uModel->_add(array('user_id'=>$uid,'nick'=>$nick, 'email'=>$email,'password'=>md5($pw),'invite'=>$invite,'addtime'=>$addtime));
 				}
-				if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'dobind'){
+				if(isset($_REQUEST['ac']) && $_REQUEST['ac'] == 'dobind'){
 					if($_REQUEST['type'] == 'sina'){
 						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/sina.class.php' );
 						$sina = new sina();
@@ -134,7 +134,7 @@ class UserAction extends HomeCommonAction
 					$uModel->update($user['uid'], array('password' => md5($user['password'])));
 				}
 				//绑定
-				if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'dobind'){
+				if(isset($_REQUEST['ac']) && $_REQUEST['ac'] == 'dobind'){
 					if($_REQUEST['type'] == 'sina'){
 						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/sina.class.php' );
 						$sina = new sina();
@@ -302,7 +302,7 @@ class UserAction extends HomeCommonAction
 		if(! in_array($type, C('OPEN_PLATFORM'))){
 			$this->error('参数错误');
 		}
-		if(isset($_REQUEST['action']) && $_REQUEST['action'] == 'dobind'){
+		if(isset($_REQUEST['ac']) && $_REQUEST['ac'] == 'dobind'){
 			if($type == 'sina'){
 				include_once( DOC_ROOT_PATH . 'Addons/plugins/login/sina.class.php' );
 				$sina = new sina();
