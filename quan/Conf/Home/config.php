@@ -28,7 +28,7 @@ return array(
 'TMPL_ENGINE_CONFIG' => array( 
     'template_dir' 		=> TMPL_PATH, 
     'cache_dir'  		=> CACHE_PATH . 'Home' . DIRECTORY_SEPARATOR . MODULE_NAME . DIRECTORY_SEPARATOR,
-    'auto_update' 		=> false,
+    'auto_update' 		=> true,
     'cache_lifetime'	=> 0,
     'suffix' 			=> '.html',
 ),	//Tpc配置
