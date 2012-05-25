@@ -10,10 +10,10 @@ var coupon = {
 			var html = '';
 			if(parseInt($(this).attr('ptype'))==2){
 				html += '<font color="#ff6600">确定购买该优惠券吗？<br />';
-				html += '需要支付'+parseInt($(this).attr('price'))+'元购买该优惠券</font>';
+				html += '需要支付'+parseFloat($(this).attr('price'))+'元购买该优惠券</font>';
 			}else if(parseInt($(this).attr('ptype'))==3){
 				html += '<font color="#ff6600">确定购买该优惠券吗？<br />';
-				html += '需要支付'+parseInt($(this).attr('price'))+'积分购买该优惠券</font>';
+				html += '需要支付'+parseFloat($(this).attr('price'))+'积分购买该优惠券</font>';
 			}else{
 				self.pull(parseInt($(this).attr('cid')));
 				return;

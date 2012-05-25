@@ -39,14 +39,6 @@ class MallAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-    	//推荐商家
-    	$ccmrService = service('CouponCodeMallRecs');
-    	$mall_recs = $ccmrService->recs_by_position(102);
-    	$this->assign('mall_recs', $mall_recs);
-    	$ccService = service('CouponCode');
-    	//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
     	$this->assign('page_title', $mall['name'] . '优惠券 - ');
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
@@ -84,14 +76,6 @@ class MallAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-    	//推荐商家
-    	$ccmrService = service('CouponCodeMallRecs');
-    	$mall_recs = $ccmrService->recs_by_position(102);
-    	$this->assign('mall_recs', $mall_recs);
-    	$ccService = service('CouponCode');
-    	//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
     	$this->assign('page_title', $mall['name'] . '优惠券 - ');
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
@@ -131,30 +115,6 @@ class MallAction extends HomeCommonAction
 			}
 		}
 		$this->assign('malls4cate', $malls4cate);
-    	//推荐商家
-    	$ccmrService = service('CouponCodeMallRecs');
-    	$mall_recs = $ccmrService->recs_by_position(101);
-    	$this->assign('mall_recs', $mall_recs);
-    	$ccService = service('CouponCode');
-    	//最新10个优惠券
-		$latest10 = $ccService->mall_latest();
-		$this->assign('latest10', $latest10);
-    	//本周最多被领取的10个优惠券
-		$hot10 = $ccService->hottest('week', 10);
-		$this->assign('hot10', $hot10);
-		//最近被领取的10个优惠券
-		$fetched10 = array();
-		$data = $ccService->fetch_latest(10);
-		foreach ($data as $d){
-			$d['fetch_time'] = $localTimeObj->local_date('H:i:s', $d['fetch_time']);
-			$fetched10[] = $d;
-		}
-		$this->assign('fetched10', $fetched10);
-    	//每日精选
-		$daybest10 = array();
-		$time = $localTimeObj->local_strtotime(date('Y-m-d 00:00:00'));
-		$daybest10 = $ccService->daybest($time, 10);
-		$this->assign('daybest10', $daybest10);
     	$this->assign('page_title', '');
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
