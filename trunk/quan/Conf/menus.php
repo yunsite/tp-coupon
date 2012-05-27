@@ -49,6 +49,38 @@ return array(
 																	),
 											),
 											array(
+											'module'		=>	'MallPromotion',
+											'displayName'	=>	'促销活动管理',
+											'actions'		=>	array(
+																	array(
+																		'action'		=>	'index',
+																		'displayName'	=>	'活动列表',
+																		'params'		=>	array(),
+																		),
+																	 array(
+																		'action'		=>	'add',
+																		'displayName'	=>	'添加活动',
+																		'params'		=>	array(),
+																		),
+																	),
+											),
+											array(
+											'module'		=>	'MallZhekou',
+											'displayName'	=>	'折扣商品管理',
+											'actions'		=>	array(
+																	array(
+																		'action'		=>	'index',
+																		'displayName'	=>	'折扣列表',
+																		'params'		=>	array(),
+																		),
+																	 array(
+																		'action'		=>	'add',
+																		'displayName'	=>	'添加折扣商品',
+																		'params'		=>	array(),
+																		),
+																	),
+											),
+											array(
 											'module'		=>	'CouponCodeCategory',
 											'displayName'	=>	'分类管理',
 											'actions'		=>	array(

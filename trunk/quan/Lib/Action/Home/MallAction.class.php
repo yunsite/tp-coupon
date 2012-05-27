@@ -39,9 +39,27 @@ class MallAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
+			
     	$this->assign('page_title', $mall['name'] . '优惠券 - ');
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
+    	//更新热度
+		$mallModel = D('CouponCodeMall');
+		$nowtime = $localTimeObj->gmtime();
+		$yestoday = $nowtime-24*3600;
+		$mall = $mallModel->field('yesterdaysearched,daysearched,weeksearched,monthsearched,updatetime')->where("id='$id'")->find();
+    	$yesterdaysearched = (date('Ymd', $mall['updatetime']) == date('Ymd', $yestoday)) ? $mall['daysearched'] : $mall['yesterdaysearched'];
+    	$daysearched = (date('Ymd', $mall['updatetime']) == date('Ymd', $nowtime)) ? ($mall['daysearched'] + 1) : 1;
+    	$weeksearched = (date('YW', $mall['updatetime']) == date('YW', $nowtime)) ? ($mall['weeksearched'] + 1) : 1;
+    	$monthsearched = (date('Ym', $mall['updatetime']) == date('Ym', $nowtime)) ? ($mall['monthsearched'] + 1) : 1;
+		$data = array(
+							'yesterdaysearched'		=>	$yesterdaysearched,
+							'daysearched'			=>	$daysearched,
+							'weeksearched'			=>	$weeksearched,
+							'monthsearched'			=>	$monthsearched,
+							'updatetime'			=>	$nowtime
+							);
+		$mallModel->update($id, $data);
     	$this->display();
     }
     
@@ -84,38 +102,54 @@ class MallAction extends HomeCommonAction
     
     public function lists()
     {
+    	$page = isset($_REQUEST['p']) && $_REQUEST['p'] >= 1 ? $_REQUEST['p'] : 1;
+		$pageLimit = 30;
+		$t_type = isset($_REQUEST['t_type']) ? intval($_REQUEST['t_type']) : 0;
+    	$cid = isset($_REQUEST['cid']) ? intval($_REQUEST['cid']) : 0;
+		$cid2 = isset($_REQUEST['cid2']) ? intval($_REQUEST['cid2']) : 0;
     	$localTimeObj = LocalTime::getInstance();
 		$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
     	//商家分类
 		$cccService = service('CouponCodeCategory');
 		$cates = $cccService->getTree();
-		//分类商家
-		$ccmService = service('CouponCodeMall');
-		$mallModel = D('CouponCodeMall');
-		$malls4cate = array();
-		foreach ($cates as $c){
-			if($c['level'] ==0){
-				$cate_ids = is_array($cates[$c['id']]['childs'])
-							? $cates[$c['id']]['childs']
-							: array();
-				$cate_ids[] = $c['id'];
-				$cate_ids = implode(',', $cate_ids);
-				$res = $mallModel->malls4cate($cate_ids);
-				$malls = array();
-				foreach ($res as $rs){
-					$malls[] = $ccmService->info($rs['id']);
-				}
-				if(empty($malls)){
-					continue;
-				}
-				$malls4cate[] = array(
-										'cate'		=>	$c,
-										'malls'	=>	$malls
-										);
+		//商家子分类
+		$children = $cate_ids = array();
+		if(is_array($cates[$cid]['childs'])){
+			foreach ($cates[$cid]['childs'] as $v){
+				$c = $cccService->info($v);
+				$children[] = array('id' => $v,'name' => $c['name']);
 			}
 		}
-		$this->assign('malls4cate', $malls4cate);
-    	$this->assign('page_title', '');
+		if($cid2 == 0){
+			$cate_ids = is_array($cates[$cid]['childs']) ? $cates[$cid]['childs'] : array();
+			$cate_ids[] = $cid;
+			$cate_ids = implode(',', $cate_ids);
+		}else{
+			$cate_ids = $cid2;
+		}
+		$params = array('c_id' => $cate_ids, 't_type'=>$t_type);
+		$limit = array('begin'=>($page-1)*$pageLimit, 'offset'=>$pageLimit);
+		$codeMallModel = D('CouponCodeMall');
+		$keys = array();
+		$res = $codeMallModel->front($keys, $params, $limit);
+		$malls = $res['data'];
+		$this->assign('malls', $malls);
+		$page_url = reUrl(MODULE_NAME."/".ACTION_NAME."?cid=$cid&t_type=$t_type&cid2=$cid2&p=[page]");
+		$page_url = str_replace('%5bpage%5d', '[page]', $page_url);
+		$p=new Page($page,
+		$pageLimit,
+		$res['count'],
+		$page_url,
+		5,
+		5);
+		$pagelink=$p->showStyle(3);
+		$this->assign('pagelink', $pagelink);
+		$this->assign('cates', $cates);
+		$this->assign('cate_children', $children);
+		$this->assign('cid', $cid);
+		$this->assign('cid2', $cid2);
+		$this->assign('t_type', $t_type);
+    	$this->assign('page_title', '商家大全 - ');
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
     	$this->display();

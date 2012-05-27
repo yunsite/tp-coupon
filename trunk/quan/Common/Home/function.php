@@ -47,6 +47,20 @@ function rec_malls($position_id)
 	$ccmrService = service('CouponCodeMallRecs');
     return $mall_recs[$position_id] = $ccmrService->recs_by_position($position_id);
 }
+
+/**
+ * 热门搜索商家
+ *
+ * @param string $type:yesterday(昨日)、day（今日）、week（本周）、month（本月）
+ * @param int $limit
+ * @return array
+ */
+function hot_malls($type='week', $limit=10)
+{
+	$malls = array();
+	$mallService = service('CouponCodeMall');
+	return $malls = $mallService->hottest($type, $limit);
+}
 /*==========================================优惠券函数库=========================================================*/
 /**
  * 最新优惠券
@@ -113,4 +127,40 @@ function coupon_codes_daybest($limit)
 	$localTimeObj = LocalTime::getInstance();
 	$time = $localTimeObj->local_strtotime(date('Y-m-d 00:00:00'));
 	return $return[$limit] = $ccService->daybest($time, $limit);
+}
+
+/**
+ * 获取分类优惠券
+ *
+ * @param int $cate_id			分类ID
+ * @param int $limit
+ * @return array
+ */
+function coupon_codes_cate($cate_id, $limit)
+{
+	static $ccModel=null,$cates=null,$cates=null,$cfg=null,$localTimeObj=null;
+	if($ccModel === null) $ccModel = D('CouponCode');
+	if($cates === null) $cates = get_mall_category_tree();
+	if($all_cates === null) $all_cates = get_mall_category();
+	if($cfg === null) $cfg = load_config();
+	if($localTimeObj === null) $localTimeObj = LocalTime::getInstance();
+	$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
+	$coupons = array();
+	$c = $all_cates[$cate_id];
+	$cate_ids = is_array($cates[$c['id']]['childs']) ? $cates[$c['id']]['childs'] : array();
+	$cate_ids[] = $c['id'];
+	$cate_ids = implode(',', $cate_ids);
+	$res = $ccModel->coupons4cate($cate_ids, $limit);
+	foreach ($res as $rs){
+		if($rs['expiry_type'] == 1){
+			$rs['expiry_timestamp'] = $rs['expiry'] + $cfg['timezone']*3600;
+			if(($rs['expiry'] - $today) == 0){
+				$rs['expiry'] = 1;
+			}else{
+				$rs['expiry'] = ($rs['expiry'] - $today) > 0 ? ceil(($rs['expiry'] - $today)/(3600*24)) : 0;
+			}
+		}
+		$coupons[] = $rs;
+	}
+	return $coupons;
 }

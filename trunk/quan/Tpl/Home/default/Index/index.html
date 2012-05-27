@@ -1,6 +1,17 @@
 {template "../Public/header"}
 {template "../Public/nav"}
 <div class="w990 clear">
+		<ul id="category-tabs">
+                    <li class="current"><a href="__ROOT__/">知名商城</a></li>
+                    <!--{eval $cates = get_mall_category_tree();}-->
+                    <!--{eval $ii=1;}-->
+                    <!--{loop $cates $c}-->
+                    <!--{if $c['level']==0 && $ii<11}-->
+                    <li><a href="{echo reUrl('Code/latest?cate_id='.$c['id'].'&t_type=0&cate_id2=0&p=1');}">{$c.name}</a></li>
+                    <!--{/if}-->
+                    <!--{eval $ii++;}-->
+                    <!--{/loop}-->
+                </ul>
         <div class="gray" id="indexshop">
             <ul>
             	<!--{eval $mall_recs=rec_malls(101);}-->
@@ -39,26 +50,15 @@
 <span>&nbsp;</span>
 <div class="clear">&nbsp;</div>
                 <div class="main_l_i">
-                    <div class="main_l_c_c">
-                    <!--{eval $i=0;}-->
-                    <!--{loop $coupons4cate $item1}-->
-                    <h1 {if $i>0}class="mt10"{/if}>{$item1['cate']['name']}</h1>
-                    <!--{eval $i++;}-->
-                    <ul class="coupons-list">
-                    <!--{loop $item1['coupons'] $item}-->                  
-		<li>
+                    <ul class="coupons-list" id="J_CouponsList" style="margin-left: 5px;">
+<!--{loop $codes $item}-->          
+<li>
     <div class="coupon-wrapper">
         <div class="scissors">
         </div>
-        <h2>
-            <a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id])}" target="_blank">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}</a>
-            
-            <!--<i class="hot">hot</i>-->
-            
-        </h2>
+        <h2><a href="{echo reUrl('Code/view?id='.$item[c_id]);}" title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" target="_blank"><!--{if $item['title']}-->{$item.title}<!--{else}-->{$item.m_name}<!--{if $item['c_type']==1}-->满{$item.money_max}减{$item.money_reduce}元优惠券<!--{else}-->{$item.money_amount}元代金券<!--{/if}--><!--{/if}--></a><!--<i class="hot">hot</i>--></h2>
         <a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}" class="coupon" target="_blank">
-            <span class="left"><span class="description"><!--{if $item['c_type']==1}-->满<em>{$item.money_max}</em>减<em>{$item.money_reduce}</em><!--{else}--><em>{$item.money_amount}</em>元代金券<!--{/if}-->
-            </span><span class="store-logo">
+            <span class="left"><span class="description"><!--{if $item['c_type']==1}-->满<em>{$item.money_max}</em>减<em>{$item.money_reduce}</em><!--{else}--><em>{$item.money_amount}</em>元代金券<!--{/if}--></span><span class="store-logo">
                 <img src="{echo FixedUploadedFileUrl($item[logo]);}" style="display: block;"></span> </span>
             <span class="right">
                 
@@ -70,7 +70,7 @@
         
         <div class="info">
             
-            <span><!--{if $item['expiry_type']==1}--><!--{if $item['expiry']==0}-->已结束<!--{else}-->还剩 <i><!--{if $item['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$item.expiry}<!--{/if}--></i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></span><span>已领:<i>{$item.fetched_amount}</i></span><span>剩余:<i>{echo $item['amount']-$item['fetched_amount'];}</i></span>
+            <span><!--{if $item['expiry_type']==1}--><!--{if $item['expiry']==0}-->已结束<!--{else}-->还剩 <i><!--{if $item['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$item.expiry}<!--{/if}--></i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--> </span><span>已领数量：<i>{$item.fetched_amount}</i></span><span>收录券</span>
             
             <span><a class="store-from" href="{echo reUrl('Mall/view?id='.$item[m_id])}">{$item.m_name}优惠券</a></span>
         </div>
@@ -79,8 +79,7 @@
 </li>
 <!--{/loop}-->
 </ul>
-<!--{/loop}-->
-</div>
+<ul class="pager">{$pagelink}</ul>
 </div>
 </div>
             <div style="width: 320px;" class="main_r">
@@ -185,6 +184,7 @@
                         <h3>
                             热门搜索</h3>
                         <ul class="multicol">
+                            <!--{eval $mall_hot20=hot_malls('week', 20);}-->
                             <!--{loop $mall_hot20 $item}-->
                             <li><a title="{$item.name}优惠券" href="{echo reUrl('Mall/view?id='.$item[id]);}">{$item.name}优惠券</a></li>
                             <!--{/loop}-->

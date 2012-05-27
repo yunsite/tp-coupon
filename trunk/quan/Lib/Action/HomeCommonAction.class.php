@@ -25,13 +25,6 @@ class HomeCommonAction extends CommonAction
     	$this->_init_user();
     	//验证登陆
     	$this->_check_login();
-    	if(! $this->isAjax() && ! $this->isPost()){
-    		//热门搜索
-    		$mall_hot20 = array();
-    		$mallService = service('CouponCodeMall');
-    		$mall_hot20 = $mallService->hottest('week', 10);
-    		$this->assign('mall_hot20', $mall_hot20);
-    	}
     	//初始化开放平台信息
     	$this->_init_open_platform();
 	}

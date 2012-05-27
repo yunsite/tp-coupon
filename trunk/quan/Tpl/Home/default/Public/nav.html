@@ -38,11 +38,9 @@
                         </form>
                     </div>
                     <div class="search_t">
-                    <!--{eval $ii=0;}-->
-                    <!--{loop $mall_hot20 $key $item}-->
+                    <!--{eval $hot_malls_10=hot_malls('week', 10);}-->
+                    <!--{loop $hot_malls_10 $key $item}-->
                     <a title="{$item.name}优惠券" href="{echo reUrl("Home/Mall/view?id=".$item[id])}">{$item.name}</a>
-                    <!--{eval $ii++;}-->
-                    <!--{if $ii==10}--><!--{eval break;}--><!--{/if}-->
                     <!--{/loop}-->
                     </div>
                 </div>
@@ -61,7 +59,11 @@
                     <li>|</li>
                     <li><a href="{echo reUrl('Home/Code/lastestpulled')}" {if MODULE_NAME == 'Code' && ACTION_NAME=='lastestpulled'}class="active"{/if}><span></span>最近被领取的优惠券</a></li>
                     <li>|</li>
-                    <li><a href="{echo reUrl('Home/Mall/lists')}" {if MODULE_NAME == 'Mall' && ACTION_NAME=='lists'}class="active"{/if}><span></span>商家大全</a></li>                
+                    <li><a href="{echo reUrl('Home/Mall/lists')}" {if MODULE_NAME == 'Mall' && ACTION_NAME=='lists'}class="active"{/if}><span></span>商家大全</a></li>
+                    <li>|</li>
+                    <li><a href="{echo reUrl('Home/Promotion/index')}" {if MODULE_NAME == 'Promotion' && ACTION_NAME=='index'}class="active"{/if}><span></span>促销活动</a></li>
+                    <li>|</li>
+                    <li><a href="{echo reUrl('Home/Zhekou/index')}" {if MODULE_NAME == 'Zhekou' && ACTION_NAME=='index'}class="active"{/if}><span></span>超值折扣</a></li>
                 </ul>
                 
 <ul id="nav_r">

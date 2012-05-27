@@ -240,6 +240,24 @@ CREATE TABLE `dbs_friend_link` (
   KEY `position_id` (`position_id`,`link_type`,`sort_order`)
 ) ENGINE=MyISAM ;
 
+DROP TABLE IF EXISTS dbs_mall_promotion;
+CREATE TABLE IF NOT EXISTS `dbs_mall_promotion` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `cate_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `m_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `m_name` varchar(200) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `gourl` varchar(150) NOT NULL DEFAULT '' COMMENT '购买跳转地址',
+  `description` text NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '9999',
+  `expiry` int(11) unsigned NOT NULL DEFAULT '0',
+  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `c_id` (`cate_id`),
+  KEY `m_id` (`m_id`)
+) ENGINE=MyISAM ;
+
 DROP TABLE IF EXISTS dbs_payment;
 CREATE TABLE `dbs_payment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
