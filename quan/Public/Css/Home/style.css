@@ -497,6 +497,19 @@ ul.blist li:hover{background:#FEF8E0; border:1px dashed #FFD32C}
 ul.blist li a img{border:1px solid #ddd; width:90px; height:45px}
 ul.blist li a.bname{display:block}
 
+ul.bshop li{height:150px; margin:0px 0 6px 6px; border:1px dashed #fff;width:470px;text-align:justify;}
+ul.blist li:hover{background:#FEF8E0; border:1px dashed #FFD32C}
+ul.blist li .blist_p {float:left;margin-left:10px;width:95px;overflow:hidden;}
+ul.blist li .blist_p a img{border:1px solid #ddd;}
+ul.blist li .blist_p .comment{margin-right:0}
+
+ul.blist li .blist_n {float:left;margin-left:10px;height:60px;width:350px;}
+ul.blist li .blist_n h4 {display:block;clear:both;width:100%;height:20px;}
+ul.blist li .blist_n h4 a{float:left;}
+ul.blist li .blist_n .intro {margin:3px 0 5px 0;height:80px;line-height:19px;}
+ul.blist li .blist_n .project {margin:3px 0 5px 0;color:#999;}
+ul.blist li .blist_n .outlink a{font-family: Verdana;}
+
 .search_l li.normal{margin-bottom:10px; border-bottom:1px dashed #eee}
 .search_c, .search_i{margin:0 10px 15px 13px}
 .search_i a{padding:7px 10px}
@@ -754,6 +767,54 @@ li ul.buying li img{width:100px;height:100px;}
 * html .float_nav{ _position:absolute; _top:expression(eval(document.documentElement.scrollTop))}
 * html #warmtips{ _position:absolute; _top:expression(eval(document.documentElement.scrollTop+272))}
 
+#category-tabs
+        {
+            clear: both;
+            height: 28px;
+            border-top: solid 1px #DCDCE6;
+            border-bottom: solid 2px #5f9b0e;
+            background-image: -webkit-linear-gradient(#FAFBFF,#F6F6F6);
+            background-image: -moz-linear-gradient(#FAFBFF,#F6F6F6);
+            background-image: -o-linear-gradient(#FAFBFF,#F6F6F6);
+            background-image: linear-gradient(#FAFBFF,#F6F6F6);
+            filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#FAFBFF,endColorStr=#F6F6F6);
+			margin-top:10px;
+			_margin-top:0px;
+        }
+        #category-tabs li
+        {
+            display: inline;
+            float: left;
+            margin-right: -1px;
+            height: 28px;
+            border: solid #DCDCE6;
+            border-width: 0 1px;
+            line-height: 28px;
+            text-align: center;
+            cursor: pointer;
+			padding:0px 8px 0px 8px;
+        }
+        #category-tabs li a
+        {
+            display: block;
+            text-decoration: none;
+            color: #333;
+        }
+        #category-tabs li.current
+        {
+            position: relative;
+            padding-top: 1px;
+            margin-top: -1px;
+            margin-right: 0;
+            border-color: #5f9b0e;
+            background: #5f9b0e;
+        }
+        #category-tabs li.current a
+        {
+            font-weight: bold;
+            color: #FFF;
+        }
+		
 #indexshop {margin-top:10px;}
 #indexshop ul li.selected .store-item, 
 #more-stores .left, #more-stores .right, 
@@ -823,7 +884,7 @@ ol.rank_coupon li span{position:absolute; padding-left:5px;  color:#999}
 #indexshop{margin-bottom:0}
 #indexshop ul{padding:3px 0 1px 0; margin:0 9px; width:970px; height:152px; overflow:hidden; -webkit-transition-duration:300ms; -webkit-transition-timing-function:cubic-bezier(0.1,0.5,0.1,1); -webkit-transition-property:none}
 #indexshop ul li{display:inline; float:left; margin:0 -1px -1px 0; width:122px; height:77px; overflow:hidden; cursor:pointer}
-#indexshop ul .store-item{display:block; width:120px; height:75px; border:solid 1px #BDF968; color:#333; text-decoration:none; overflow:hidden}
+#indexshop ul .store-item{display:block; width:120px; height:75px; border:solid 1px #BDF968; color:#333; text-decoration:none; overflow:hidden; background-color:#FFF;}
 #indexshop ul li.selected .store-item, #indexshop ul .store-item.hover, #indexshop ul .store-item:hover{position:relative; border-color:#629E0F}
 #indexshop ul .store-logo{display:inline-block; padding:5px 20px; width:80px; height:40px; overflow:hidden; cursor:pointer; outline:none}
 #indexshop ul .store-name{outline:none; display:block; width:120px; text-align:center; line-height:16px; height:16px; overflow:hidden; cursor:pointer; color:#333}
@@ -896,6 +957,113 @@ ol.rank_coupon li span{position:absolute; padding-left:5px;  color:#999}
     overflow: hidden;
     padding: 0;
 	display:block;
+}
+
+#promotions div.pros_l{ float:left; width:168px; background-color:#aed083;}
+#promotions div.pros_l .title {
+    font-size: 14px;
+    font-weight: bold;
+    height: 33px;
+    line-height: 33px;
+    text-align: center;
+    width: 168px;
+}
+#promotions div.pros_l ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+#promotions div.pros_l ul li {
+    font-size: 14px;
+    height: 33px;
+    line-height: 33px;
+    padding-left: 18px;
+    text-align: left;
+}
+#promotions div.pros_l ul li.sel {
+    background: url("Images/cate_select.jpg") no-repeat scroll right center transparent;
+    color: #E21B23;
+    font-weight: bold;
+}
+#promotions div.pros_l ul li span {
+    background: url("Images/icon.gif") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 20px;
+    margin: 6px 10px 0 0;
+    width: 20px;
+}
+#promotions div.pros_r{
+    float: left;
+    margin-top: -3px;
+    padding: 0 0 25px 25px;
+    position: relative;
+    width: 790px;
+}
+#promotions div.pros_r ol {
+    list-style-image: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+	float:left;
+	width:100%;
+}
+#promotions div.pros_r ol li {
+    border-bottom: 1px dotted #B3DBF7;
+    padding: 10px 0 5px 5px;
+}
+.picborder {
+    border: 3px solid #aed083;
+    display: block;
+    float: left;
+    height: 160px;
+    margin-right: 15px;
+    overflow: hidden;
+    width: 320px;
+}
+#promotions div.pros_r ol li div h3 {
+    font-size: 20px;
+    margin: 5px 10px 3px 0;
+}
+#promotions div.pros_r ol li div h3 a {
+    color: #333333;
+    text-decoration: none;
+}
+.time-range {
+    color: #888888;
+    font-size: 12px;
+}
+#operate {
+    font-size: 12px;
+    margin-bottom: 10px;
+    margin-top: 15px;
+}
+/*taobao deal*/
+.deal_box{ width:999px; margin-right:-19px; overflow:hidden; _zoom:1;}
+.deal_a{ width:297px; height:368px; margin:12px 19px 0 0; float:left; background:url(Images/bg3.png) no-repeat scroll 0 -104px transparent; padding:7px 9px 0 8px;}
+.deal_hover{ background-position:-332px -104px;}
+.deal_bt{ font-weight:bold; height:40px; overflow:hidden; text-align:left; line-height:20px; font-size:14px; color:#666;margin:0 5px}
+.deal_bt strong{ color:#d50000; padding-right:3px; display:inline;}
+.deal_bt strong a{ color:#d50000;}
+.deal_bt h2{ display:inline; padding-left:3px;}
+.deal_bt h2 a{ color:#666;}
+.deal_time{text-align:left; overflow:hidden;_zoom:1; background:url(Images/bg3.png) -61px -874px no-repeat scroll; height:26px; width:277px; line-height:26px; padding:0px 5px;color:#666; margin:5px 5px 0; display:none;}
+.deal_time_expired{background-position:-61px -901px}
+.deal_time .tao_time_div em{font-style: normal; font-family:Arial, Helvetica, sans-serif; text-align: center;}
+.deal_time span.text_d{ text-decoration: line-through}
+.deal_img{ width:285px; height:190px; border:1px solid #eae9e9; margin:0 5px; position:relative;overflow:hidden; }
+.deal_yj{ width:275px; height:20px;overflow:hidden; text-align:left; padding-left:10px; color:#fff; line-height:20px; background:#000; filter:alpha(opacity=60); -moz-opacity:0.6; opacity:0.6; position:absolute; top:170px; left:0;}
+.deal_yj span{ padding-right:20px;}
+.dimg_link{ width:285px; height:190px; font-size:165px;display:table-cell;text-align:center;vertical-align:middle;*display:block;*font-family:Arial; overflow: hidden;}
+.dimg_img{ max-width:285px; max-height:190px; vertical-align:middle; _width:285px; _height:190px;}
+.deal_jg{ height:94px; position:relative;}
+.jg_tuan{ background:url(Images/bg3.png) right -897px no-repeat; height:50px; width:297px;padding-bottom:5px}
+.jg_tuan strong{ width:145px; height:50px; line-height:50px; font-size:34px; color:#fff; display:block; overflow:hidden; padding-left:10px; font-family:"微软雅黑";}
+.deal_qkk{ width:111px; height:34px; display:block; position:absolute; right:2px; top:9px;}
+.m_tao_sb{position:absolute;top:50px;left:5px;  border: 1px solid #f1f1f1; color: #666; padding:5px 8px; text-align:left;width:269px; background: none repeat scroll 0 0 #FFF0CA;height: 60px;line-height: 20px;}
+.m_tao_sb em {
+    color: #FC861A;
+    font-style: normal;
 }
 /************jQuery.Validate插件样式开始********************/
 label.error{background: url(./Images/error2.png) no-repeat 0px 0px;color: Red;padding-left: 20px; font-size:12px;}

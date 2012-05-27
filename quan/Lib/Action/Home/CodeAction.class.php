@@ -66,6 +66,7 @@ class CodeAction extends HomeCommonAction
 		$codes = array();
 		foreach ($res['data'] as $rs){
 			if($rs['expiry_type'] == 1){
+				$rs['expiry_timestamp'] = $rs['expiry'] + $this->_CFG['timezone']*3600;
 				if(($rs['expiry'] - $today) == 0){
 					$rs['expiry'] = 1;
 				}else{
@@ -75,7 +76,7 @@ class CodeAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-		$page_url = reUrl(MODULE_NAME."/".ACTION_NAME."?&cate_id=$cate_id&t_type=$t_type&cate_id2=$cate_id2&p=[page]");
+		$page_url = reUrl(MODULE_NAME."/".ACTION_NAME."?cate_id=$cate_id&t_type=$t_type&cate_id2=$cate_id2&p=[page]");
 		$page_url = str_replace('%5bpage%5d', '[page]', $page_url);
 		$p=new Page($page,
 		$pageLimit,
@@ -154,6 +155,7 @@ class CodeAction extends HomeCommonAction
 		$codes = array();
 		foreach ($res['data'] as $rs){
 			if($rs['expiry_type'] == 1){
+				$rs['expiry_timestamp'] = $rs['expiry'] + $this->_CFG['timezone']*3600;
 				if(($rs['expiry'] - $today) == 0){
 					$rs['expiry'] = 1;
 				}else{
@@ -163,7 +165,7 @@ class CodeAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-		$page_url = reUrl(MODULE_NAME."/".ACTION_NAME."?&cate_id=$cate_id&type=$type&cate_id2=$cate_id2&p=[page]");
+		$page_url = reUrl(MODULE_NAME."/".ACTION_NAME."?cate_id=$cate_id&type=$type&cate_id2=$cate_id2&p=[page]");
 		$page_url = str_replace('%5bpage%5d', '[page]', $page_url);
 		$p=new Page($page,
 		$pageLimit,
@@ -200,6 +202,7 @@ class CodeAction extends HomeCommonAction
 		$codes = array();
 		foreach ($res['data'] as $rs){
 			if($rs['expiry_type'] == 1){
+				$rs['expiry_timestamp'] = $rs['expiry'] + $this->_CFG['timezone']*3600;
 				if(($rs['expiry'] - $today) == 0){
 					$rs['expiry'] = 1;
 				}else{
@@ -246,6 +249,7 @@ class CodeAction extends HomeCommonAction
 		$localTimeObj = LocalTime::getInstance();
 		$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
 		if($detail['expiry_type'] == 1){
+			$detail['expiry_timestamp'] = $detail['expiry'] + $this->_CFG['timezone']*3600;
 			if(($detail['expiry'] - $today) == 0){
 				$detail['expiry'] = 1;
 			}else{

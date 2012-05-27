@@ -47,7 +47,6 @@ class CouponCodeMallAction extends AdminCommonAction
     	$this->assign('pagelink', $pagelink);
 		$this->assign('ur_href', '商家管理 &gt; 商家列表');
 		$categorys = array();
-		$cccService = service('CouponCodeCategory');
 		$data = $cccService->getTree();
 		foreach ($data as $rs){
 			$categorys[$rs['id']] = $rs;
@@ -190,6 +189,7 @@ class CouponCodeMallAction extends AdminCommonAction
 			if($ccmModel->_edit($id, $data)){
 				//更新旗下所有优惠券的商家名称
 				M('CouponCode')->where("m_id='$id'")->save(array('m_name'=>$_REQUEST['name']));
+				M('MallPromotion')->where("m_id='$id'")->save(array('m_name'=>$_REQUEST['name']));
 				$params = array('id' => $id);
 				B('CouponCodeMall', $params);
 				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME);

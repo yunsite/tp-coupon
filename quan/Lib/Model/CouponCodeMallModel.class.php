@@ -140,6 +140,45 @@ class CouponCodeMallModel extends Model
     	return $result;
 	}
 	
+	public function front(
+    						array $keys = array(),
+    						array $params = array(),
+    						array $limit = array())
+	{
+		$result = array('count'=>0,'data'=>array());
+		if(empty($keys)){
+    		$fields = "*";
+    	}else{
+    		$fields = implode(',', $keys);
+    	}
+    	$where = 'is_active=1';
+    	if(isset($params['c_id']) && $params['c_id']){
+    		$where .= " AND c_id IN ($params[c_id])";
+    	}
+    	$order = '';
+    	if(isset($params['t_type']) && $params['t_type'] > 1){
+    		switch (intval($params['t_type'])){
+    			case 2:
+    				$order = 'yesterdaysearched DESC,';
+    				break;
+    			case 3:
+    				$order = 'daysearched DESC,';
+    				break;
+    			case 4:
+    				$order = 'weeksearched DESC,';
+    				break;
+    			case 5:
+    				$order = 'monthsearched DESC,';
+    				break;
+    		}
+    	}
+    	$result['count'] = $this->field($fields)->where($where)->count();
+    	$result['data'] = $this->field($fields)->where($where)
+    							->order($order . 'sort_order ASC, id DESC')
+    							->limit("$limit[begin], $limit[offset]")->select();
+    	return $result;
+	}
+	
 	public function malls4cate($cate_ids)
 	{
 		return $this->field('id')->where("c_id IN ($cate_ids)")

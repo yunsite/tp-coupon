@@ -125,6 +125,7 @@
                         <h3>
                             热门搜索</h3>
                         <ul class="multicol">
+                        	<!--{eval $mall_hot20=hot_malls('week', 20);}-->
                             <!--{loop $mall_hot20 $item}-->
                             <li><a title="{$item.name}优惠券" href="{echo reUrl('Mall/view?id='.$item[id]);}">{$item.name}优惠券</a></li>
                             <!--{/loop}-->

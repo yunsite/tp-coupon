@@ -14,41 +14,37 @@ class IndexAction extends HomeCommonAction
      */
     public function index()
     {
-    	$localTimeObj = LocalTime::getInstance();
+    	$page = 1;
+		$pageLimit = 20;
+		$localTimeObj = LocalTime::getInstance();
 		$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
-    	//商家分类
-		$cates = get_mall_category_tree();
-		$all_cates = get_mall_category();
-		$this->assign('cates', $cates);
-		//分类优惠券
-		$ccModel = D('CouponCode');
-		$coupons4cate = array();
-		foreach ($cates as $c){
-			if($c['level'] ==0 && $all_cates[$c['id']]['show_index']==1){
-				$cate_ids = is_array($cates[$c['id']]['childs'])
-							? $cates[$c['id']]['childs']
-							: array();
-				$cate_ids[] = $c['id'];
-				$cate_ids = implode(',', $cate_ids);
-				$res = $ccModel->coupons4cate($cate_ids, 6);
-				$coupons = array();
-				foreach ($res as $rs){
-					if($rs['expiry_type'] == 1){
-						if(($rs['expiry'] - $today) == 0){
-							$rs['expiry'] = 1;
-						}else{
-							$rs['expiry'] = ($rs['expiry'] - $today) > 0 ? ceil(($rs['expiry'] - $today)/(3600*24)) : 0;
-						}
-					}
-					$coupons[] = $rs;
+		$limit = array('begin'=>($page-1)*$pageLimit, 'offset'=>$pageLimit);
+		$codeModel = D('CouponCode');
+		$res = $codeModel->front(array(), $limit);
+		$codes = array();
+		foreach ($res['data'] as $rs){
+			if($rs['expiry_type'] == 1){
+				$rs['expiry_timestamp'] = $rs['expiry'] + $this->_CFG['timezone']*3600;
+				if(($rs['expiry'] - $today) == 0){
+					$rs['expiry'] = 1;
+				}else{
+					$rs['expiry'] = ($rs['expiry'] - $today) > 0 ? ceil(($rs['expiry'] - $today)/(3600*24)) : 0;
 				}
-				$coupons4cate[] = array(
-										'cate'		=>	$c,
-										'coupons'	=>	$coupons
-										);
 			}
+			$codes[] = $rs;
 		}
-		$this->assign('coupons4cate', $coupons4cate);
+		$this->assign('codes', $codes);
+		$page_url = reUrl("Code/latest?cate_id=0&t_type=0&cate_id2=0&p=[page]");
+		$page_url = str_replace('%5bpage%5d', '[page]', $page_url);
+		$p=new Page($page,
+		$pageLimit,
+		$res['count'],
+		$page_url,
+		5,
+		5);
+		$pagelink=$p->showStyle(3);
+		$this->assign('pagelink', $pagelink);
+		
 		//友情链接
 		$friendlinks = array();
 		$flService = service('FriendLinks');
