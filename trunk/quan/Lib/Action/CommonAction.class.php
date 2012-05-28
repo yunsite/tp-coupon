@@ -12,6 +12,7 @@ class CommonAction extends Action
 	protected $_refererUrl = null;
     protected function _initialize()
     {
+    	unset($_SESSION['__hash__']);
     	/* 对用户传入的变量进行转义操作。*/
 		if (get_magic_quotes_gpc())
 		{

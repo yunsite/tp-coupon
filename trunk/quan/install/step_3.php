@@ -138,6 +138,16 @@ function insert_config()
 	$group_open_platform_id = $db->insert_id();
 	
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_hidden_id', 'captcha', 'hidden', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_hidden_id', 'captcha_width', 'hidden', '', '', '', 1)";
+	$db->query($sql);
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
+			 VALUES(null, '$group_hidden_id', 'captcha_height', 'hidden', '', '', '', 1)";
+	$db->query($sql);
+	
+	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)
 			 VALUES(null, '$group_smtp_id', 'smtp_host', 'text', '', '', '', 1)";
 	$db->query($sql);
 	$sql = "INSERT INTO `".$tablepre."site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`)

@@ -37,11 +37,11 @@ class VerifyCodeAction extends AdminCommonAction
 			$m->where('code="captcha"')->save(array('value'=>$captcha));
 			$m->where('code="captcha_width"')->save(array('value'=>$captcha_width));
 			$m->where('code="captcha_height"')->save(array('value'=>$captcha_height));
-			del_dir(C('DATA_CACHE_PATH'));
-        	mk_dir(C('DATA_CACHE_PATH'));
+			clear_all_caches();
 			$this->success('编辑成功');
 		}
-		$captcha = intval($this->_CFG['captcha']);
+		$res = M('site_config')->where('code="captcha"')->find();
+		$captcha = $res['value'];
 		$captcha_check = array();
 		if ($captcha & CAPTCHA_REGISTER)
 		{
@@ -73,8 +73,10 @@ class VerifyCodeAction extends AdminCommonAction
 		}
 
 		$this->assign('captcha',          $captcha_check);
-		$this->assign('captcha_width',    $this->_CFG['captcha_width']);
-		$this->assign('captcha_height',   $this->_CFG['captcha_height']);
+		$res = M('site_config')->where('code="captcha_width"')->find();
+		$this->assign('captcha_width',    $res['value']);
+		$res = M('site_config')->where('code="captcha_height"')->find();
+		$this->assign('captcha_height',   $res['value']);
 		$this->assign('ur_href', '验证码管理 &gt; 验证码设置');
 		$this->assign('_hash_', buildFormToken());
 		$this->display();

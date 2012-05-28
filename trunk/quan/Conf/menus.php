@@ -73,6 +73,11 @@ return array(
 																		'displayName'	=>	'折扣列表',
 																		'params'		=>	array(),
 																		),
+																	array(
+																		'action'		=>	'category',
+																		'displayName'	=>	'折扣分类列表',
+																		'params'		=>	array(),
+																		),
 																	 array(
 																		'action'		=>	'add',
 																		'displayName'	=>	'添加折扣商品',

@@ -207,7 +207,31 @@ class qqauth
             "oauth_consumer_key"    => $this->_appid,
             "openid"                => $openid,
             "format"                => "json",
-            "content"               => $text
+            "content"               => $text,
+            'syncflag'				=> 1
+        );
+		$info = qqauth_utils::post($url, $data);
+		$arr = qqauth_utils::parseJson($info);
+		return $arr;
+	}
+	
+	/**
+	 * 发表一条空间分享
+	 *
+	 */
+	public function add_share($title, $_url, $site, $images, $token, $openid)
+	{
+		$url = "https://graph.qq.com/share/add_share";
+		$data = array(
+            "access_token" 			=> $token,
+            "oauth_consumer_key"    => $this->_appid,
+            "openid"                => $openid,
+            "format"                => "json",
+            'title'					=> $title,
+            'url'					=> $_url,
+            'site'					=> $site,
+            'images'				=> $images,
+            'nswb'					=> 1
         );
 		$info = qqauth_utils::post($url, $data);
 		$arr = qqauth_utils::parseJson($info);

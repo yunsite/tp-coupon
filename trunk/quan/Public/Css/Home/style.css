@@ -1047,7 +1047,7 @@ ol.rank_coupon li span{position:absolute; padding-left:5px;  color:#999}
 .deal_bt strong a{ color:#d50000;}
 .deal_bt h2{ display:inline; padding-left:3px;}
 .deal_bt h2 a{ color:#666;}
-.deal_time{text-align:left; overflow:hidden;_zoom:1; background:url(Images/bg3.png) -61px -874px no-repeat scroll; height:26px; width:277px; line-height:26px; padding:0px 5px;color:#666; margin:5px 5px 0; display:none;}
+.deal_time{text-align:left; overflow:hidden;_zoom:1; background:url(Images/bg3.png) -61px -874px no-repeat scroll; height:26px; width:277px; line-height:26px; padding:0px 5px;color:#666; margin:5px 5px 0;}
 .deal_time_expired{background-position:-61px -901px}
 .deal_time .tao_time_div em{font-style: normal; font-family:Arial, Helvetica, sans-serif; text-align: center;}
 .deal_time span.text_d{ text-decoration: line-through}
@@ -1065,6 +1065,16 @@ ol.rank_coupon li span{position:absolute; padding-left:5px;  color:#999}
     color: #FC861A;
     font-style: normal;
 }
+/* revision css */
+.m_tao_sb{ height:60px; background:#fff0ca; line-height:20px}
+.m_tao_sb span{float:left;margin-right:4px}
+.m_tao_sb span img{ float:left; vertical-align: middle}
+.deal_a .deal_time{ display:none}
+.deal_hover { position:relative}
+.deal_hover .deal_time{ position:absolute; top:212px;left:8px; display:block; z-index:999; background:#000; filter:alpha(opacity=70); -moz-opacity:0.7; opacity:0.7; text-align:center; color:#fff}
+.deal_img{ background:#fff;}
+.deal_bt{ margin-bottom:4px}
+.m_tao_sb em{color:#fc861a; font-style:normal}
 /************jQuery.Validate插件样式开始********************/
 label.error{background: url(./Images/error2.png) no-repeat 0px 0px;color: Red;padding-left: 20px; font-size:12px;}
 label.error2{color: Red;padding-left: 20px;font-size:12px;}

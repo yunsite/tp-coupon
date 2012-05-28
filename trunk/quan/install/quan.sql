@@ -241,7 +241,7 @@ CREATE TABLE `dbs_friend_link` (
 ) ENGINE=MyISAM ;
 
 DROP TABLE IF EXISTS dbs_mall_promotion;
-CREATE TABLE IF NOT EXISTS `dbs_mall_promotion` (
+CREATE TABLE `dbs_mall_promotion` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cate_id` smallint(5) unsigned NOT NULL DEFAULT '0',
   `m_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
@@ -257,6 +257,25 @@ CREATE TABLE IF NOT EXISTS `dbs_mall_promotion` (
   KEY `c_id` (`cate_id`),
   KEY `m_id` (`m_id`)
 ) ENGINE=MyISAM ;
+
+DROP TABLE IF EXISTS dbs_mall_zhekou;
+CREATE TABLE `dbs_mall_zhekou` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `cate_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `m_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
+  `m_name` varchar(200) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `gourl` varchar(150) NOT NULL DEFAULT '' COMMENT '购买跳转地址',
+  `description` text NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '9999',
+  `price` float unsigned NOT NULL DEFAULT '0',
+  `addtime` int(11) unsigned NOT NULL DEFAULT '0',
+  `use_coupon` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `c_id` (`cate_id`),
+  KEY `m_id` (`m_id`)
+) ENGINE=MyISAM  ;
 
 DROP TABLE IF EXISTS dbs_payment;
 CREATE TABLE `dbs_payment` (
@@ -319,4 +338,12 @@ CREATE TABLE `dbs_user_platform` (
   `openid` varchar(50) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
+) ENGINE=MyISAM ;
+
+DROP TABLE IF EXISTS dbs_zhekou_category;
+CREATE TABLE `dbs_zhekou_category` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM ;
