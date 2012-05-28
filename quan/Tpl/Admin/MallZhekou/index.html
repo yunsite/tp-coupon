@@ -44,7 +44,7 @@ $(document).ready(function(){
 <!--{/literal}-->
 </script>
 <div class="handle-btns">
-	<div class="img-button "><p><input type="button" class="addData" onclick="window.location.href='?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=add'" value="添加活动" name="addData" id="addData"></p></div>
+	<div class="img-button "><p><input type="button" class="addData" onclick="window.location.href='?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=add'" value="添加折扣商品" name="addData" id="addData"></p></div>
 	</div>
 <div class="search-box">
     <form action="?">
@@ -52,7 +52,7 @@ $(document).ready(function(){
         <select name="cate_id">
         <option value="0">不限...</option>
         <!--{foreach from=$categorys item=item key=key}-->
-        <option value="{$item.id}">{$item.prefix}{$item.name}</option>
+        <option value="{$item.id}">{$item.name}</option>
         <!--{/foreach}-->
         </select>
         <span>关键字</span>
@@ -68,19 +68,19 @@ $(document).ready(function(){
 <thead>
 <tr>
 <th width="30" class="first"><input type="checkbox" onclick="check_all('id[]', this)"></th>
-<th>活动名称</th>
-<th>活动类型</th>
-<th>CPS跳转网址</th>
+<th>名称</th>
+<th>类型</th>
+<th>CPS购买网址</th>
 <th width="60">排序</th>
 <th width="100">操作</th>
 </tr>
 </thead>
 <tbody>
-<!--{foreach from=$promotions item=item}-->
+<!--{foreach from=$zhekous item=item}-->
 <tr id="tt-item-{$item.id}">
 <td class="first"><input type="checkbox" value="{$item.id}" name="id[]"></td>
 <td align="left"><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=view&id={$item.id}">{$item.title}</a></td>
-<td align="left"><!--{foreach from=$item.cates item=item2 name=cates}-->{$item2.name}{if !$smarty.foreach.cates.last} &gt; {/if}<!--{/foreach}--></td>
+<td align="left">{$item.category}</td>
 <td align="left"><a href="{$item.gourl}" target="_blank">{$item.gourl}</a></td>
 <td align="center"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="" pk="" href="javascript:;" onclick="textEdit(this,'{$item.id}','sort_order')">{$item.sort_order}</span></td>
 <td align="center"><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=edit&id={$item.id}">编辑</a>

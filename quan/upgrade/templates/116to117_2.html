@@ -1,0 +1,33 @@
+{template header}
+	<div class="header">
+		<h1>TP-COUPON 升级向导</h1>
+		<span>V1.16 To V1.17版 简体中文 UTF8 版</span>
+        <div class="setup step2">
+		<h2>升级程序</h2>
+		<p>正在执行程序升级</p>
+	</div>
+	<div class="stepstat">
+		<ul>
+			<li class="">1</li>
+			<li class="" style=" background:url();">2</li>
+			<li class="" style=" background:url();">3</li>
+			<li class="current last">4</li>
+		</ul>
+		<div class="stepstatbg stepstat1"></div>
+	</div>
+</div>
+<div class="main"><script type="text/javascript">
+
+function initinput() {
+	window.location='../admin.php';
+}
+</script>
+	<div class="main">
+		<div class="btnbox"><textarea name="notice" style="width: 80%;"  readonly="readonly" id="notice"></textarea></div>
+		<div class="btnbox marginbot">
+	<input type="button" name="submit" value="正在升级..." disabled style="height: 25" id="laststep" onclick="initinput()">
+	</div>
+<!--{eval add_db_tables();}-->
+<!--{eval add_site_config();}-->
+<script type="text/javascript">document.getElementById("laststep").disabled=false;document.getElementById("laststep").value = '升级成功，点击进入后台清除缓存';</script>
+{template footer}

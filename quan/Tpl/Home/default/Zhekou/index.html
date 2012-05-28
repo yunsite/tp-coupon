@@ -6,248 +6,48 @@
         <div class="clear" id="main_l_b">
             <h2>超值折扣</h2>
             <dl style="width:950px;" class="filter clear"><dt style="height:20px;">商家类型：</dt>
-                <dd {if $cid==0}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid=0&t_type='.$t_type.'&cid2=0&p=1');}">全部</a></dd>
-                        <!--{loop $cates $item}-->
-                        <!--{if $item['level']==0}-->
-                        <dd {if $cid==$item['id']}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$item['id'].'&t_type='.$t_type.'&cid2=0&p=1');}">{$item.name}</a></dd>
-                        <!--{/if}-->
+                <dd {if $cid==0}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid=0&t_type='.$t_type.'&p=1');}">全部</a></dd>
+                        <!--{loop $categorys $item}-->
+                        <dd {if $cid==$item['id']}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid='.$item['id'].'&t_type='.$t_type.'&p=1');}">{$item.name}</a></dd>
                         <!--{/loop}-->
             </dl>
             <dl style="width:950px;" class="filter clear"><dt style="height:20px;">发布日期：</dt>
-                <dd {if $t_type==0}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$cid.'&t_type=0&cid2='.$cid2.'&p=1');}">不限</a></dd>
-                <dd {if $t_type==1}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$cid.'&t_type=1&cid2='.$cid2.'&p=1');}">发布时间</a></dd>
-                <dd {if $t_type==2}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$cid.'&t_type=2&cid2='.$cid2.'&p=1');}">昨日最热</a></dd>
-                <dd {if $t_type==3}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$cid.'&t_type=3&cid2='.$cid2.'&p=1');}">今日最热</a></dd>
-                <dd {if $t_type==4}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$cid.'&t_type=4&cid2='.$cid2.'&p=1');}">本周最热</a></dd>
-                <dd {if $t_type==5}class="current"{/if}><a href="{echo reUrl('Mall/lists?cid='.$cid.'&t_type=5&cid2='.$cid2.'&p=1');}">本月最热</a></dd>
+                <dd {if $t_type==0}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid='.$cid.'&t_type=0&p=1');}">不限</a></dd>
+                <dd {if $t_type==1}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid='.$cid.'&t_type=1&p=1');}">今天</a></dd>
+                <dd {if $t_type==2}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid='.$cid.'&t_type=2&p=1');}">三天内</a></dd>
+                <dd {if $t_type==3}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid='.$cid.'&t_type=3&p=1');}">一周内</a></dd>
+                <dd {if $t_type==4}class="current"{/if}><a href="{echo reUrl('Zhekou/index?cid='.$cid.'&t_type=4&p=1');}">一月内</a></dd>
             </dl>
             
             <div class="deal_box">
-			
+			<!--{loop $zhekous $item}-->
     <div class="deal_a">
     <div class="deal_bt">
-      <h2>【<a target="_blank" href="/jiuxian"><font color="#660033">酒仙网</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/815.html">53°老郎酒2002 500ml(双瓶套装)仅售139元包邮，合69.5元一瓶</a></h2>
+      <h2>【<a target="_blank" href="{echo reUrl('Mall/view?id='.$item['m_id']);}"><font color="#660033">{$item.m_name}</font></a>】<a target="_blank" rel="nofollow" href="{echo reUrl('Zhekou/out?id='.$item[id]);}">{$item.title}</a></h2>
     </div>
     <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=90a23f9e&amp;w=369822&amp;c=5166&amp;i=9562&amp;l=0&amp;e=&amp;t=http://www.jiuxian.com/goods-3017.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0527/13381106921056.jpg">
+      <a target="_blank" rel="nofollow" title="去抢购" href="{echo reUrl('Zhekou/out?id='.$item[id]);}" class="dimg_link">
+        <img class="normal_image" src="{echo FixedUploadedFileUrl($item[logo]);}">
       </a>
           </div>
     <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 已是活动商品，不可再使用<a target="_blank" href="/jiuxian"><font color="#660033">酒仙网优惠券</font></a></span>
+        <!--{if $item['use_coupon']}-->
+        <span class="tao_time_div"> 恭喜您，还可以使用<a target="_blank" href="{echo reUrl('Mall/view?id='.$item[m_id]);}"><font color="#660033">{$item.m_name}优惠券</font></a>更省钱</span>
+        <!--{else}-->
+        <span class="tao_time_div"> 已是活动商品，不可再使用<a target="_blank" href="{echo reUrl('Mall/view?id='.$item[m_id]);}"><font color="#660033">{$item.m_name}优惠券</font></a></span>
+        <!--{/if}-->
           </div>
-		  
     <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥139</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=90a23f9e&amp;w=369822&amp;c=5166&amp;i=9562&amp;l=0&amp;e=&amp;t=http://www.jiuxian.com/goods-3017.html" target="_blank" class="deal_qkk"></a>
+      <div class="jg_tuan">
+        <strong>¥{$item.price}</strong>
+        <a rel="nofollow" href="{echo reUrl('Zhekou/out?id='.$item[id]);}" target="_blank" class="deal_qkk"></a>
       </div>
       <div class="m_tao_sb">
                   <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>酒仙网53°老郎酒2002 500ml(双瓶套装)仅售139元包邮，合69.5元一瓶。,同款商品,其余商城最低单瓶售价98元,库巴商城售价198元.</div>
+          <em>折扣攻略：</em>{$item.description}</div>
     </div>
   </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/amazon"><font color="#660033">亚马逊</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/814.html">Li Ning 李宁户外系列AHHF035-2 男户外鞋125元包邮</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=9e43f136&amp;w=369822&amp;c=245&amp;i=201&amp;l=0&amp;e=&amp;t=http://www.amazon.cn/gp/product/B005V7TJ18" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0527/13381102833265.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 已是活动商品，不可再使用<a target="_blank" href="/amazon"><font color="#660033">亚马逊优惠券</font></a></span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥125</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=9e43f136&amp;w=369822&amp;c=245&amp;i=201&amp;l=0&amp;e=&amp;t=http://www.amazon.cn/gp/product/B005V7TJ18" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>Li Ning 李宁AHHF035-2 男户外鞋亚马逊特价125元包邮，其他商城报价 淘宝最低199元。有网友反应尺码偏小。</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/yougou"><font color="#660033">优购网</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/813.html">NIKE耐克女子全能训练鞋415202-051限时抢购179元包邮</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=a3c98beb&amp;w=369822&amp;c=5820&amp;i=15862&amp;l=0&amp;e=&amp;t=http://www.yougou.com/c_bo/p_21001339.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0527/13381100638671.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 已是活动商品，不可再使用<a target="_blank" href="/yougou"><font color="#660033">优购网优惠券</font></a></span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥179</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=a3c98beb&amp;w=369822&amp;c=5820&amp;i=15862&amp;l=0&amp;e=&amp;t=http://www.yougou.com/c_bo/p_21001339.html" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>耐克全能训练鞋415202-051优购网179元包邮，除了西街网断码325元，其他商城均报价425元。淘宝报价均在300元以上。</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/xindan"><font color="#660033">新蛋网</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/812.html">Gillette 吉列洁面啫喱100ml+滋养霜50ml一共49元</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=37deb761&amp;w=369822&amp;c=280&amp;i=240&amp;l=0&amp;e=&amp;t=http://www.newegg.com.cn/Product/A0A-03Q-022.htm" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0526/13380299646070.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 恭喜您，还可以使用<a target="_blank" href="/xindan"><font color="#660033">新蛋网优惠券</font></a>更省钱</span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥49</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=37deb761&amp;w=369822&amp;c=280&amp;i=240&amp;l=0&amp;e=&amp;t=http://www.newegg.com.cn/Product/A0A-03Q-022.htm" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>Gillette吉列超感护肤系列 水养活力洁面啫喱100ml+活能深层滋养霜50ml 新蛋网49元包邮，并有赠品，同款亚马逊报价118元。</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/aijiankuan"><font color="#660033">爱健康</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/811.html">越南进口 越南第一排糖椰蓉糖450g  全网最低7.59元 超好吃零食</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=64d71a25&amp;w=369822&amp;c=6604&amp;i=21442&amp;l=0&amp;e=&amp;t=http://www.ijk360.com/product-1990.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0525/13379390054921.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 恭喜您，还可以使用<a target="_blank" href="/aijiankuan"><font color="#660033">爱健康优惠券</font></a>更省钱</span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥7.59</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=64d71a25&amp;w=369822&amp;c=6604&amp;i=21442&amp;l=0&amp;e=&amp;t=http://www.ijk360.com/product-1990.html" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>越南第一排糖椰蓉糖450g，爱健康12.59元，可用5元优惠券，减后仅7.59元，满29包邮。同款其他渠道均15元左右。</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/suning"><font color="#660033">苏宁易购</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/810.html">SHARP夏普SH8168U(黑) 裸眼3D智能手机 疯抢999元包邮！</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=972bede1&amp;w=369822&amp;c=4459&amp;i=5662&amp;l=0&amp;e=&amp;t=http://www.suning.com/emall/prd_10052_10051_-7_377337_.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0525/13379325115305.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 已是活动商品，不可再使用<a target="_blank" href="/suning"><font color="#660033">苏宁易购优惠券</font></a></span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥999</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=972bede1&amp;w=369822&amp;c=4459&amp;i=5662&amp;l=0&amp;e=&amp;t=http://www.suning.com/emall/prd_10052_10051_-7_377337_.html" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>SHARP夏普SH8168U(黑)裸眼3D智能手机，苏宁999元包邮。同款，1号店1799，天猫1299，亚马逊1199。手快才会有！</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/weipinhui"><font color="#660033">唯品会</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/809.html">PUMA彪马怀旧系列休闲绑带鞋35190408 抢购价228元 可用券</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=01ec28ea&amp;w=369822&amp;c=4018&amp;i=2882&amp;l=0&amp;e=&amp;t=http://www.vipshop.com/detail-3053155-0-0.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0525/13379284337191.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 恭喜您，还可以使用<a target="_blank" href="/weipinhui"><font color="#660033">唯品会优惠券</font></a>更省钱</span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥198</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=01ec28ea&amp;w=369822&amp;c=4018&amp;i=2882&amp;l=0&amp;e=&amp;t=http://www.vipshop.com/detail-3053155-0-0.html" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>PUMA彪马怀旧系列休闲绑带鞋35190408，唯品会228元，用满180-30的账户券，最低198元。同款，V+商城389，天猫349。</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/jingdong"><font color="#660033">京东商城</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/808.html">李维斯Levis LTD1202四视窗电子腕表(黄色) 限时111元包邮</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=403f8616&amp;w=369822&amp;c=254&amp;i=160&amp;l=0&amp;e=&amp;t=http://www.360buy.com/product/585400.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0525/13379168642701.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 已是活动商品，不可再使用<a target="_blank" href="/jingdong"><font color="#660033">京东商城优惠券</font></a></span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥111</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=403f8616&amp;w=369822&amp;c=254&amp;i=160&amp;l=0&amp;e=&amp;t=http://www.360buy.com/product/585400.html" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>李维斯Levis LTD1202四视窗电子腕表(黄色)，京东111包邮。同款，D1优尚455，当当、走秀260，淘宝有卖1235的，超离谱。</div>
-    </div>
-  </div>
-  		
-    <div class="deal_a">
-    <div class="deal_bt">
-      <h2>【<a target="_blank" href="/yixun"><font color="#660033">易迅网</font></a>】<a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" href="/teamdetail/807.html">杰伟世JVC HA-S160超便携耳机 易迅全站199元 可用券或满减</a></h2>
-    </div>
-    <div class="deal_img">
-      <a js_tao_trac="Ju_youhui" target="_blank" rel="nofollow" title="去抢购" href="http://p.yiqifa.com/c?s=cc3477d4&amp;w=369822&amp;c=4330&amp;i=4984&amp;l=0&amp;e=&amp;t=http://item.51buy.com/item-241041.html" class="dimg_link">
-        <img class="normal_image" src="http://www.quanlaoda.com/static/team/2012/0525/13379150519695.jpg">
-      </a>
-          </div>
-    <div class="deal_time">
-             
-        <span dlid="2437962" oos="oos" start="1330311600000" alt="1330358340000" class="tao_time_div"> 恭喜您，还可以使用<a target="_blank" href="/yixun"><font color="#660033">易迅网优惠券</font></a>更省钱</span>
-          </div>
-		  
-    <div class="deal_jg">
-      <div id="jg_tuan_2437962" class="jg_tuan">
-        <strong title="2437962">¥179</strong>
-        <a rel="nofollow" js_tao_trac="Ju_youhui" href="http://p.yiqifa.com/c?s=cc3477d4&amp;w=369822&amp;c=4330&amp;i=4984&amp;l=0&amp;e=&amp;t=http://item.51buy.com/item-241041.html" target="_blank" class="deal_qkk"></a>
-      </div>
-      <div class="m_tao_sb">
-                  <span><img src="http://www.quanlaoda.com/static/theme/ev56_xiutuan/css/i/author_image3.png"></span>
-          <em>折扣攻略：</em>杰伟世HA-S160超便携耳机，易迅4个站均199元，可用券，或再消费1元参加满200-20的活动后仅179元。其他渠道最低245元。</div>
-    </div>
-  </div>
+   <!--{/loop}-->
    <!-- end bd -->
           </div>
             
@@ -256,4 +56,14 @@
     </div>
         </div>
     </div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.deal_a').live('mouseover',function(){
+        $(this).addClass('deal_hover');
+    });
+    $('.deal_a').live('mouseout',function(){
+        $(this).removeClass('deal_hover')
+    });
+});
+</script>
 {template "../Public/footer"}

@@ -377,7 +377,7 @@ class CodeAction extends HomeCommonAction
 							'updatetime'			=>	$nowtime
 							);
 				$ccdModel->update($c_id, $data);
-				//发表一条新浪微博
+				//发表一条微博
 				if(($this->_CFG['sina_wb_open'] && $_SESSION['sina']['token']['access_token'])
 					|| ($this->_CFG['qq_open'] && $_SESSION['qq']["access_token"])){
 					$ccmService = service('CouponCodeMall');
@@ -403,7 +403,12 @@ class CodeAction extends HomeCommonAction
 					}else if ($this->_CFG['qq_open'] && $_SESSION['qq']["access_token"]){
 						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/qq.class.php' );
 						$qq = new qq();
+						//发送微博
 						$qq->add_t($text);
+						//发送空间分享
+						$title = '我刚刚在'.$this->_CFG['site_name'].'领取了一张【'.$title.'】，数量有限，抢完为止，一般人我不告诉！';
+						$site = $_SERVER['HTTP_HOST'];
+						$qq->add_share($title, $url, $site, $pic_path);
 					}
 				}
 				$this->ajaxReturn(array('code'=>$code), '领取成功', 1);
