@@ -76,6 +76,8 @@ function add_site_config()
 			 VALUES(null, 0, 'hidden', 'hidden', '', '', '', 1)";
 		$db->query($sql);
 		$group_hidden_id = $db->insert_id();
+	}else{
+		$group_hidden_id = $group_hidden_id['id'];
 	}
 	
 	if(! $db->fetch_array($db->query("SELECT id FROM ".$tablepre."site_config WHERE code='captcha' LIMIT 1"))){

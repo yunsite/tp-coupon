@@ -4,7 +4,7 @@ class ZhekouAction extends HomeCommonAction
 	public function index()
     {
     	$page = isset($_REQUEST['p']) && $_REQUEST['p'] >= 1 ? $_REQUEST['p'] : 1;
-		$pageLimit = 30;
+		$pageLimit = 15;
 		$addtime = 0;
     	$cid = isset($_REQUEST['cid']) ? intval($_REQUEST['cid']) : 0;
     	$t_type = isset($_REQUEST['t_type']) ? intval($_REQUEST['t_type']) : 0;

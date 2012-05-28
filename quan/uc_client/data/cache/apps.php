@@ -71,5 +71,22 @@ $_CACHE['apps'] = array (
     ),
     'recvnote' => '1',
   ),
+  13 => 
+  array (
+    'appid' => '13',
+    'type' => 'OTHER',
+    'name' => 'quan100',
+    'url' => 'http://127.0.0.1/quan110',
+    'ip' => '',
+    'viewprourl' => '',
+    'apifilename' => 'uc.php',
+    'charset' => '',
+    'synlogin' => '1',
+    'extra' => 
+    array (
+      'apppath' => '',
+    ),
+    'recvnote' => '1',
+  ),
   'UC_API' => 'http://127.0.0.1/jihaoju/ucenter',
 );

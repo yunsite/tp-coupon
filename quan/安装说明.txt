@@ -4,9 +4,11 @@
    ucenter 下载和安装说明请访问 ： http://www.comsenz.com
    如果已经安装过ucenter则可略过此步
 
-2、访问 install/ 执行安装程序，安装完后请将 install 目录删除，并将Conf目录设为只读
+2、确保 install/templates_c 目录可写
 
-3、后台访问地址 admin.php
+3、访问 install/ 执行安装程序，安装完后请将 install 目录删除，并将Conf目录设为只读
+
+4、后台访问地址 admin.php
 
 官方QQ群：19385220
 
