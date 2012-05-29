@@ -10,6 +10,8 @@
 
 4、后台访问地址 admin.php
 
+5、如果需要使用批量导入优惠券功能请登陆官方论坛下载 phpExcel 类库包
+
 官方QQ群：19385220
 
 项目网址：http://code.google.com/p/tp-coupon

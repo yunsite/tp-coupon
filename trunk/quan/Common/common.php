@@ -888,6 +888,7 @@ function segment($text, $num=null)
 	else
 	{
 		import('@.ORG.scws.pscws4');
+		if(! class_exists('PSCWS4')) return $list;
 		$pscws = new PSCWS4();
 		$pscws->set_charset($charset);
 		$pscws->set_dict($root.'ORG/scws/dict.'.$charset.'.xdb');
