@@ -11,6 +11,7 @@ RewriteRule ^(code|mall|article|user|payment)-([a-z_A-Z]+)\.html$ index\.php\?m=
 RewriteRule ^user-([a-z_A-Z]+)-p-([0-9]+)\.html$ index\.php\?m=User&a=$1&p=$2 [L]
 RewriteRule ^code-view-id-([0-9]+)\.html$       index\.php\?m=Code&a=view&id=$1 [L]
 RewriteRule ^mall-(how2use|out|view)-id-([0-9]+)\.html$       index\.php\?m=Mall&a=$1&id=$2 [L]
+RewriteRule ^mall-lists-cid-([0-9]+)-t_type-([0-9]+)-cid2-([0-9]+)-p-([0-9]+)\.html$       index\.php\?m=Mall&a=lists&cid=$1&t_type=$2&cid2=$3&p=$4 [L]
 RewriteRule ^code-lastestpulled-p-([0-9]+)\.html$       index\.php\?m=Code&a=lastestpulled&p=$1 [L]
 RewriteRule ^code-latest-cate_id-([0-9]+)-t_type-([0-9]+)-cate_id2-([0-9]+)-p-([0-9]+).html$       index\.php\?m=Code&a=latest&cate_id=$1&t_type=$2&cate_id2=$3&p=$4 [L]
 RewriteRule ^code-hot-cate_id-([0-9]+)-type-([0-9]+)-cate_id2-([0-9]+)-p-([0-9]+).html$       index\.php\?m=Code&a=hot&cate_id=$1&type=$2&cate_id2=$3&p=$4 [L]
