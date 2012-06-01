@@ -117,7 +117,7 @@ class CouponCodeModel extends RelationModel
     	}
 	    $res = $this->query("SELECT COUNT(*) AS c_count" . $sql . " LIMIT 1");
 	    $result['count'] = empty($res) ? 0 : $res[0]['c_count'];
-	    $sql .= " ORDER BY c.sort_order ASC, c.c_id DESC, c.expiry DESC";
+	    $sql .= " ORDER BY c.sort_order ASC, c.expiry DESC, c.c_id DESC";
 	    if(isset($limit['begin']) && isset($limit['offset'])){
     		$sql .= " LIMIT $limit[begin],$limit[offset]";
     	}
