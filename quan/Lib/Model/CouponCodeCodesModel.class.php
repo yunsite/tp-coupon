@@ -95,7 +95,7 @@ class CouponCodeCodesModel extends Model
     	$result = array('count'=>0,'data'=>array());
     	$fields = 'c.*,u.nick';
     	$where = "c.c_id='$id'";
-    	$result['count'] = $this->where($where)->count();
+    	$result['count'] = $this->table($this->getTableName().' AS c')->where($where)->count();
     	$result['data'] = $this->field($fields)
     						->table($this->getTableName().' AS c')
     						->join(M('user')->getTableName() . ' AS u ON u.user_id=c.user_id')
