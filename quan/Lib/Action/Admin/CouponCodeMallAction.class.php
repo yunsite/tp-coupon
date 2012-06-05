@@ -117,6 +117,9 @@ class CouponCodeMallAction extends AdminCommonAction
 						'how2use'		=>	$_REQUEST['how2use'],
 						'logo'			=>	$logo,
 						'figure_image'	=>	$figure_image,
+						'seo_title'		=>	$_REQUEST['seo_title'],
+						'seo_keywords'	=>	$_REQUEST['seo_keywords'],
+						'seo_desc'		=>	$_REQUEST['seo_desc']
 						);
 			$ccmModel = D('CouponCodeMall');
 			if($ccmModel->_add($data)){
@@ -179,6 +182,9 @@ class CouponCodeMallAction extends AdminCommonAction
 						'tel'			=>	$_REQUEST['tel'],
 						'description'	=>	$_REQUEST['description'],
 						'how2use'		=>	$_REQUEST['how2use'],
+						'seo_title'		=>	$_REQUEST['seo_title'],
+						'seo_keywords'	=>	$_REQUEST['seo_keywords'],
+						'seo_desc'		=>	$_REQUEST['seo_desc']
 						);
 			if($logo){
 				$data['logo'] = $logo;

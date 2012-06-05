@@ -123,6 +123,8 @@ class CouponCodeAction extends AdminCommonAction
 							'fetch_limit'	=>	$_REQUEST['fetch_limit'],
 							'directions'	=>	$_REQUEST['directions'],
 							'prompt'		=>	$_REQUEST['prompt'],
+							'seo_keywords'	=>	$_REQUEST['seo_keywords'],
+							'seo_desc'		=>	$_REQUEST['seo_desc'],
 							);
 				$ccdModel = D('CouponCodeData');
 				$ccdModel->_add($data);
@@ -191,6 +193,8 @@ class CouponCodeAction extends AdminCommonAction
 							'fetch_limit'	=>	$_REQUEST['fetch_limit'],
 							'directions'	=>	$_REQUEST['directions'],
 							'prompt'		=>	$_REQUEST['prompt'],
+							'seo_keywords'	=>	$_REQUEST['seo_keywords'],
+							'seo_desc'		=>	$_REQUEST['seo_desc'],
 							);
 				$ccdModel = D('CouponCodeData');
 				$ccdModel->_edit($c_id, $data);
