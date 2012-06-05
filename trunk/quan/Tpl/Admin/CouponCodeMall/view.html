@@ -13,6 +13,10 @@
 		<td>{$mall.name}</td>
 	</tr>
     <tr>
+		<th width="200" class="first">SEO标题：</th>
+		<td>{$mall.seo_title}</td>
+	</tr>
+    <tr>
 		<th width="200" class="first">网址：</th>
 		<td><a href="{$mall.website}" target="_blank">{$mall.website}</a></td>
 	</tr>
@@ -39,6 +43,14 @@
     <tr>
 		<th width="200" class="first">优惠券使用方法：</th>
 		<td>{$mall.how2use}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO关键字：</th>
+		<td>{$mall.seo_keywords}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO描述：</th>
+		<td>{$mall.seo_desc}</td>
 	</tr>
 </tbody></table>
 {include file="../Public/footer.html"}
