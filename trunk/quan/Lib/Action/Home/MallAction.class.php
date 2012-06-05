@@ -39,10 +39,15 @@ class MallAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-			
-    	$this->assign('page_title', $mall['name'] . '优惠券 - ');
-    	$this->assign('page_keywords', $this->_CFG['site_keywords']);
-    	$this->assign('page_description', $this->_CFG['site_description']);
+		$page_title = '';
+		if($mall['seo_title']){
+			$page_title = $mall['seo_title'] . ' - ';
+		}else{
+			$page_title = $mall['name'] . '优惠券 - ';
+		}
+    	$this->assign('page_title', $page_title);
+    	$this->assign('page_keywords', $mall['seo_keywords'] ? $mall['seo_keywords'] : $this->_CFG['site_keywords']);
+		$this->assign('page_description', $mall['seo_desc'] ? $mall['seo_desc'] : $this->_CFG['site_description']);
     	//更新热度
 		$mallModel = D('CouponCodeMall');
 		$nowtime = $localTimeObj->gmtime();
