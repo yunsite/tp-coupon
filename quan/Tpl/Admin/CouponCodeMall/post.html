@@ -19,7 +19,11 @@
 	</tr>
     <tr>
 		<th width="200" class="first">名称：</th>
-		<td><input name="name" type="text"  size="40" class="textinput requireinput required" value="{$mall.name}" /></td>
+		<td><input name="name" id="name" type="text"  size="40" class="textinput requireinput required" value="{$mall.name}" /></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO标题：</th>
+		<td><input name="seo_title" type="text"  size="40" class="textinput" value="{$mall.seo_title}" />(填写SEO标题后商家详情页页面标题将显示为该值)</td>
 	</tr>
     <tr>
 		<th width="200" class="first">网址：</th>
@@ -43,11 +47,19 @@
 	</tr>
     <tr>
 		<th width="200" class="first">简介：</th>
-		<td><textarea name="description" cols="" rows="" class="textinput requireinput required" style="height:150px; width:550px;">{$mall.description}</textarea></td>
+		<td><textarea name="description" id="description" cols="" rows="" class="textinput requireinput required" style="height:150px; width:550px;">{$mall.description}</textarea></td>
 	</tr>
     <tr>
 		<th width="200" class="first">优惠券使用方法：</th>
 		<td><textarea name="how2use" id="how2use" cols="" rows="" class="textinput requireinput required" style="height:250px; width:550px;">{$mall.how2use}</textarea><br /><span id="tip_desc"></span></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO关键字：</th>
+		<td><textarea name="seo_keywords" id="seo_keywords" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$mall.seo_keywords}</textarea></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO描述：</th>
+		<td><textarea name="seo_desc" id="seo_desc" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$mall.seo_desc}</textarea></td>
 	</tr>
 	<tr class="act">
 		<th class="first">&nbsp;</th>
@@ -66,7 +78,31 @@ var m = '{$smarty.const.MODULE_NAME}';
 var a = '{$smarty.const.ACTION_NAME}';
 var upscript_url = '__APP__?g=Public&m=Public&a=upload4xheditor&immediate=1';
 var editor = null;
+var timeId = null;
 <!--{literal}-->
+function split_keywords()
+{
+	if($('#seo_keywords').val().trim().length > 0){
+		clearInterval(timeId);
+		return;
+	}
+	if($('#name').val().length == 0 || $('#description').val().length == 0) return;
+	var str = $('#name').val() + $('#description').val();
+	var post_data = 'str=' + encodeURIComponent(str);
+	$.ajax({
+   		type: "POST",
+   		url: '?g=Public&m=Public&a=split_keywords&ajax=1',
+   		data: post_data,
+   		success: function(msg){
+			var result = eval("("+msg+")");
+			if(result.status == 1){
+     			$('#seo_keywords').val($('#name').val() + ' ' + result.data);
+				$('#seo_desc').val($('#name').val() + ' ' + result.data);
+				clearInterval(timeId);
+			}
+   		}
+	});
+}
 jQuery(document).ready(function() {
 			$("#form_post").validate({
 						 submitHandler:function(form){
@@ -79,6 +115,7 @@ jQuery(document).ready(function() {
 						 						}
 						 });
 			if(a == 'add'){
+						timeId = setInterval("split_keywords()",1000);
 						$('#logo').rules('add', {
 						 		required: true
 						});
