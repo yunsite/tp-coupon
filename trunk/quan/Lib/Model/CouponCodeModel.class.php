@@ -106,7 +106,7 @@ class CouponCodeModel extends RelationModel
     public function front(array $params=array(), array $limit=array())
     {
     	$result = array('count'=>0,'data'=>array());
-    	$fields = 'c.*, m.logo';
+    	$fields = 'c.*, m.logo,(c.amount-c.fetched_amount) AS left_amount';
     	$sql = " FROM " . $this->getTableName() . " AS c LEFT JOIN " . M('coupon_code_mall')->getTableName() . " AS m ON m.id=c.m_id";
     	$sql .= " WHERE c.is_active=1";
     	if(isset($params['addtime']) && $params['addtime']){
@@ -117,7 +117,7 @@ class CouponCodeModel extends RelationModel
     	}
 	    $res = $this->query("SELECT COUNT(*) AS c_count" . $sql . " LIMIT 1");
 	    $result['count'] = empty($res) ? 0 : $res[0]['c_count'];
-	    $sql .= " ORDER BY c.sort_order ASC, c.expiry DESC, c.c_id DESC";
+	    $sql .= " ORDER BY c.sort_order ASC, c.expiry DESC, c.c_id DESC, left_amount DESC";
 	    if(isset($limit['begin']) && isset($limit['offset'])){
     		$sql .= " LIMIT $limit[begin],$limit[offset]";
     	}
