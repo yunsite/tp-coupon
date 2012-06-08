@@ -1,0 +1,6 @@
+ALTER TABLE `dbs_coupon_code_data` ADD `seo_keywords` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD `seo_desc` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
+
+ALTER TABLE `dbs_coupon_code_mall` ADD `seo_title` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD `seo_keywords` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+ADD `seo_desc` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
