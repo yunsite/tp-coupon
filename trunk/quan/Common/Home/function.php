@@ -63,6 +63,19 @@ function hot_malls($type='week', $limit=10)
 }
 /*==========================================优惠券函数库=========================================================*/
 /**
+ * 随机优惠券
+ *
+ * @param int $limit
+ * @return array
+ */
+function coupon_codes_randoms($limit=10)
+{
+	$codeModel = D('CouponCode');
+	$res = $codeModel->randoms($limit);
+	return $res;
+}
+
+/**
  * 最新优惠券
  *
  * @param int $m_id				商家ID
