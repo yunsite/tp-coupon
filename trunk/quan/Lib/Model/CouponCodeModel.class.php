@@ -145,6 +145,22 @@ class CouponCodeModel extends RelationModel
     }
     
     /**
+     * 随机优惠券
+     *
+     * @param unknown_type $limit
+     */
+    public function randoms($limit=10)
+    {
+    	$today = LocalTime::getInstance()->local_strtotime(date('Y-m-d 23:59:59'));
+    	$fields = 'c.*, m.logo';
+    	$sql = " FROM " . $this->getTableName() . " AS c LEFT JOIN " . M('coupon_code_mall')->getTableName() . " AS m ON m.id=c.m_id";
+    	$sql .= " WHERE c.is_active=1 AND c.amount>c.fetched_amount AND c.expiry>=$today";
+    	$sql .= " ORDER BY RAND() DESC LIMIT $limit";
+    	$res = $this->query("SELECT $fields" . $sql);
+    	return $res;
+    }
+    
+    /**
      * 商家所有优惠券
      *
      * @param int	$m_id
