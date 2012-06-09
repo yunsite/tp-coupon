@@ -6,6 +6,7 @@ RewriteEngine On
 
 # Rewrite 系统规则请勿修改
 RewriteRule ^index\.html$       index\.php [L]
+RewriteRule ^index-index-p-([0-9]+)\.html$ index\.php\?m=Index&a=index&p=$1 [L]
 RewriteRule ^user-bind-type-([a-z_A-Z]+)\.html$       index\.php\?m=User&a=bind&type=$1 [L]
 RewriteRule ^(code|mall|article|user|payment)-([a-z_A-Z]+)\.html$ index\.php\?m=$1&a=$2 [L]
 RewriteRule ^user-([a-z_A-Z]+)-p-([0-9]+)\.html$ index\.php\?m=User&a=$1&p=$2 [L]
