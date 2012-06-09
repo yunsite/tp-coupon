@@ -14,7 +14,7 @@ class IndexAction extends HomeCommonAction
      */
     public function index()
     {
-    	$page = 1;
+    	$page = isset($_REQUEST['p']) && $_REQUEST['p'] >= 1 ? intval($_REQUEST['p']) : 1;
 		$pageLimit = 20;
 		$localTimeObj = LocalTime::getInstance();
 		$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
@@ -34,7 +34,7 @@ class IndexAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-		$page_url = reUrl("Code/latest?cate_id=0&t_type=0&cate_id2=0&p=[page]");
+		$page_url = reUrl("Index/index?p=[page]");
 		$page_url = str_replace('%5bpage%5d', '[page]', $page_url);
 		$p=new Page($page,
 		$pageLimit,
