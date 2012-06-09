@@ -65,7 +65,7 @@
                         <h3>
                             热门优惠券</h3>
                         <ul class="hot_coupon">
-                            <!--{eval $hot=coupon_codes_hot('week', 10);}-->
+                            <!--{eval $hot=coupon_codes_hot('week', 8);}-->
                             <!--{loop $hot $item}-->
                             <li><a class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
                                 <img src="{echo FixedUploadedFileUrl($item[logo]);}"></a>
@@ -101,7 +101,7 @@
                             最新被领取的优惠券</h3>
                         <ul class="hot_coupon">
                             
-                            <!--{eval $fetched=coupon_codes_fetched(10);}-->
+                            <!--{eval $fetched=coupon_codes_fetched(8);}-->
                         	<!--{loop $fetched $item}-->
                             <li><a class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
                                 <img src="{echo FixedUploadedFileUrl($item[logo]);}"></a>
@@ -131,6 +131,17 @@
                             <li><a title="{$item.name}优惠券" href="{echo reUrl('Mall/view?id='.$item[id]);}">{$item.name}优惠券</a></li>
                             <!--{/loop}-->
                         </ul>
+                    </li>
+                    <li class="yellow">
+                        <h3>
+                            随机推荐优惠券</h3>
+                        <ol class="rank_coupon">
+                            <!--{eval $randoms=coupon_codes_randoms(10);}--> 
+                            <!--{loop $randoms $item}-->
+                            <li><a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
+                            <!--{/loop}-->
+                            
+                        </ol>
                     </li>
                 </ul>
             </div>
