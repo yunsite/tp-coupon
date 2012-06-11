@@ -267,6 +267,11 @@ class CodeAction extends HomeCommonAction
 				$title .= $detail['money_amount'] . '元代金券';
 			}
 		}
+		if($detail['data']['seo_title']){
+			$page_title = $detail['data']['seo_title'];
+		}else{
+			$page_title = $title;
+		}
 		$detail['title'] = $title;
 		import('@.Com.Util.Ubb');
 		$detail['data']['directions'] = Ubb::ubb2html($detail['data']['directions']);
@@ -282,7 +287,7 @@ class CodeAction extends HomeCommonAction
 		$this->assign('record_top100', $record_top100);
 		$this->assign('record_top_amount', count($record_top100));
 		$this->assign('nowtime', $localTimeObj->gmtime()-intval($this->_CFG['code_in_secret'])*60+intval($this->_CFG['timezone'])*3600);
-		$this->assign('page_title', $title . ' - ');
+		$this->assign('page_title', $page_title . ' - ');
 		$this->assign('page_keywords', $detail['data']['seo_keywords'] ? $detail['data']['seo_keywords'] : $this->_CFG['site_keywords']);
 		$this->assign('page_description', $detail['data']['seo_desc'] ? $detail['data']['seo_desc'] : $this->_CFG['site_description']);
 		$this->display();
