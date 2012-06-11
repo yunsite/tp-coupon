@@ -22,6 +22,10 @@
 		<td><input name="title" type="text"  size="40" class="textinput" value="{$code.title}" />(设定名称后优惠券标题将优先显示为该名称)</td>
 	</tr>
     <tr>
+		<th width="200" class="first">SEO标题：</th>
+		<td><input name="seo_title" type="text"  size="40" class="textinput" value="{$code.data.seo_title}" />(填写SEO标题后优惠券详情页页面标题将显示为该值)</td>
+	</tr>
+    <tr>
 		<th width="200" class="first">类型：</th>
 		<td><select name="c_type" onchange="sel_c_type(this.value)"><!--{foreach from=$code_type_conf item=item key=key}--><option value="{$key}" {if $code.c_type==$key}selected{/if}>{$item}</option><!--{/foreach}--></select><span id="c_type_elm_1">满<input name="money_max" id="money_max" type="text"  size="10" class="textinput requireinput number" value="{$code.money_max}" />元&nbsp;减<input name="money_reduce" id="money_reduce" type="text"  size="10" class="textinput requireinput number" value="{$code.money_reduce}" />元</span><span id="c_type_elm_2">金额：<input name="money_amount" id="money_amount" type="text"  size="10" class="textinput requireinput number" value="{$code.money_amount}" />元</span></td>
 	</tr>
