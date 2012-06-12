@@ -99,9 +99,9 @@ class MallAction extends HomeCommonAction
 			$codes[] = $rs;
 		}
 		$this->assign('codes', $codes);
-    	$this->assign('page_title', $mall['name'] . '优惠券 - ');
-    	$this->assign('page_keywords', $this->_CFG['site_keywords']);
-    	$this->assign('page_description', $this->_CFG['site_description']);
+    	$this->assign('page_title', $mall['name'] . '优惠券使用方法 - ');
+    	$this->assign('page_keywords', $mall['seo_keywords'] ? $mall['seo_keywords'] : $this->_CFG['site_keywords']);
+		$this->assign('page_description', $mall['seo_desc'] ? $mall['seo_desc'] : $this->_CFG['site_description']);
     	$this->display();
     }
     
