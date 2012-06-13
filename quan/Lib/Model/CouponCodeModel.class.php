@@ -17,7 +17,7 @@ class CouponCodeModel extends RelationModel
 											'class_name'	=>	'CouponCodeData',
 											'foreign_key'	=>	'c_id',
 											'mapping_name'	=>	'data',
-											'mapping_fields'=>	'fetch_limit,directions,prompt,seo_title,seo_keywords,seo_desc',
+											'mapping_fields'=>	'fetch_limit,directions,prompt,seo_title,seo_keywords,seo_desc,is_secret',
 											),
 							);
 							

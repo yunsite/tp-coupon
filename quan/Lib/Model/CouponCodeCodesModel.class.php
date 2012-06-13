@@ -79,7 +79,7 @@ class CouponCodeCodesModel extends Model
     
     public function pull($c_id, $user_id, $nick, $fetch_time)
     {
-    	$code = $this->field("id,code")->where("c_id='$c_id' AND user_id=0")->find();
+    	$code = $this->field("id,code,password")->where("c_id='$c_id' AND user_id=0")->find();
     	if(! $code) return null;
     	$data =array(
     				'user_id'		=>	$user_id,
@@ -87,7 +87,7 @@ class CouponCodeCodesModel extends Model
     				'fetch_time'	=>	$fetch_time
     				);
     	$this->where("id='$code[id]'")->save($data);
-    	return $code['code'];
+    	return $code;
     }
     
     public function getAll($id, array $limit = array())
@@ -108,7 +108,7 @@ class CouponCodeCodesModel extends Model
     public function myCodes($user_id, array $limit = array())
     {
     	$result = array('count'=>0,'data'=>array());
-    	$select = "SELECT ccc.c_id,ccc.code,ccc.fetch_time,ccc.user_id,ccc.nick,c.m_id,c.title,c.c_type,c.price_type
+    	$select = "SELECT ccc.c_id,ccc.code,ccc.password,ccc.fetch_time,ccc.user_id,ccc.nick,c.m_id,c.title,c.c_type,c.price_type
     				,c.price,c.m_name,c.money_max,c.money_reduce,c.money_amount,c.expiry_type,c.expiry,c.fetched_amount
     				,cd.directions,m.logo";
     	$sql = " FROM ".$this->getTableName() . ' AS ccc';
@@ -173,7 +173,7 @@ class CouponCodeCodesModel extends Model
     {
     	$_CFG = load_config();
     	$timestamp = intval($_CFG['timezone'])*3600;
-    	$fields = 'user_id,nick,code,fetch_time+' .$timestamp . ' AS pull_time';
+    	$fields = 'user_id,nick,code,password,fetch_time+' .$timestamp . ' AS pull_time';
     	//$fields = 'user_id,nick,code,fetch_time AS pull_time';
     	return $this->field($fields)->where("c_id='$c_id' AND user_id>0")->order('fetch_time DESC')->limit($limit)->select();
     }
