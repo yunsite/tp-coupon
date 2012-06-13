@@ -571,6 +571,7 @@ class CouponCodeAction extends AdminCommonAction
 			$coupons[$codes[$k][1]]['info'] = $data;
 			$coupons[$codes[$k][1]]['extra'] = $extra;
 			$coupons[$codes[$k][1]]['codes'][] = $codes[$k][8];
+			$coupons[$codes[$k][1]]['password'][] = $codes[$k][9];
 		}
 		$ccModel = D('CouponCode');
 		$ccdModel = D('CouponCodeData');
@@ -590,10 +591,11 @@ class CouponCodeAction extends AdminCommonAction
 							);
 				$ccdModel->_add($_data);
 				//添加优惠代码
-				foreach ($c['codes'] as $code){
+				for($kk=0;$kk<count($c['codes']);$kk++){
 					$_data = array(
 								'c_id'			=>	$c_id,
-								'code'			=>	$code,
+								'code'			=>	$c['codes'][$kk],
+								'password'		=>	$c['password'][$kk],
 								);
 					$codesModel->_add($_data);
 				}
