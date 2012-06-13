@@ -416,7 +416,7 @@ class CodeAction extends HomeCommonAction
 						$qq->add_share($title, $url, $site, $pic_path);
 					}
 				}
-				$this->ajaxReturn(array('code'=>$code), '领取成功', 1);
+				$this->ajaxReturn($code, '领取成功', 1);
 			}else{
 				$this->ajaxReturn('', '领取失败', 0);
 			}
