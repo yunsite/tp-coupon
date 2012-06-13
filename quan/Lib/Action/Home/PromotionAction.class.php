@@ -66,7 +66,7 @@ class PromotionAction extends HomeCommonAction
 		$cates = $cccService->getTree();
     	$this->assign('promotion', $promotion);
     	$this->assign('cates', $cates);
-    	$this->assign('page_title', '促销活动 - ' . $promotion['title']);
+    	$this->assign('page_title', $promotion['title'] . ' - 促销活动 - ');
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
     	$this->display();
