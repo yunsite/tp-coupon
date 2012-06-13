@@ -7,3 +7,11 @@ ADD `seo_desc` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NUL
 
 
 ALTER TABLE `dbs_coupon_code_data` ADD `seo_title` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `updatetime` 
+
+
+ALTER TABLE `dbs_coupon_code_data` ADD `is_secret` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0'
+
+
+ALTER TABLE `dbs_coupon_code_codes` CHANGE `code` `code` VARCHAR( 150 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
+
+ALTER TABLE `dbs_coupon_code_codes` ADD `password` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `code` 
