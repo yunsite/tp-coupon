@@ -866,7 +866,7 @@ i.new{background:url(Images/bg.png) -144px 0;}
 .pulledlist li u, .pulledlist li b, .pulledlist li em{height:18px;font-family:Verdana; width:90px; float:left; display:block; font-weight:normal; font-style:normal; text-align:left; text-decoration:none}
 .pulledlist li u{overflow:hidden;}
 .pulledlist li b{margin-right:15px; text-align:center; width:100px}
-.pulledlist li em{margin-left:10px; color:red; width:130px; text-align:center}
+.pulledlist li em{margin-left:10px; color:red; width:280px; text-align:center}
 .pulledlist li.h{display:none}
 
 .consumelist li{height:18px; line-height:18px; display:block}
