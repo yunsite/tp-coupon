@@ -45,6 +45,10 @@
 		<td>{$code.data.prompt}</td>
 	</tr>
     <tr>
+		<th width="200" class="first">优惠券代码保密：</th>
+		<td><!--{if $code.data.is_secret==1}-->是<!--{else}-->否<!--{/if}--></td>
+	</tr>
+    <tr>
 		<th width="200" class="first">SEO关键字：</th>
 		<td>{$code.data.seo_keywords}</td>
 	</tr>
