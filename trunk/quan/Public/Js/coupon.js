@@ -38,7 +38,7 @@ var coupon = {
 												   if(data.status == 0){
 													   html = data.info;
 												   }else{
-													   html = '<ul id="pullinfo" class="clear"><li><ins>优惠券代码(复制下面代码去购物网站使用)：</ins></li><li id="code_3074" class="code"><font color="red"><b>优惠代码：'+data.data.code+'</b></font></li><li class="code">&nbsp;</li><li class="code">领取的优惠券在"账号中心"也都可以查到：</li><li class="code"><a target="_blank" href="'+mycodes_url+'">&nbsp;&nbsp;账号中心地址</a></li><li class="code">&nbsp;</li><li class="code">领取的优惠券如何使用：</li><li class="code"><a target="_blank" title="使用方法" href="'+how2use_url+'">使用方法</a></li><li><ins><a target="_blank" id="go_shopping" href="'+shopping_url+'"><span>去商家购物</span></a></ins></li></ul>';
+													   html = '<ul id="pullinfo" class="clear"><li><ins>优惠券代码(复制下面代码去购物网站使用)：</ins></li><li id="code_3074" class="code"><font color="red"><b>优惠代码：'+data.data.code+' '+data.data.password+'</b></font></li><li class="code">&nbsp;</li><li class="code">领取的优惠券在"账号中心"也都可以查到：</li><li class="code"><a target="_blank" href="'+mycodes_url+'">&nbsp;&nbsp;账号中心地址</a></li><li class="code">&nbsp;</li><li class="code">领取的优惠券如何使用：</li><li class="code"><a target="_blank" title="使用方法" href="'+how2use_url+'">使用方法</a></li><li><ins><a target="_blank" id="go_shopping" href="'+shopping_url+'"><span>去商家购物</span></a></ins></li></ul>';
 													   window.open(shopping_url);
 												   }
 												   $.fn.jmodal({
