@@ -40,8 +40,13 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                 
                             </ul>
                             <div class="gosale">
-                                
+                                <!--{if $detail['fetched_amount'] < $detail['amount'] && (($detail['expiry_type']==1 && $detail['expiry']>0)||$detail['expiry_type']==2)}-->
                                 <a href="javascript:;" class="pullbtn" title="立即领取该优惠券" id="pull" cid="{$detail.c_id}" ptype="{$detail.price_type}" price="{$detail.price}"><span>立即领取</span></a>
+                                <!--{elseif $detail['fetched_amount'] >= $detail['amount']}-->
+                                <a href="javascript:;" class="pulledbtn" title="立即领取该优惠券"><span>已经领完</span></a>
+                                <!--{elseif $detail['expiry_type']==1 && $detail['expiry']==0}-->
+                                <a href="javascript:;" class="expirebtn" title="立即领取该优惠券"><span>已到期</span></a>
+                                <!--{/if}-->
                                 
                             </div>
                             <div class="clear">
@@ -79,7 +84,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                     
                                     <b><!--{echo date('m-d H:i', $item['pull_time']);}--></b>
                                     
-                                    <em><!--{if $user['user_id']==$item['user_id'] || $item['pull_time']<=$nowtime}-->{$item['code']}<!--{else}-->仅领取者本人知道<!--{/if}--></em>
+                                    <em><!--{if $detail['data']['is_secret'] || $detail['price_type']==2 || $detail['price_type']==3}-->仅领取者本人知道<!--{else}--><!--{if $user['user_id']==$item['user_id'] || $item['pull_time']<=$nowtime}-->{$item['code']} {$item.password}<!--{else}-->仅领取者本人知道<!--{/if}--><!--{/if}--></em>
                                 </li>
                                 <!--{/loop}-->
                                 <!--{if $record_top_amount>5}-->
@@ -91,7 +96,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                     
                                     <b><!--{echo date('m-d H:i', $record_top100[$k]['pull_time']);}--></b>
                                     
-                                    <em><!--{if $user['user_id']==$record_top100[$k]['user_id'] || $record_top100[$k]['pull_time']<=$nowtime}-->{$record_top100[$k]['code']}<!--{else}-->仅领取者本人知道<!--{/if}--></em>
+                                    <em><!--{if $detail['data']['is_secret'] || $detail['price_type']==2 || $detail['price_type']==3}-->仅领取者本人知道<!--{else}--><!--{if $user['user_id']==$record_top100[$k]['user_id'] || $record_top100[$k]['pull_time']<=$nowtime}-->{$record_top100[$k]['code']} {$record_top100[$k]['password']}<!--{else}-->仅领取者本人知道<!--{/if}--><!--{/if}--></em>
                                 </li>
                                 <!--{eval }}-->
                                 <!--{/if}-->
