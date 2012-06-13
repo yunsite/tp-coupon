@@ -52,6 +52,26 @@ class PromotionAction extends HomeCommonAction
     	$this->display();
     }
     
+    public function detail()
+    {
+    	$id = intval($_REQUEST['id']);
+    	$proModel = D('MallPromotion');
+    	$promotion = $proModel->info(array(), $id);
+    	$promotion or die('id invliad.');
+    	import('@.Com.Util.Ubb');
+		$promotion['detail'] = Ubb::ubb2html($promotion['detail']);
+		$promotion['expiry'] = LocalTime::getInstance()->local_date($this->_CFG['date_format'], $promotion['expiry']);
+    	//商家分类
+		$cccService = service('CouponCodeCategory');
+		$cates = $cccService->getTree();
+    	$this->assign('promotion', $promotion);
+    	$this->assign('cates', $cates);
+    	$this->assign('page_title', '促销活动 - ' . $promotion['title']);
+    	$this->assign('page_keywords', $this->_CFG['site_keywords']);
+    	$this->assign('page_description', $this->_CFG['site_description']);
+    	$this->display();
+    }
+    
     /**
      * 跳转到商家购物链接
      *
