@@ -126,6 +126,7 @@ class CouponCodeAction extends AdminCommonAction
 							'seo_title'		=>	$_REQUEST['seo_title'],
 							'seo_keywords'	=>	$_REQUEST['seo_keywords'],
 							'seo_desc'		=>	$_REQUEST['seo_desc'],
+							'is_secret'		=>	intval($_REQUEST['is_secret'])
 							);
 				$ccdModel = D('CouponCodeData');
 				$ccdModel->_add($data);
@@ -197,6 +198,7 @@ class CouponCodeAction extends AdminCommonAction
 							'seo_title'		=>	$_REQUEST['seo_title'],
 							'seo_keywords'	=>	$_REQUEST['seo_keywords'],
 							'seo_desc'		=>	$_REQUEST['seo_desc'],
+							'is_secret'		=>	intval($_REQUEST['is_secret'])
 							);
 				$ccdModel = D('CouponCodeData');
 				$ccdModel->_edit($c_id, $data);
@@ -409,9 +411,12 @@ class CouponCodeAction extends AdminCommonAction
 			$codesModel = D('CouponCodeCodes');
 			$codes = explode("\r\n", $_REQUEST['codes']);
 			foreach ($codes as $code){
+				$code = trim($code);
+				$_code = explode(' ', $code);
 				$data = array(
 							'c_id'			=>	$c_id,
-							'code'			=>	$code,
+							'code'			=>	$_code[0],
+							'password'		=>	isset($_code[1]) ? $_code[1] : ''
 							);
 				$codesModel->_add($data);
 			}
