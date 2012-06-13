@@ -65,6 +65,8 @@ class MallPromotionAction extends AdminCommonAction
 		$cate = $cccService->info($promotion['cate_id']);
 		$promotion['cates'] = $cate['parents'];
 		$promotion['expiry'] = LocalTime::getInstance()->local_date($this->_CFG['date_format'], $promotion['expiry']);
+		import('@.Com.Util.Ubb');
+		$promotion['detail'] = Ubb::ubb2html($promotion['detail']);
 		$this->assign('promotion', $promotion);
 		$this->assign('ur_href', '促销活动管理 &gt; 活动详情');
 		$this->display();
@@ -105,6 +107,7 @@ class MallPromotionAction extends AdminCommonAction
 						'm_name'		=>	$_REQUEST['m_name'],
 						'logo'			=>	$logo,
 						'sort_order'	=>	intval($_REQUEST['sort_order']),
+						'detail'		=>	$_REQUEST['detail'],
 						'addtime'		=>	$addtime,
 						);
 			$ccmModel = D('MallPromotion');
@@ -163,6 +166,7 @@ class MallPromotionAction extends AdminCommonAction
 						'm_id'			=>	intval($_REQUEST['m_id']),
 						'm_name'		=>	$_REQUEST['m_name'],
 						'sort_order'	=>	intval($_REQUEST['sort_order']),
+						'detail'		=>	$_REQUEST['detail'],
 						);
 			if($logo){
 				$data['logo'] = $logo;
