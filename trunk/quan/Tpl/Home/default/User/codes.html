@@ -22,8 +22,8 @@
             <a href="{echo reUrl('Code/view?id='.$item[c_id]);}" target="_blank"><!--{if $item['title']}-->{$item.title}<!--{else}-->{$item.m_name}<!--{if $item['c_type']==1}-->满{$item.money_max}减{$item.money_reduce}元优惠券<!--{else}-->{$item.money_amount}元代金券<!--{/if}--><!--{/if}--></a></h6>
         <ul class="normal_m_u detail clear">
             
-            <li><em>优惠券代码：</em></li>
-            <li class="red code" id="code_701677" rel="{echo reUrl('Mall/out?id='.$item[m_id])}"><b><font color="red">{$item.code}</font></b> </li>
+            <li><em>优惠券代码/密码：</em></li>
+            <li class="red code" id="code_701677" rel="{echo reUrl('Mall/out?id='.$item[m_id])}"><b><font color="red">{$item.code} {$item.password}</font></b> </li>
             
             <li><em>如何使用：</em><a href="{echo reUrl('Mall/how2use?id='.$item[m_id]);}" target="_blank">{$item.m_name}优惠券使用方法</a></li>
             
