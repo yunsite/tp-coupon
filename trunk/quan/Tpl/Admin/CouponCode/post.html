@@ -48,7 +48,11 @@
     <tr>
 		<th width="200" class="first">温馨提示：</th>
 		<td><textarea name="prompt" id="prompt" cols="" rows="" class="textinput" style="height:150px; width:550px;">{$code.data.prompt}</textarea></td>
-	</tr>    
+	</tr>
+    <tr>
+		<th width="200" class="first">优惠券代码保密：</th>
+		<td><label><input name="is_secret" type="radio" value="1" {if $smarty.const.ACTION_NAME eq 'edit' && $code.data.is_secret==1}checked="checked"{/if} />是</label><label><input name="is_secret" type="radio" value="0" {if $smarty.const.ACTION_NAME eq 'add' || ($smarty.const.ACTION_NAME eq 'edit' && $code.data.is_secret==0)}checked="checked"{/if} />否</label></td>
+	</tr>
     <tr>
 		<th width="200" class="first">SEO关键字：</th>
 		<td><textarea name="seo_keywords" id="seo_keywords" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$code.data.seo_keywords}</textarea></td>

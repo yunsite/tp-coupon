@@ -52,6 +52,7 @@ $(document).ready(function(){
 <th width="30" class="first"><input type="checkbox" onclick="check_all('id[]', this)"></th>
 <th width="200">名称</th>
 <th align="left">优惠码</th>
+<th width="80">密码</th>
 <th width="80">领取人</th>
 <th width="150">领取时间</th>
 <th width="80">操作</th>
@@ -63,6 +64,7 @@ $(document).ready(function(){
 <td class="first"><input type="checkbox" value="{$item.id}" name="id[]"></td>
 <td align="left"><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=view&c_id={$code.c_id}">{$code.m_name}<!--{if $code.c_type==1}-->满{$code.money_max}减{$code.money_reduce}元优惠券<!--{else}-->{$code.money_amount}代金券<!--{/if}--></a></td>
 <td align="left">{$item.code}</td>
+<td>{$item.password|default:''}</td>
 <td>{$item.nick|default:'未领取'}</td>
 <td align="center">{$item.fetch_time|default:'未领取'}</td>
 <td align="center"><!--{if $item.u_id == 0}--><a onclick="del({$item.id})" href="javascript:;">删除</a><!--{else}-->&nbsp;<!--{/if}--></td>
