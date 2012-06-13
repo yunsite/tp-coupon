@@ -17,7 +17,6 @@ RewriteRule ^code-lastestpulled-p-([0-9]+)\.html$       index\.php\?m=Code&a=las
 RewriteRule ^code-latest-cate_id-([0-9]+)-t_type-([0-9]+)-cate_id2-([0-9]+)-p-([0-9]+).html$       index\.php\?m=Code&a=latest&cate_id=$1&t_type=$2&cate_id2=$3&p=$4 [L]
 RewriteRule ^code-hot-cate_id-([0-9]+)-type-([0-9]+)-cate_id2-([0-9]+)-p-([0-9]+).html$       index\.php\?m=Code&a=hot&cate_id=$1&type=$2&cate_id2=$3&p=$4 [L]
 RewriteRule ^(promotion|zhekou)-index\.html$       index\.php\?m=$1 [L]
-RewriteRule ^(promotion|zhekou)-detail-id-([0-9]+)\.html$       index\.php\?m=$1&a=detail&id=$2 [L]
-RewriteRule ^(promotion|zhekou)-out-id-([0-9]+)\.html$       index\.php\?m=$1&a=out&id=$2 [L]
+RewriteRule ^(promotion|zhekou)-(detail|out)-id-([0-9]+)\.html$       index\.php\?m=$1&a=$2&id=$3 [L]
 RewriteRule ^promotion-index-cid-([0-9]+)-p-([0-9]+)\.html$       index\.php\?m=promotion&a=index&cid=$1&p=$2 [L]
 RewriteRule ^zhekou-index-cid-([0-9]+)-t_type-([0-9]+)-p-([0-9]+)\.html$       index\.php\?m=zhekou&a=index&cid=$1&t_type=$2&p=$3 [L]
