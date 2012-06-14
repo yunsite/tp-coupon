@@ -92,26 +92,6 @@ class TopClient
 		return $reponse;
 	}
 
-	protected function logCommunicationError($apiName, $requestUrl, $errorCode, $responseTxt)
-	{
-		$localIp = isset($_SERVER["SERVER_ADDR"]) ? $_SERVER["SERVER_ADDR"] : "CLI";
-		$logger = new LtLogger;
-		$logger->conf["log_file"] = rtrim(TOP_SDK_WORK_DIR, '\\/') . '/' . "logs/top_comm_err_" . $this->appkey . "_" . date("Y-m-d") . ".log";
-		$logger->conf["separator"] = "^_^";
-		$logData = array(
-		date("Y-m-d H:i:s"),
-		$apiName,
-		$this->appkey,
-		$localIp,
-		PHP_OS,
-		$this->sdkVersion,
-		$requestUrl,
-		$errorCode,
-		str_replace("\n","",$responseTxt)
-		);
-		$logger->log($logData);
-	}
-
 	public function execute($request, $session = null)
 	{
 		if($this->checkRequest) {
@@ -157,7 +137,6 @@ class TopClient
 		}
 		catch (Exception $e)
 		{
-			$this->logCommunicationError($sysParams["method"],$requestUrl,"HTTP_ERROR_" . $e->getCode(),$e->getMessage());
 			$result->code = $e->getCode();
 			$result->msg = $e->getMessage();
 			return $result;
@@ -179,7 +158,7 @@ class TopClient
 		}
 		else if("xml" == $this->format)
 		{
-			$respObject = @simplexml_load_string($resp);
+			$respObject = $this->getXmlData($resp);
 			if (false !== $respObject)
 			{
 				$respWellFormed = true;
@@ -189,7 +168,6 @@ class TopClient
 		//返回的HTTP文本不是标准JSON或者XML，记下错误日志
 		if (false === $respWellFormed)
 		{
-			$this->logCommunicationError($sysParams["method"],$requestUrl,"HTTP_RESPONSE_NOT_WELL_FORMED",$resp);
 			$result->code = 0;
 			$result->msg = "HTTP_RESPONSE_NOT_WELL_FORMED";
 			return $result;
@@ -198,44 +176,32 @@ class TopClient
 		//如果TOP返回了错误码，记录到业务错误日志中
 		if (isset($respObject->code))
 		{
-			$logger = new LtLogger;
-			$logger->conf["log_file"] = rtrim(TOP_SDK_WORK_DIR, '\\/') . '/' . "logs/top_biz_err_" . $this->appkey . "_" . date("Y-m-d") . ".log";
-			$logger->log(array(
-				date("Y-m-d H:i:s"),
-				$resp
-			));
+			
 		}
 		return $respObject;
 	}
-
-	public function exec($paramsArray)
-	{
-		if (!isset($paramsArray["method"]))
-		{
-			trigger_error("No api name passed");
+	
+	//解析xml函数
+	function getXmlData ($strXml) {
+		$pos = strpos($strXml, 'xml');
+		if ($pos) {
+			$xmlCode=simplexml_load_string($strXml,'SimpleXMLElement', LIBXML_NOCDATA);
+			$arrayCode=$this->get_object_vars_final($xmlCode);
+			return $arrayCode ;
+		} else {
+			return '';
 		}
-		$inflector = new LtInflector;
-		$inflector->conf["separator"] = ".";
-		$requestClassName = ucfirst($inflector->camelize(substr($paramsArray["method"], 7))) . "Request";
-		if (!class_exists($requestClassName))
-		{
-			trigger_error("No such api: " . $paramsArray["method"]);
+	}
+
+	function get_object_vars_final($obj){
+		if(is_object($obj)){
+			$obj=get_object_vars($obj);
 		}
-
-		$session = isset($paramsArray["session"]) ? $paramsArray["session"] : null;
-
-		$req = new $requestClassName;
-		foreach($paramsArray as $paraKey => $paraValue)
-		{
-			$inflector->conf["separator"] = "_";
-			$setterMethodName = $inflector->camelize($paraKey);
-			$inflector->conf["separator"] = ".";
-			$setterMethodName = "set" . $inflector->camelize($setterMethodName);
-			if (method_exists($req, $setterMethodName))
-			{
-				$req->$setterMethodName($paraValue);
+		if(is_array($obj)){
+			foreach ($obj as $key=>$value){
+				$obj[$key]=$this->get_object_vars_final($value);
 			}
 		}
-		return $this->execute($req, $session);
+		return $obj;
 	}
 }

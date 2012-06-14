@@ -17,3 +17,19 @@ ALTER TABLE `dbs_coupon_code_codes` CHANGE `code` `code` VARCHAR( 150 ) CHARACTE
 ALTER TABLE `dbs_coupon_code_codes` ADD `password` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `code` 
 
 ALTER TABLE `dbs_mall_promotion` ADD `detail` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
+
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '0', 'taobao', 'group', '', '', '', '1');
+
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_nick', 'text', '', '', '', '1');
+
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_ali_pid', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey0', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appsecret0', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey0_times', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey1', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appsecret1', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey1_times', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey2', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appsecret2', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey2_times', 'text', '', '', '', '1');
