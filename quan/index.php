@@ -18,7 +18,7 @@ define('APP_PATH', DOC_ROOT_PATH);
 //项目版本
 define('APP_VERSION', '1.191');
 //开启Debug模式
-define('APP_DEBUG',        false);
+define('APP_DEBUG',        true);
 /* 验证码 */
 define('CAPTCHA_CODE',          	'seccode'); //session保存验证码的名称
 define('CAPTCHA_REGISTER',          1); //注册时使用验证码
