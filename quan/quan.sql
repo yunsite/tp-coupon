@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 06 月 13 日 09:43
+-- 生成日期: 2012 年 06 月 14 日 09:55
 -- 服务器版本: 5.1.28
 -- PHP 版本: 5.2.6
 
@@ -446,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `dbs_site_config` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=954 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=968 ;
 
 -- --------------------------------------------------------
 
