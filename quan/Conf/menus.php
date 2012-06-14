@@ -100,6 +100,54 @@ return array(
 																		'params'		=>	array(),
 																		),
 																	),
+											),
+											array(
+											'module'		=>	'TaoShopCategory',
+											'displayName'	=>	'淘宝店铺分类管理',
+											'actions'		=>	array(
+																	array(
+																		'action'		=>	'index',
+																		'displayName'	=>	'分类列表',
+																		'params'		=>	array(),
+																		),
+																	array(
+																		'action'		=>	'add',
+																		'displayName'	=>	'添加分类',
+																		'params'		=>	array(),
+																		),
+																	),
+											),
+											array(
+											'module'		=>	'TaoShop',
+											'displayName'	=>	'淘宝店铺管理',
+											'actions'		=>	array(
+																	array(
+																		'action'		=>	'index',
+																		'displayName'	=>	'店铺列表',
+																		'params'		=>	array(),
+																		),
+																	array(
+																		'action'		=>	'add',
+																		'displayName'	=>	'添加店铺',
+																		'params'		=>	array(),
+																		),
+																	),
+											),
+											array(
+											'module'		=>	'TaoCoupon',
+											'displayName'	=>	'淘宝优惠券管理',
+											'actions'		=>	array(
+																	array(
+																		'action'		=>	'index',
+																		'displayName'	=>	'优惠券列表',
+																		'params'		=>	array(),
+																		),
+																	array(
+																		'action'		=>	'add',
+																		'displayName'	=>	'添加优惠券',
+																		'params'		=>	array(),
+																		),
+																	),
 											)
 											),
 					),
