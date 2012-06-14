@@ -10,17 +10,34 @@ class TaoShopCategoryAction extends AdminCommonAction
 {
 	public function add()
 	{
-		header("Content-Type:text/html;charset=UTF-8");
-		ini_set('include_path', ini_get('include_path').PATH_SEPARATOR. LIB_PATH."Com".DIRECTORY_SEPARATOR."taobao".DIRECTORY_SEPARATOR.'standard'.DIRECTORY_SEPARATOR);
-		require_once('RequestCheckUtil.php');
-		require_once('TopClient.php');
-		require_once('Request/ShopcatsListGetRequest.php');
-		$c = new TopClient;
-		$c->appkey = $this->_CFG['taobao_appkey0'];
-		$c->secretKey = $this->_CFG['taobao_appsecret0'];
-		$req = new ShopcatsListGetRequest;
-		$req->setFields("cid,parent_cid,name,is_parent");
-		$resp = $c->execute($req);
-		print_r($resp);
+		if($this->isAjax()){
+			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST)){
+				die('hack attemp.');
+			}
+			$cid = intval($_REQUEST['id']);
+			$name = $_REQUEST['name'];
+			if(M('tao_shop_category')->field('id')->where("id='$cid'")->find()){
+				$this->ajaxReturn('', buildFormToken(), 1);
+			}else{
+				$data = array(
+							'id'	=>	$cid,
+							'name'	=>	$name
+							);
+				if(M('tao_shop_category')->add($data)){
+					//TODO:清除缓存
+					
+					$this->ajaxReturn('', buildFormToken(), 1);
+				}else{
+					$this->ajaxReturn('', buildFormToken(), 0);
+				}
+			}
+		}
+		import('@.Com.taobao.Taobao');
+		$taobaoObj = Taobao::getInstance();
+		$tao_shop_categorys = $taobaoObj->ShopCatesList();
+		$this->assign('tao_shop_categorys', $tao_shop_categorys);
+		$this->assign('ur_href', '淘宝店铺分类管理 &gt; 添加分类');
+		$this->assign('_hash_', buildFormToken());
+		$this->display();
 	}
 }

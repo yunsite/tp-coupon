@@ -33,3 +33,44 @@ INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`,
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey2', 'text', '', '', '', '1');
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appsecret2', 'text', '', '', '', '1');
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey2_times', 'text', '', '', '', '1');
+
+
+CREATE TABLE IF NOT EXISTS `dbs_tao_shop` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nick` varchar(255) DEFAULT NULL,
+  `uid` varchar(255) DEFAULT NULL,
+  `cid` int(10) DEFAULT NULL,
+  `consumer_protection` varchar(10) DEFAULT NULL,
+  `level` int(10) DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  `total_num` int(11) DEFAULT NULL,
+  `good_num` int(11) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `state` varchar(255) DEFAULT NULL,
+  `sid` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `pic_path` varchar(255) DEFAULT NULL,
+  `created` varchar(255) DEFAULT NULL,
+  `shop_click_url` varchar(300) DEFAULT NULL,
+  `type` varchar(5) DEFAULT 'C',
+  `addtime` varchar(255) DEFAULT '2007-05-23',
+  `hits` int(11) DEFAULT '0',
+  `tuijian` int(11) DEFAULT '0',
+  `item_score` varchar(255) DEFAULT '4.8',
+  `service_score` varchar(255) DEFAULT '4.8',
+  `delivery_score` varchar(255) DEFAULT '4.8',
+  `fanxianlv` varchar(255) DEFAULT NULL,
+  `good` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nick` (`nick`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `dbs_tao_shop_category` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `sort_order` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `parent_dept_id` (`parent_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
