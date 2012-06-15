@@ -8,6 +8,21 @@
  */
 class TaoShopCategoryAction extends AdminCommonAction
 {
+	public function index()
+	{
+		$category = array();
+		$cccService = service('TaoShopCategory');
+		$data = $cccService->getTree();
+		foreach ($data as $rs){
+			$category[$rs['id']] = $rs;
+			$category[$rs['id']]['prefix'] = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$rs['level']);
+		}
+		$this->assign('category', $category);
+		$this->assign('ur_href', '淘宝店铺分类管理 &gt; 分类列表');
+		$this->assign('_hash_', buildFormToken());
+		$this->display();
+	}
+	
 	public function add()
 	{
 		if($this->isAjax()){
@@ -24,8 +39,9 @@ class TaoShopCategoryAction extends AdminCommonAction
 							'name'	=>	$name
 							);
 				if(M('tao_shop_category')->add($data)){
-					//TODO:清除缓存
-					
+					//清除缓存
+					$params = null;
+					B('TaoShopCategory', $params);
 					$this->ajaxReturn('', buildFormToken(), 1);
 				}else{
 					$this->ajaxReturn('', buildFormToken(), 0);
@@ -39,5 +55,20 @@ class TaoShopCategoryAction extends AdminCommonAction
 		$this->assign('ur_href', '淘宝店铺分类管理 &gt; 添加分类');
 		$this->assign('_hash_', buildFormToken());
 		$this->display();
+	}
+	
+	public function del()
+	{
+		if($this->isAjax()){
+			$id = intval($_REQUEST['id']);
+			if(M('tao_shop_category')->where("id='$id'")->delete()){
+				//清除缓存
+				$params = null;
+				B('TaoShopCategory', $params);
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '删除失败', 0);
+			}
+		}
 	}
 }

@@ -69,6 +69,9 @@ return array(
 									'taobao_appkey2'	=> 'appKey_3',
 									'taobao_appsecret2'	=> 'appSecret_3',
 									'taobao_appkey2_times'=> 'app3调用次数',
+									'taobao_cache_time'	=> '店铺分类等数据缓存时间',
+									'taobao_shop_cache_time'=> '店铺信息缓存时间',
+									'taobao_coupon_cache_time'=> '店铺优惠券缓存时间',
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
@@ -144,6 +147,9 @@ return array(
 										'taobao_appkey0_times'=>	'次/分钟',
 										'taobao_appkey1_times'=>	'次/分钟',
 										'taobao_appkey2_times'=>	'次/分钟',
+										'taobao_cache_time'			=> '单位：分钟',
+										'taobao_shop_cache_time'	=> '单位：分钟',
+										'taobao_coupon_cache_time'	=> '单位：分钟',
 										),
 					),
 );
