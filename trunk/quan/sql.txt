@@ -33,6 +33,10 @@ INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`,
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey2', 'text', '', '', '', '1');
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appsecret2', 'text', '', '', '', '1');
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_appkey2_times', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_cache_time', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_shop_cache_time', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_coupon_cache_time', 'text', '', '', '', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_last_cache_time', 'hidden', '', '', '0', '1');
 
 
 CREATE TABLE IF NOT EXISTS `dbs_tao_shop` (

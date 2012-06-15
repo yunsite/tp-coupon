@@ -46,7 +46,8 @@ class CouponCodeCategoryAction extends AdminCommonAction
 			$cccModel = D('CouponCodeCategory');
 			if($cccModel->_add($data)){
 				//清除缓存
-				B('CouponCodeCategory');
+				$params = null;
+				B('CouponCodeCategory', $params);
 				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME);
 				$this->success('添加成功');
 			}else{
@@ -86,7 +87,8 @@ class CouponCodeCategoryAction extends AdminCommonAction
 			$cccModel = D('CouponCodeCategory');
 			if($cccModel->_edit($id, $data)){
 				//清除缓存
-				B('CouponCodeCategory');
+				$params = null;
+				B('CouponCodeCategory', $params);
 				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME);
 				$this->success('编辑成功');
 			}else{
@@ -113,7 +115,8 @@ class CouponCodeCategoryAction extends AdminCommonAction
 			$cccModel = D('CouponCodeCategory');
 			if($cccModel->_delete($id)){
 				//清除缓存
-				B('CouponCodeCategory');
+				$params = null;
+				B('CouponCodeCategory', $params);
 				$this->ajaxReturn('', '', 1);
 			}else{
 				$this->ajaxReturn('', '删除失败', 0);

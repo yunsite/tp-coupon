@@ -1,0 +1,51 @@
+{include file="../Public/header.html"}
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
+<div class="handle-btns">
+
+</div>
+<form action="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=add_step2" method="get" name="form_post" id="form_post">
+<table cellspacing="0" cellpadding="4" border="0" class="table-form">
+	<tbody>
+    <tr>
+		<th width="200" class="first">&nbsp;</th>
+		<td>添加店铺第一步：选择分类</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">分类：</th>
+		<td>
+        <select name="cid" class="requireinput required">
+        <!--{foreach from=$item_cates item=item}-->
+        <option value="{$item.cid}">{$item.name}</option>
+        <!--{/foreach}-->
+        </select>&nbsp;(注意：该分类为商品分类，不是店铺分类)
+        </td>
+	</tr>
+    <tr>
+		<th width="200" class="first">关键字：</th>
+		<td><input name="kw" type="text" size="40" class="textinput" /></td>
+	</tr>
+	<tr class="act">
+		<th class="first">&nbsp;</th>
+		<td>
+			<input type="submit" value="提交" class="submit_btn">
+		</td>
+	</tr>
+</tbody></table>
+<input name="_hash_" type="hidden" value="{$_hash_}" />
+</form>
+<script type="text/javascript">
+var g = '{$smarty.const.GROUP_NAME}';
+var m = '{$smarty.const.MODULE_NAME}';
+var a = '{$smarty.const.ACTION_NAME}';
+<!--{literal}-->
+$(document).ready(function() {
+			$("#form_post").validate({
+						 submitHandler:function(form){
+						 							form.submit();
+						 						}
+						 });
+});
+<!--{/literal}-->
+</script>
+{include file="../Public/footer.html"}
