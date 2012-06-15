@@ -1,4 +1,4 @@
-{template "../Public/header"}
+{template "../Public/header_index"}
 {template "../Public/nav"}
 <div class="w990 clear">
 		<ul id="category-tabs">
@@ -18,9 +18,9 @@
                 <!--{loop $mall_recs $item}-->
                 <li>
                     <div class="store-item">
-                        <a href="{echo reUrl('Mall/view?id='.$item[c_id])}" title="{$item.name}" class="store-logo" target="_blank">
-                            <img width="80px" height="40px" alt="{$item.name}" src="{echo FixedUploadedFileUrl($item[logo])}" style="display: block;">
-                        </a><a href="{echo reUrl('Mall/view?id='.$item[c_id]);}" title="{$item.name}" class="store-name" target="_blank">{$item.name}</a>
+                        <a href="{echo reUrl('Mall/view?id='.$item[c_id])}" title="{$item.name}优惠券" class="store-logo" target="_blank">
+                            <img width="80px" height="40px" alt="{$item.name}优惠券" title="{$item.name}优惠券" src="{echo FixedUploadedFileUrl($item[logo])}" style="display: block;">
+                        </a><a href="{echo reUrl('Mall/view?id='.$item[c_id]);}" title="{$item.name}优惠券" class="store-name" target="_blank">{$item.name}</a>
                     </div>
                 </li>
                 <!--{/loop}-->
@@ -72,7 +72,7 @@
             
             <span><!--{if $item['expiry_type']==1}--><!--{if $item['expiry']==0}-->已结束<!--{else}-->还剩 <i><!--{if $item['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$item.expiry}<!--{/if}--></i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--> </span><span>已领数量：<i>{$item.fetched_amount}</i></span><span>收录券</span>
             
-            <span><a class="store-from" href="{echo reUrl('Mall/view?id='.$item[m_id])}">{$item.m_name}优惠券</a></span>
+            <span><a class="store-from" href="{echo reUrl('Mall/view?id='.$item[m_id])}" title="{$item.m_name}优惠券" >{$item.m_name}优惠券</a></span>
         </div>
         
     </div>

@@ -55,7 +55,7 @@ class IndexAction extends HomeCommonAction
 			}
 		}
 		$this->assign('friendlinks', $friendlinks);
-    	$this->assign('page_title', '');
+    	$this->assign('page_title', ' - ' . $this->_CFG['site_title']);
     	$this->assign('page_keywords', $this->_CFG['site_keywords']);
     	$this->assign('page_description', $this->_CFG['site_description']);
     	$this->display();
