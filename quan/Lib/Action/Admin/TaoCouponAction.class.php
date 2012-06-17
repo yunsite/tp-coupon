@@ -1,16 +1,22 @@
 <?php
 /**
- * TaoShopAction.class.php
+ * TaoCouponAction.class.php
  * @copyright			copyright(c) 2011 - 2012 极好居
  * @author				anqiu xiao
  * @contact				QQ:89249294 E-mail:jihaoju@qq.com
  * @date				Thu Jun 14 17:00:05 CST 2012
  */
-class TaoShopAction extends AdminCommonAction
+class TaoCouponAction extends AdminCommonAction
 {
 	private $_is_active = null;
 	public function index()
 	{
+		import('@.Com.taobao.Taobao');
+		$taobaoObj = Taobao::getInstance();
+		$acts = $taobaoObj->getActivity();
+		print_r($acts);
+		exit();
+		
 		$localTimeObj = LocalTime::getInstance();
 		$page = isset($_REQUEST['page']) && $_REQUEST['page'] >= 1 ? $_REQUEST['page'] : 1;
     	$pageLimit = 15;
@@ -49,7 +55,7 @@ class TaoShopAction extends AdminCommonAction
 			$category[$rs['id']]['prefix'] = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$rs['level']);
 		}
 		$this->assign('category', $category);
-		$this->assign('ur_href', '淘宝店铺管理 &gt; 店铺列表');
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 优惠券列表');
 		$this->assign('_hash_', buildFormToken());
 		$this->display();
 	}
@@ -97,23 +103,23 @@ class TaoShopAction extends AdminCommonAction
 	}
 	
 	/**
-	 * 添加店铺第一步
+	 * 添加优惠券第一步
 	 *
 	 */
 	public function add()
 	{
-		$parent_id = $_REQUEST['parent_id'] ? intval($_REQUEST['parent_id']) : 0;
-		import('@.Com.taobao.Taobao');
-		$taobaoObj = Taobao::getInstance();
-		$item_cates = $taobaoObj->getItemCates($parent_id);
-		$this->assign('item_cates', $item_cates);
-		$this->assign('ur_href', '淘宝店铺管理 &gt; 添加店铺 &gt; 第一步');
+		$s_id = $_REQUEST['s_id'] ? intval($_REQUEST['s_id']) : 0;
+		$taoShopModel = D('TaoShop');
+		$shop = $taoShopModel->info($s_id);
+		$shop or die('id invalid.');
+		
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 添加优惠券 &gt; 第一步');
 		$this->assign('_hash_', buildFormToken());
 		$this->display();
 	}
 	
 	/**
-	 * 添加店铺第二步
+	 * 添加优惠券第二步
 	 *
 	 */
 	public function add_step2()
@@ -145,37 +151,8 @@ class TaoShopAction extends AdminCommonAction
 		5);
 		$pagelink=$p->showStyle(3);
 		$this->assign('pagelink', $pagelink);
-		$this->assign('ur_href', '淘宝店铺管理 &gt; 添加店铺 &gt; 第二步');
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 添加优惠券 &gt; 第二步');
 		$this->assign('_hash_', buildFormToken());
 		$this->display();
-	}
-	
-	public function add_step3()
-	{
-		if($this->isAjax()){
-			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST)){
-				die('hack attemp.');
-			}
-			if(! $_REQUEST['nick']){
-				exit();
-			}
-			$nick = $_REQUEST['nick'];
-			if(M('tao_shop')->field('id')->where("nick='$nick'")->find()){
-				$this->ajaxReturn('', buildFormToken(), 1);
-			}else{
-				import('@.Com.taobao.Taobao');
-				$taobaoObj = Taobao::getInstance();
-				$data = $taobaoObj->createShopByNick($nick);
-				if(empty($data)){
-					$this->ajaxReturn('', buildFormToken(), 0);
-				}
-				$taoshopModel = D('TaoShop');
-				if($taoshopModel->_add($data)){
-					$this->ajaxReturn('', buildFormToken(), 1);
-				}else{
-					$this->ajaxReturn('', buildFormToken(), 0);
-				}
-			}
-		}
 	}
 }

@@ -127,7 +127,7 @@ class Taobao
 		}
 		require_once('Request/UserGetRequest.php');
 		$req = new UserGetRequest;
-		$req->setFields("user_id,seller_credit,type,location,created");
+		$req->setFields("uid,seller_credit,type,location,created");
 		$req->setNick($nick);
 		$resp = $this->_topClient->execute($req, $sessionKey);
 		return is_array($resp) && isset($resp['user']) ? $resp['user'] : array();
@@ -156,7 +156,55 @@ class Taobao
 		$req->setSids($ids);
 		$req->setNick($this->_taobao_nick);
 		$req->setPid($this->_taobao_pid);
-		$resp = $c->execute($req);
-		return is_array($resp) && isset($resp['taobaoke_shops']) ? $resp['taobaoke_shops'] : array();
+		$resp = $this->_topClient->execute($req);
+		return is_array($resp) && isset($resp['taobaoke_shops']['taobaoke_shop']) ? $resp['taobaoke_shops']['taobaoke_shop'] : array();
+	}
+	
+	/**
+	 * 添加店铺
+	 *
+	 * @param string $nick
+	 * @return array
+	 */
+	public function createShopByNick($nick)
+	{
+		$tao_shop = $this->getShopInfo($nick);
+		$taoke_shop = $this->convertShops($tao_shop['sid']);
+		$tao_user = $this->getUserInfo($nick);
+		$return = array();
+		$return['nick'] = $nick;
+		$return['uid'] = $tao_user['uid'];
+		$return['cid'] = $tao_shop['cid'];
+		$return['consumer_protection'] = $tao_user['consumer_protection'] ? 1 : 0;
+		$return['level'] = $tao_user['seller_credit']['level'];
+		$return['score'] = $tao_user['seller_credit']['score'];
+		$return['total_num'] = $tao_user['seller_credit']['total_num'];
+		$return['good_num'] = $tao_user['seller_credit']['good_num'];
+		$return['city'] = $tao_user['location']['city'];
+		$return['state'] = $tao_user['location']['state'];
+		$return['sid'] = $tao_shop['sid'];
+		$return['title'] = $tao_shop['title'];
+		$return['pic_path'] = $tao_shop['pic_path'];
+		$return['desc'] = $tao_shop['desc'];
+		$return['bulletin'] = $tao_shop['bulletin'];
+		$return['created'] = LocalTime::getInstance()->local_strtotime($tao_shop['created']);
+		$return['shop_click_url'] = $taoke_shop['click_url'];
+		$return['type'] = $tao_user['type'];
+		$return['item_score'] = $tao_shop['shop_score']['item_score'];
+		$return['service_score'] = $tao_shop['shop_score']['service_score'];
+		$return['delivery_score'] = $tao_shop['shop_score']['delivery_score'];
+		$return['commission_rate'] = $taoke_shop['commission_rate'];
+		$return['good'] = ($return['good_num']/$return['total_num'])*100;
+		$return['addtime'] = LocalTime::getInstance()->gmtime();
+		return $return;
+	}
+	
+	public function getActivity()
+	{
+		require_once('Request/PromotionActivityGetRequest.php');
+		$req = new PromotionActivityGetRequest;
+		//$req->setActivityId(585448);
+		$resp = $this->_topClient->execute($req);
+		return is_array($resp) && isset($resp['activitys']) ? $resp['activitys'] : array();
 	}
 }
