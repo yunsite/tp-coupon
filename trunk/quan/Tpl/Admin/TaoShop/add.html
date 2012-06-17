@@ -4,7 +4,7 @@
 <div class="handle-btns">
 
 </div>
-<form action="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=add_step2" method="get" name="form_post" id="form_post">
+<form action="?" method="get" name="form_post" id="form_post">
 <table cellspacing="0" cellpadding="4" border="0" class="table-form">
 	<tbody>
     <tr>
@@ -33,6 +33,9 @@
 	</tr>
 </tbody></table>
 <input name="_hash_" type="hidden" value="{$_hash_}" />
+<input name="g" type="hidden" value="{$smarty.const.GROUP_NAME}" />
+<input name="m" type="hidden" value="{$smarty.const.MODULE_NAME}" />
+<input name="a" type="hidden" value="add_step2" />
 </form>
 <script type="text/javascript">
 var g = '{$smarty.const.GROUP_NAME}';

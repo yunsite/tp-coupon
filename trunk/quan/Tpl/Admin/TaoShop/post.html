@@ -1,0 +1,113 @@
+{include file="../Public/header.html"}
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
+<div class="handle-btns">
+	<div class="link-button"><p><a class="" href="{$refererUrl}" name="" id="">返回列表</a></p></div>
+</div>
+<form action="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a={$smarty.const.ACTION_NAME}" method="post" name="form_post" id="form_post" >
+<table cellspacing="0" cellpadding="4" border="0" class="table-form">
+	<tbody>
+	<tr>
+		<th width="200" class="first">店铺分类：</th>
+		<td><select name="cid" class="requireinput required">
+			<!--{foreach from=$category item=item}-->
+			<option value="{$item.id}" {if ($smarty.const.ACTION_NAME eq 'edit') && ($item.id eq $shop.cid)}selected{/if}>{$item.prefix}{$item.name}</option>
+			<!--{/foreach}-->
+			</select></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">店铺名称：</th>
+		<td><a href="{$shop.shop_click_url}" target="_blank">{$shop.title}</a></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO标题：</th>
+		<td><input name="seo_title" type="text"  size="40" class="textinput" value="{$shop.seo_title}" />(填写SEO标题后商家详情页页面标题将显示为该值)</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">卖家昵称：</th>
+		<td>{$shop.nick}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">所在地：</th>
+		<td>{$shop.state} - {$shop.city}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">信用等级：</th>
+		<td><img src="__PUBLIC__/Images/Taobao/level_{$shop.level}.gif" /></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">评价总数：</th>
+		<td>{$shop.total_num}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">好评总数：</th>
+		<td>{$shop.good_num}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">好评率：</th>
+		<td>{$shop.good} %</td>
+	</tr>
+    
+    <tr>
+		<th width="200" class="first">店铺类型：</th>
+		<td>{if $shop.type=='B'}商城卖家{elseif $shop.type=='C'}普通卖家{/if}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">商品描述评分：</th>
+		<td>{$shop.item_score}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">服务态度评分：</th>
+		<td>{$shop.service_score}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">发货速度评分：</th>
+		<td>{$shop.delivery_score}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">返现比率：</th>
+		<td>{$shop.commission_rate} %</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">店铺描述：</th>
+		<td><textarea name="desc" id="desc" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$shop.desc}</textarea></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">店铺公告：</th>
+		<td><textarea name="bulletin" id="bulletin" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$shop.bulletin}</textarea></td>
+	</tr>
+    
+    <tr>
+		<th width="200" class="first">SEO关键字：</th>
+		<td><textarea name="seo_keywords" id="seo_keywords" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$shop.seo_keywords}</textarea></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">SEO描述：</th>
+		<td><textarea name="seo_desc" id="seo_desc" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$shop.seo_desc}</textarea></td>
+	</tr>
+	<tr class="act">
+		<th class="first">&nbsp;</th>
+		<td>
+			<input type="submit" value="提交" class="submit_btn">
+			<input type="reset" value="重置" class="reset_btn">
+		</td>
+	</tr>
+</tbody></table>
+<input name="_hash_" type="hidden" value="{$_hash_}" />
+<input name="id" type="hidden" value="{$shop.id|default:'0'}" />
+</form>
+<script type="text/javascript">
+var g = '{$smarty.const.GROUP_NAME}';
+var m = '{$smarty.const.MODULE_NAME}';
+var a = '{$smarty.const.ACTION_NAME}';
+<!--{literal}-->
+jQuery(document).ready(function() {
+			$("#form_post").validate({
+						 submitHandler:function(form){
+						 							form.submit();
+						 						}
+						 });
+});
+<!--{/literal}-->
+</script>
+{include file="../Public/footer.html"}

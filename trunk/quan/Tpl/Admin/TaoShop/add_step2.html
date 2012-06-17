@@ -45,7 +45,7 @@ $(document).ready(function(){
 <!--{foreach from=$items item=item}-->
 <tr>
 <td class="first">&nbsp;</td>
-<td align="left">{$item.nick}</td>
+<td align="left"><a href="{$item.shop_click_url}" target="_blank">{$item.nick}</a></td>
 <td align="center"><a href="javascript:;" onclick="add('{$item.nick}')">添加</a>
 </td>
 </tr>
