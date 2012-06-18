@@ -185,4 +185,174 @@ class TaoShopAction extends AdminCommonAction
 			}
 		}
 	}
+	
+	/**
+	 * 激活
+	 *
+	 */
+	public function active()
+	{
+		if($this->isAjax()){
+			$id = intval($_REQUEST['id']);
+			$ccmModel = D('TaoShop');
+			$data = array('is_active' => 1);
+			if($ccmModel->update($id, $data)){
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '激活失败', 0);
+			}
+		}
+	}
+	
+	/**
+	 * 屏蔽
+	 *
+	 */
+	public function unactive()
+	{
+		if($this->isAjax()){
+			$id = intval($_REQUEST['id']);
+			$ccmModel = D('TaoShop');
+			$data = array('is_active' => 0);
+			if($ccmModel->update($id, $data)){
+				//屏蔽旗下所有优惠券、删除推荐信息
+				M("tao_coupon")->where("s_id='$id'")->save(array('is_active' => 0));
+				M('tao_shop_rec')->where("s_id='$id'")->delete();
+				//清除缓存
+				$params = null;
+				B('TaoShopRecs', $params);
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '屏蔽失败', 0);
+			}
+		}
+	}
+	
+	public function rec_pos()
+	{
+		$rec_pos = M('tao_shop_rec_pos')->order('id DESC')->select();
+		$this->assign('rec_pos', $rec_pos);
+		$this->assign('ur_href', '淘宝店铺管理 &gt; 推荐位管理');
+		$this->assign('_hash_', buildFormToken());
+		$this->display();
+	}
+	
+	public function add_rec_pos()
+	{
+		if($this->isAjax()){
+			if(!$_REQUEST['name']){
+				exit('data invalid.');
+			}
+			if(M('tao_shop_rec_pos')->add(array('name'=>$_REQUEST['name']))){
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '', 0);
+			}
+		}
+	}
+	
+	public function del_rec_pos()
+	{
+		if($this->isAjax()){
+			if(!$_REQUEST['id']){
+				exit('data invalid.');
+			}
+			$id = intval($_REQUEST['id']);
+			if(M('tao_shop_rec_pos')->where("id='$id'")->delete()){
+				M('tao_shop_rec')->where("position='$id'")->delete();
+				//清除缓存
+				$params = null;
+				B('TaoShopRecs', $params);
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '', 0);
+			}
+		}
+	}
+	
+	/**
+	 * 推荐
+	 *
+	 */
+	public function rec()
+	{
+		$id = intval($_REQUEST['id']);
+		$ccmModel = D('TaoShop');
+		$shop = $ccmModel->info($id);
+		if($shop['is_active'] == 0){
+			$this->error('该商家已被屏蔽');
+		}
+		if($this->isPost()){
+			$position = $_REQUEST['position'];
+			if(M('tao_shop_rec')->where("s_id='$id' AND position='$position'")->find()){
+				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME.'&a=rec_shops');
+				$this->success('推荐成功');
+			}
+			$data = array(
+						's_id'			=>	$id,
+						'position'		=>	$position
+						);
+			if(M('tao_shop_rec')->data($data)->add()){
+				//清除缓存
+				$params = null;
+				B('TaoShopRecs', $params);
+				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME.'&a=rec_shops');
+				$this->success('推荐成功');
+			}else{
+				$this->error('操作失败');
+			}
+		}
+		$this->assign('shop', $shop);
+		$mall_rec_position_conf = M('tao_shop_rec_pos')->order("id DESC")->select();
+		$this->assign('mall_rec_position_conf', $mall_rec_position_conf);
+		$this->assign('ur_href', '淘宝店铺管理 &gt; 推荐店铺');
+		$this->display();
+	}
+	
+	/**
+	 * 取消推荐到首页
+	 *
+	 */
+	public function unrec()
+	{
+		if($this->isAjax()){
+			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST)){
+				die('hack attemp.');
+			}
+			if(empty($_REQUEST['id'])){
+				$this->ajaxReturn('', '请选择店铺', 0);
+			}
+			$id = $_REQUEST['id'];
+			if(M('tao_shop_rec')->where("id IN ($id)")->delete()){
+				//清除缓存
+				$params = null;
+				B('TaoShopRecs', $params);
+				$this->ajaxReturn('', buildFormToken(), 1);
+			}else{
+				$this->ajaxReturn('', '操作失败', 0);
+			}
+		}
+	}
+	
+	/**
+	 * 推荐店铺列表
+	 *
+	 */
+	public function rec_shops()
+	{
+		$ccrsService = service('TaoShopRecs');
+		$shops = array();
+		$res = $ccrsService->getAll();
+		foreach ($res as $rs){
+			foreach ($rs as $r){
+				$pos = M('tao_shop_rec_pos')->where("id='$r[position]'")->find();
+				$r['position'] = $pos['name'];
+				$shops[] = $r;
+			}
+		}
+		$this->assign('shops', $shops);
+		$this->assign('ur_href', '淘宝店铺管理 &gt; 推荐店铺列表');
+		$this->assign('_hash_', buildFormToken());
+		$this->display();
+	}
 }

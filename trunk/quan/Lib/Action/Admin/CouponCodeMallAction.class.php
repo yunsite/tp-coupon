@@ -254,7 +254,7 @@ class CouponCodeMallAction extends AdminCommonAction
 			$id = intval($_REQUEST['id']);
 			$ccmModel = D('CouponCodeMall');
 			$data = array('is_active' => 1);
-			if($ccmModel->_edit($id, $data)){
+			if($ccmModel->update($id, $data)){
 				//清除缓存
 				$params = array('id' => $id);
 				B('CouponCodeMall', $params);
@@ -275,7 +275,7 @@ class CouponCodeMallAction extends AdminCommonAction
 			$id = intval($_REQUEST['id']);
 			$ccmModel = D('CouponCodeMall');
 			$data = array('is_active' => 0);
-			if($ccmModel->_edit($id, $data)){
+			if($ccmModel->update($id, $data)){
 				//屏蔽旗下所有优惠券、删除推荐信息
 				M("coupon_code")->where("m_id='$id'")->save(array('is_active' => 0));
 				M('coupon_mall_rec')->where("c_id='$id'")->delete();

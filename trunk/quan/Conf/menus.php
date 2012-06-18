@@ -131,6 +131,16 @@ return array(
 																		'displayName'	=>	'添加店铺',
 																		'params'		=>	array(),
 																		),
+																	array(
+																		'action'		=>	'rec_shops',
+																		'displayName'	=>	'推荐店铺',
+																		'params'		=>	array(),
+																		),
+																	array(
+																		'action'		=>	'rec_pos',
+																		'displayName'	=>	'店铺推荐位管理',
+																		'params'		=>	array(),
+																		),
 																	),
 											),
 											array(
