@@ -69,7 +69,7 @@ $(document).ready(function(){
 <th width="70">已领取数量</th>
 <th width="60">排序</th>
 <th width="60">激活</th>
-<th width="130">操作</th>
+<th width="150">操作</th>
 </tr>
 </thead>
 <tbody>
@@ -83,7 +83,8 @@ $(document).ready(function(){
 <td align="center">{$item.fetched_amount}</td>
 <td align="center"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="" pk="" href="javascript:;" onclick="textEdit(this,'{$item.c_id}','sort_order')">{$item.sort_order}</span></td>
 <td align="center"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="" pk="" href="javascript:;" onclick="toggleStatus(this,'{$item.c_id}','is_active')"><img src="__PUBLIC__/Css/Admin/Images/status-{$item.is_active}.gif" class="status" status="{$item.is_active}" /></span></td>
-<td align="center"><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=edit&c_id={$item.c_id}">编辑</a>
+<td align="center"><a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=records&c_id={$item.c_id}">领取记录</a>
+&nbsp;&nbsp;<a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=edit&c_id={$item.c_id}">编辑</a>
 &nbsp;&nbsp;<a onclick="del({$item.c_id})" href="javascript:;">删除</a>
 </td>
 </tr>

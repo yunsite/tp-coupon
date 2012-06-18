@@ -65,6 +65,38 @@ class TaoCouponAction extends AdminCommonAction
 		$this->assign('ur_href', '淘宝优惠券管理 &gt; 优惠券列表');
 		$this->display();
 	}
+	
+	public function records()
+	{
+		$c_id = intval($_REQUEST['c_id']);
+		$page = isset($_REQUEST['page']) && $_REQUEST['page'] >= 1 ? $_REQUEST['page'] : 1;
+    	$pageLimit = 15;
+    	$localTimeObj = LocalTime::getInstance();
+    	$ccModel = M('TaoCouponRecords');
+    	$res = array();
+    	$res['count'] = $ccModel->where("c_id='$c_id'")->count();
+    	$res['data'] = $ccModel->where("c_id='$c_id'")->order('id DESC')->limit(($page-1)*$pageLimit.','.$pageLimit)->select();
+    	$records = array();
+    	foreach ($res['data'] as $rs){
+    		$rs['fetch_time'] = $localTimeObj->local_date($this->_CFG['time_format'], $rs['fetch_time']);
+    		$records[] = $rs;
+    	}
+    	$this->assign('records', $records);
+    	$page_url = "?g=".GROUP_NAME."&m=".MODULE_NAME."&a=".ACTION_NAME."&c_id=$c_id&page=[page]";
+    	foreach ($params as $key => $val){
+    		$page_url .= "&$key=$val";
+    	}
+    	$p=new Page($page,
+    			$pageLimit,
+    			$res['count'],
+    			$page_url,
+    			5,
+    			5);
+    	$pagelink=$p->showStyle(3);
+    	$this->assign('pagelink', $pagelink);
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 领取记录');
+		$this->display();
+	}
     
     public function add()
 	{
@@ -224,7 +256,7 @@ class TaoCouponAction extends AdminCommonAction
 		if($this->isAjax()){
 			$c_id = intval($_REQUEST['id']);
 			M('tao_coupon')->where("c_id='$c_id'")->delete();
-			//M('tao_coupon_best')->where("c_id='$c_id'")->delete();
+			M('tao_coupon_records')->where("c_id='$c_id'")->delete();
 			M('tao_coupon_data')->where("c_id='$c_id'")->delete();
 			$this->ajaxReturn('', '删除成功' ,1);
 		}

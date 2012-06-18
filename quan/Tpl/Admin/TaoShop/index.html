@@ -66,13 +66,13 @@ function single_action(action, isajax)
 }
 function active()
 {
-	$('#dialog>p').html('将重新激活该商家所有未过期且未被领取的优惠券');
+	$('#dialog>p').html('将重新激活该商家所有未过期的优惠券');
 	$('#dialog').dialog('open');
 	single_action('active');
 }
 function unactive()
 {
-	$('#dialog>p').html('将屏蔽该商家所有未过期且未被领取的优惠券');
+	$('#dialog>p').html('将屏蔽该商家所有未过期的优惠券');
 	$('#dialog').dialog('open');
 	single_action('unactive');
 }
@@ -153,6 +153,7 @@ $(document).ready(function(){
 <th width="150">所在地</th>
 <th width="50">好评率</th>
 <th width="120">最后更新</th>
+<th width="40">激活</th>
 <th width="60">排序</th>
 <th width="150">操作</th>
 </tr>
@@ -168,6 +169,7 @@ $(document).ready(function(){
 <td align="center">{$item.state} - {$item.city}</td>
 <td align="center">{$item.good} %</td>
 <td align="center">{$item.updatetime}</td>
+<td align="center"><img src="__PUBLIC__/Css/Admin/Images/status-{$item.is_active}.gif" class="status" status="{$item.is_active}" /></td>
 <td align="center"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="" pk="" href="javascript:;" onclick="textEdit(this,'{$item.id}','sort_order')">{$item.sort_order}</span></td>
 <td align="center"><a href="?g={$smarty.const.GROUP_NAME}&m=TaoCoupon&a=add&s_id={$item.id}">添加优惠券</a>&nbsp;&nbsp;<a href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=edit&id={$item.id}">编辑</a>
 &nbsp;&nbsp;<a onclick="del({$item.id})" href="javascript:;">删除</a>
