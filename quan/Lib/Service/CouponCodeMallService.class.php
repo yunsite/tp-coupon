@@ -54,6 +54,28 @@ class CouponCodeMallService
 		return $data;
 	}
 	
+	/**
+	 * 获取分类商家
+	 *
+	 * @param string $cate_ids     商家分类，多个分类以,分割，如：1,2,3
+	 * @param int $limit
+	 * @return array
+	 */
+	public function malls_cates($cate_ids, $limit=10)
+	{
+		if(! C('DATA_CACHE_ON')){
+			$ccmModel = D('CouponCodeMall');
+			return $data = $ccmModel->malls4cate($cate_ids, $limit);
+		}
+		$data = S('malls_cates_'.md5($cate_ids), '', $this->_expire);
+		if(! $data){
+			$ccmModel = D('CouponCodeMall');
+			$data = $ccmModel->malls4cate($cate_ids, $limit);
+			S('malls_cates_'.md5($cate_ids), $data, $this->_expire);
+		}
+		return $data;
+	}
+	
 	public function clearCache($id)
 	{
 		if(C('DATA_CACHE_ON')) S('mall_'.$id, null);
