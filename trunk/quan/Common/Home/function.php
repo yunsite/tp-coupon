@@ -72,6 +72,20 @@ function new_malls($limit=30)
 	$mallModel = D('CouponCodeMall');
 	return $res = $mallModel->new_malls($limit);
 }
+
+/**
+ * 获取分类商家
+ *
+ * @param string $cate_ids     商家分类，多个分类以,分割，如：1,2,3
+ * @param int $limit
+ * @return array
+ */
+function malls_cates($cate_ids, $limit=10)
+{
+	$malls = array();
+	$mallService = service('CouponCodeMall');
+	return $malls = $mallService->malls_cates($cate_ids, $limit);
+}
 /*==========================================优惠券函数库=========================================================*/
 /**
  * 随机优惠券
