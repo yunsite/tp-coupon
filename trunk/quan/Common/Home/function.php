@@ -61,6 +61,17 @@ function hot_malls($type='week', $limit=10)
 	$mallService = service('CouponCodeMall');
 	return $malls = $mallService->hottest($type, $limit);
 }
+
+/**
+ * 最新商家
+ * @return array
+ *
+ */
+function new_malls($limit=30)
+{
+	$mallModel = D('CouponCodeMall');
+	return $res = $mallModel->new_malls($limit);
+}
 /*==========================================优惠券函数库=========================================================*/
 /**
  * 随机优惠券
