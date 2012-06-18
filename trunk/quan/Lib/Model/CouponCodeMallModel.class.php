@@ -105,6 +105,11 @@ class CouponCodeMallModel extends Model
     	$order = $type."searched DESC";
     	return $this->field("id,name")->order($order)->limit($limit)->select();
     }
+    
+    public function new_malls($limit=10)
+    {
+    	return $this->field("id,name")->order('id DESC')->limit($limit)->select();
+    }
 
     public function getAll(
     						array $keys = array(),
