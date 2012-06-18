@@ -103,12 +103,12 @@ class CouponCodeMallModel extends Model
     public function hottest($type, $limit=10)
     {
     	$order = $type."searched DESC";
-    	return $this->field("id,name")->order($order)->limit($limit)->select();
+    	return $this->field("id,name")->where('is_active=1')->order($order)->limit($limit)->select();
     }
     
     public function new_malls($limit=10)
     {
-    	return $this->field("id,name")->order('id DESC')->limit($limit)->select();
+    	return $this->field("id,name")->where('is_active=1')->order('id DESC')->limit($limit)->select();
     }
 
     public function getAll(
@@ -184,10 +184,11 @@ class CouponCodeMallModel extends Model
     	return $result;
 	}
 	
-	public function malls4cate($cate_ids)
+	public function malls4cate($cate_ids, $limit=10)
 	{
-		return $this->field('id')->where("c_id IN ($cate_ids)")
+		return $this->field('id,name,logo')->where("is_active=1 AND c_id IN ($cate_ids)")
     				->order('sort_order ASC, id DESC')
+    				->limit($limit)
     				->select();
 	}
 }
