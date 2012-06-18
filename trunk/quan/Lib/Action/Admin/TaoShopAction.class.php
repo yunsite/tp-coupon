@@ -54,6 +54,12 @@ class TaoShopAction extends AdminCommonAction
 		$this->display();
 	}
 	
+	public function select()
+	{
+		$this->_is_active = 1;
+		$this->index();
+	}
+	
 	public function edit()
 	{
 		$id = intval($_REQUEST['id']);
@@ -170,6 +176,7 @@ class TaoShopAction extends AdminCommonAction
 					$this->ajaxReturn('', buildFormToken(), 0);
 				}
 				$taoshopModel = D('TaoShop');
+				$data['is_active'] = 1;
 				if($taoshopModel->_add($data)){
 					$this->ajaxReturn('', buildFormToken(), 1);
 				}else{

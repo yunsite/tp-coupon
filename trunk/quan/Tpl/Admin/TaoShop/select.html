@@ -1,0 +1,63 @@
+{include file="../Public/header.html"}
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.SetTableBgColor.js"></script>
+<script type="text/javascript">
+var g = '{$smarty.const.GROUP_NAME}';
+var m = '{$smarty.const.MODULE_NAME}';
+var _hash_ = '{$_hash_}';
+<!--{literal}-->
+$(document).ready(function(){
+	$(".table-list").SetTableBgColor({
+            odd:"even",
+            even:"",
+            selected:"",
+            over:""
+        });
+	$('input[name=m_id]').each(function(){
+					  $(this).click(function(){
+												var s_id = $(this).val();
+												var s_title = $(this).attr('rel');
+										 		window.parent.pick_mall_handler({s_id:s_id,s_title:s_title});
+										 });
+					  });
+});
+<!--{/literal}-->
+</script>
+<div class="search-box">
+    <form action="?">
+    	<span>分类</span>
+        <select name="cid">
+        <option value="0">不限...</option>
+        <!--{foreach from=$category item=item key=key}-->
+        <option value="{$item.id}">{$item.prefix}{$item.name}</option>
+        <!--{/foreach}-->
+        </select>
+        <span>关键字</span>
+        <input type="text" size="12" name="kw" value="" class="textinput">
+		<small></small>
+		<input type="submit" value="搜索" class="submit_btn">
+        <input type="hidden" value="{$smarty.const.GROUP_NAME}" name="g">
+		<input type="hidden" value="{$smarty.const.MODULE_NAME}" name="m">
+		<input type="hidden" value="{$smarty.const.ACTION_NAME}" name="a">
+  </form>
+</div>
+<table cellspacing="0" cellpadding="0" border="0" class="table-list list" id="checkList">
+<thead>
+<tr>
+<th width="30" class="first">&nbsp;</th>
+<th width="30">ID</th>
+<th>名称</th>
+<th>访问地址</th>
+</tr>
+</thead>
+<tbody>
+<!--{foreach from=$shops item=item}-->
+<tr id="tt-item-{$item.id}">
+<td class="first"><input name="m_id" type="radio" value="{$item.id}" rel="{$item.title}" />&nbsp;</td>
+<td>{$item.id}</td>
+<td align="left">{$item.title}</td>
+<td align="left"><a href="{$item.shop_click_url}" target="_blank">{$item.shop_click_url}</a></td>
+</tr>
+<!--{/foreach}-->
+</tbody></table>
+<div class="pager">{$pagelink}</div>
+{include file="../Public/footer.html"}
