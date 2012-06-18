@@ -1,4 +1,8 @@
 {template "../Public/header_index"}
+<style type="text/css">
+.list_text ul { height:30px; clear:both;}
+.list_text ul li { height:30px; line-height:30px; width:100px; float:left;}
+</style>
 {template "../Public/nav"}
 <div class="w990 clear">
 		<ul id="category-tabs">
@@ -29,6 +33,23 @@
         <div href="javascript:;" class="" id="moreshop">
             <b class="arrow"></b><span class="more-text"><a href="{echo reUrl('Mall/lists');}">更多商家</a></span> <span class="less-text">收起</span>
         </div>
+        <!--滚动商家-->
+        <!--{eval $new_malls=new_malls(30);}-->
+        <div class="list_text odd_even" id="indexLinks">
+        <!--{eval $iii=1;}-->
+		<ul>
+        <!--{loop $new_malls $item}-->
+        <!--{if $iii%10==0}-->
+		</ul>
+        <ul>
+        <!--{/if}-->
+		<li><a href="{echo reUrl('Mall/view?id='.$item[id]);}" target="_blank" title="{$item.name}优惠券">{$item.name}优惠券</a></li>
+        
+        <!--{eval $iii++;}-->
+        <!--{/loop}-->
+        </ul>
+		</div>
+        
         <div style="padding-top: 0;" id="main">
             <div class="main_l">
             <!-- Baidu Button BEGIN -->
@@ -107,28 +128,17 @@
                             <!--{/loop}-->
                          </ul>
                     </li>
-                    <li class="gray">
+                    <li class="yellow">
                         <h3>
-                            热门优惠券</h3>
-                        <ul class="hot_coupon">
-                        	<!--{eval $hot=coupon_codes_hot('week', 8);}-->
-                            <!--{loop $hot $item}-->
-                            <li><a class="img_wrap" href="{echo reUrl('Code/view?id='.$item[c_id]);}">
-                                <img src="{echo FixedUploadedFileUrl($item[logo]);}"></a>
-                                <div class="img_detail">
-                                    <p class="name">
-                                        <a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></p>
-                                    <p class="btn_wrap">
-                                        <a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" class="btn" href="{echo reUrl('Code/view?id='.$item[c_id]);}"><span>立即领取</span></a></p>
-                                    <p class="score_now">
-                                        已领：{$item.fetched_amount}张</p>
-                                    <p class="score_old">
-                                        {if $item['c_type']==1}满<del>{$item.money_max}</del>减<del>{$item.money_reduce}</del>{else}<del>{$item.money_amount}</del>元代金券{/if}
-                                    </p>
-                                </div>
-                            </li>
+                            最新发布优惠券</h3>
+                        <ol class="rank_coupon">
+                            
+                            <!--{eval $latest=coupon_codes_latest();}--> 
+                            <!--{loop $latest $item}-->
+                            <li><a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/loop}-->
-                        </ul>
+                            
+                        </ol>
                     </li>
                     <li class="gray">
                         <h3>
@@ -192,6 +202,53 @@
             </div>
         </div>
     </div>
+<script language="javascript">
+$(document).ready(function(){
+ //播放速度
+ var speed = 3000;
+ //控制范围，符合jQuery路径即可
+ var block = '#indexLinks ul';
+ //需要显示的内容条目数
+ var eq = 1;
+ var h = 0;
+ if($(block).length > eq){//如果内容数目大于需要滚动的数目，开始滚动！
+  //隐藏除了第一个的其它所有节点
+  $(block).slice(eq).css('display','none');
+  //播放开始
+  h = setInterval('scrollContent("'+block+'",'+eq+',2)',speed);
+ }
+ 
+});
+function scrollContent(block,eq,type){
+  //获取第节点
+     var firstNode = $(block);
+     //动画效果
+     switch(type){
+      case 1:
+       animation_out = {height:'hide'};
+       animation_in = {height:'show'};
+       break;
+      case 2:
+       animation_out = {opacity:'hide'};
+       animation_in = {opacity:'show'};
+       break;
+      case 3:
+       animation_out = {height:'hide',opacity:'hide'};
+       animation_in = {height:'show',opacity:'show'};
+       break;
+      default:'';
+     }
+     //开始动画
+     firstNode.eq(0).animate(animation_out,1000,function(){//隐藏
+      //克隆.追加到最后.隐藏
+         $(this).clone().appendTo($(this).parent()).css('display','none');
+         //显示第二个节点内容
+      firstNode.eq(eq).removeAttr('style').animate(animation_in,1000);
+      //删除第一个节点内容
+         $(this).remove();
+     });
+}
+</script>
 <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
 <script type="text/javascript" id="bdshell_js"></script>
 <script type="text/javascript">
