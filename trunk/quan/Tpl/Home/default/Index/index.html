@@ -1,7 +1,7 @@
 {template "../Public/header_index"}
 <style type="text/css">
 .list_text ul { height:30px; clear:both;}
-.list_text ul li { height:30px; line-height:30px; width:100px; float:left;}
+.list_text ul li { height:30px; line-height:30px; padding-left:20px; float:left;}
 </style>
 {template "../Public/nav"}
 <div class="w990 clear">
@@ -34,12 +34,12 @@
             <b class="arrow"></b><span class="more-text"><a href="{echo reUrl('Mall/lists');}">更多商家</a></span> <span class="less-text">收起</span>
         </div>
         <!--滚动商家-->
-        <!--{eval $new_malls=new_malls(30);}-->
+        <!--{eval $new_malls=new_malls(27);}-->
         <div class="list_text odd_even" id="indexLinks">
-        <!--{eval $iii=1;}-->
+        <!--{eval $iii=0;}-->
 		<ul>
         <!--{loop $new_malls $item}-->
-        <!--{if $iii%10==0}-->
+        <!--{if $iii>0 && $iii%9==0}-->
 		</ul>
         <ul>
         <!--{/if}-->
@@ -133,7 +133,7 @@
                             最新发布优惠券</h3>
                         <ol class="rank_coupon">
                             
-                            <!--{eval $latest=coupon_codes_latest();}--> 
+                            <!--{eval $latest=coupon_codes_latest(null, 20);}--> 
                             <!--{loop $latest $item}-->
                             <li><a title="{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠码{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Code/view?id='.$item[c_id]);}">{if $item['title']}{$item.title}{else}{$item.m_name}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</a></li>
                             <!--{/loop}-->
@@ -205,7 +205,7 @@
 <script language="javascript">
 $(document).ready(function(){
  //播放速度
- var speed = 3000;
+ var speed = 6000;
  //控制范围，符合jQuery路径即可
  var block = '#indexLinks ul';
  //需要显示的内容条目数
