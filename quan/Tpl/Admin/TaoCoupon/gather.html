@@ -1,0 +1,38 @@
+{include file="../Public/header.html"}
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
+<div class="handle-btns">
+<div class="link-button"><p><a class="" href="javascript:history.back();" name="" id="">返回上一页</a></p></div>
+</div>
+<form action="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=gather_step2" method="post" name="form_post" id="form_post">
+<table cellspacing="0" cellpadding="4" border="0" class="table-form">
+	<tbody>
+	<tr>
+		<th width="200" class="first">&nbsp;</th>
+		<td>采集taoquan.taobao.com优惠券</tr>
+    <tr>
+		<th width="200" class="first">起始页码：</th>
+		<td><input name="start_page" type="text"  size="10" class="textinput requireinput required number" value="" />(<a href="http://soft.qfanqie.com/forum.php?mod=viewthread&tid=56" target="_blank">如何查看起始页码？</a>)</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">结束页码：</th>
+		<td><input name="end_page" type="text"  size="10" class="textinput requireinput required number" value="" />(<a href="http://soft.qfanqie.com/forum.php?mod=viewthread&tid=56" target="_blank">如何查看结束页码？</a>)<br />一次不要采集太多页，以免造成服务器压力过大</td>
+	</tr>
+	<tr class="act">
+		<th class="first">&nbsp;</th>
+		<td>
+			<input type="submit" value="提交" class="submit_btn">
+			<input type="reset" value="重置" class="reset_btn">
+		</td>
+	</tr>
+</tbody></table>
+</form>
+<script type="text/javascript">
+var g = '{$smarty.const.GROUP_NAME}';
+var m = '{$smarty.const.MODULE_NAME}';
+var a = '{$smarty.const.ACTION_NAME}';
+<!--{literal}-->
+$("#form_post").validate();
+<!--{/literal}-->
+</script>
+{include file="../Public/footer.html"}

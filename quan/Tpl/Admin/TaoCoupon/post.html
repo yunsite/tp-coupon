@@ -19,15 +19,15 @@
 	</tr>
     <tr>
 		<th width="200" class="first">优惠券活动ID：</th>
-		<td><input name="activity_id" type="text"  size="40" class="textinput" value="{$code.data.activity_id}" />(<a href="http://soft.qfanqie.com/forum.php?mod=viewthread&tid=55&extra=page%3D1" target="_blank">如何获取活动ID？</a>)</td>
+		<td><input name="activity_id" id="activity_id" type="text"  size="40" class="textinput" value="{if $code.data.activity_id}{$code.data.activity_id}{/if}" />(<a href="http://soft.qfanqie.com/forum.php?mod=viewthread&tid=55&extra=page%3D1" target="_blank">如何获取活动ID？</a>)</td>
 	</tr>
     <tr>
 		<th width="200" class="first">优惠券卖家ID：</th>
-		<td><input name="seller_id" type="text"  size="40" class="textinput" value="{$code.data.seller_id}" />(<a href="http://soft.qfanqie.com/forum.php?mod=viewthread&tid=55&extra=page%3D1" target="_blank">如何获取优惠券卖家ID？</a>)</td>
+		<td><input name="seller_id" id="seller_id" type="text"  size="40" class="textinput" value="{if $code.data.seller_id}{$code.data.seller_id}{/if}" />(<a href="http://soft.qfanqie.com/forum.php?mod=viewthread&tid=55&extra=page%3D1" target="_blank">如何获取优惠券卖家ID？</a>)</td>
 	</tr>
     <tr>
 		<th width="200" class="first">领取链接：</th>
-		<td><input name="fetch_link" type="text"  size="40" class="textinput" value="{$code.data.fetch_link}" />(设置领取链接后则不需要填写活动ID和卖家ID，否则活动ID和卖家ID为必填项)</td>
+		<td><input name="fetch_link" id="fetch_link" type="text"  size="40" class="textinput url" value="{$code.data.fetch_link}" />(设置领取链接后则不需要填写活动ID和卖家ID，否则活动ID和卖家ID为必填项)</td>
 	</tr>
     <tr>
 		<th width="200" class="first">名称：</th>
@@ -135,6 +135,10 @@ function pick_mall_handler(mall)
 $(document).ready(function() {
 			$("#form_post").validate({
 						 submitHandler:function(form){
+							 						if($('#fetch_link').val()=='' && ($('#seller_id').val()==''||$('#activity_id').val()=='')){
+														alert('设置领取链接后则不需要填写活动ID和卖家ID，否则活动ID和卖家ID为必填项');
+														return false;
+													}
 							 						form.directions.value = $('#directions').val();
 						 							form.submit();
 						 						}
