@@ -282,11 +282,85 @@ class TaoCouponAction extends AdminCommonAction
 	}
 	
 	/**
-	 * 批量采集
+	 * 批量采集第一步
 	 *
 	 */
 	public function gather()
 	{
-		
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 采集淘宝网淘券优惠券');
+		$this->display();
+	}
+	
+	/**
+	 * 批量采集第二步
+	 *
+	 */
+	public function gather_step2()
+	{
+		$start_page = intval($_REQUEST['start_page']);
+		$end_page = intval($_REQUEST['end_page']);
+		if(! $start_page || ! $end_page){
+			exit('data invalid.');
+		}
+		$end_page = $end_page < $start_page ? $start_page : $end_page;
+		$this->assign('start_page', $start_page);
+		$this->assign('end_page', $end_page);
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 采集淘宝网淘券优惠券');
+		$this->display();
+	}
+	
+	public function gather_handler()
+	{
+		if($this->isAjax()){
+			sleep(1);
+			$this->ajaxReturn('','',1);
+		}
+		$page = intval($_REQUEST['page']);
+		$snoopy = new Snoopy();
+		$snoopy->referer = "http://www.taobao.com";
+		$URI = 'http://taoquan.taobao.com/coupon/coupon_list.htm?startFee=-1.0&category=-1&keyWord=&order=order&desc=true&currentPage='.$page;
+		$snoopy->fetch($URI);
+		$html = $snoopy->results;
+		unset($snoopy);
+		$html = iconv('gbk', 'utf-8', $html);
+		preg_match_all('/<li class="coupon-item J_CouponItem">(.*)<\/li>/isU',$html,$tt);
+		$temp = $tt[1];
+		$coupon = array();
+		foreach ($temp as $c){
+			$coupon[] = $this->_queryCoupon($c);
+		}
+	}
+	
+	private function _queryCoupon($str)
+	{
+		$regex = '/http:\/\/shop([0-9]+)\.taobao\.com/is';
+		preg_match($regex, $str, $matches);
+		$sid = $matches[1];
+
+		$regex = '/<p class="coupon-num">&yen;([0-9]+)元<\/p>/is';
+		preg_match($regex, $str, $matches);
+		$money_reduce = $matches[1];
+
+		$regex = '/<p class="cond">使用条件：订单满([0-9\.]+)元<\/p>/is';
+		preg_match($regex, $str, $matches);
+		$money_max = $matches[1];
+
+		$regex = '/<p>有效期至([0-9]+)年([0-9]+)月([0-9]+)日<\/p>/is';
+		preg_match($regex, $str, $matches);
+		$expiry = $matches[1] .'-'. $matches[2] .'-'. $matches[3] . ' 23:59:59';
+
+		$regex = '/combo\/between\.htm\?activityId=([0-9]+)&sellerId=([0-9]+)&shopTitle=/is';
+		preg_match($regex, $str, $matches);
+		$activity_id = $matches[1];
+		$seller_id = $matches[2];
+
+		return $return = array(
+							'sid'				=>	$sid,
+							'money_reduce'		=>	$money_reduce,
+							'money_max'			=>	$money_max,
+							'expiry'			=>	$expiry,
+							'seller_id'			=>	$seller_id,
+							'activity_id'		=>	$activity_id
+							);
 	}
 }

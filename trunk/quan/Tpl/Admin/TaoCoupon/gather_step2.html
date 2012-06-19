@@ -1,0 +1,219 @@
+{include file="../Public/header.html"}
+<style type="text/css">
+<!--{literal}-->
+.process{ height:5px; width:0%; background-color:#AC7CF9; margin-top:-5px;overflow:hidden;}
+.process_back{ height:5px; width:100%; background-color:#39018E; overflow:hidden;}
+.process_tip{ height:15px; line-height:15px; width:100%; text-align:center;}
+.normal{ height:20px; line-height:20px; background:#FFF;}
+<!--{/literal}-->
+</style>
+<div class="handle-btns">
+<div class="link-button"><p><a class="" href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}" name="" id="">返回列表页</a></p></div>
+</div>
+<table cellspacing="0" cellpadding="4" border="0" class="table-form">
+	<tbody>
+	<tr>
+		<th width="200" class="first">&nbsp;</th>
+		<td>采集taoquan.taobao.com优惠券</td>
+    </tr>
+    <tr>
+		<th width="200" class="first">线程一：</th>
+		<td><div id="process_tip_a" class="process_tip"></div><div class="process_back"></div><div id="process_a" class="process"></div></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">线程二：</th>
+		<td><div id="process_tip_b" class="process_tip"></div><div class="process_back"></div><div id="process_b" class="process"></div></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">线程三：</th>
+		<td><div id="process_tip_c" class="process_tip"></div><div class="process_back"></div><div id="process_c" class="process"></div></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">线程四：</th>
+		<td><div id="process_tip_d" class="process_tip"></div><div class="process_back"></div><div id="process_d" class="process"></div></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">线程五：</th>
+		<td><div id="process_tip_e" class="process_tip"></div><div class="process_back"></div><div id="process_e" class="process"></div></td>
+	</tr>
+	<tr class="act">
+		<th class="first">&nbsp;</th>
+		<td>
+			<input type="button" value="采集完成" id="btn_finished" disabled="disabled">
+		</td>
+	</tr>
+</tbody></table>
+<script type="text/javascript">
+var g = '{$smarty.const.GROUP_NAME}';
+var m = '{$smarty.const.MODULE_NAME}';
+var a = '{$smarty.const.ACTION_NAME}';
+var start_page = {$start_page};
+var end_page = {$end_page};
+
+var threadInterval_a,threadInterval_b,threadInterval_c,threadInterval_d,threadInterval_e,threadInterval_f;
+var requested = new Array();
+var need =  new Array();
+var status = new Array();
+var start = new Array();
+need['a'] = 0;
+need['b'] = 0;
+need['c'] = 0;
+need['d'] = 0;
+need['e'] = 0;
+
+requested['a'] = 0;
+requested['b'] = 0;
+requested['c'] = 0;
+requested['d'] = 0;
+requested['e'] = 0;
+
+start['a'] = 0;
+start['b'] = 0;
+start['c'] = 0;
+start['d'] = 0;
+start['e'] = 0;
+
+status['a'] = true;
+status['b'] = true;
+status['c'] = true;
+status['d'] = true;
+status['e'] = true;
+	
+var total = end_page - start_page + 1;//总的请求数
+var per = 0;//每个线程需要请求的次数
+<!--{literal}-->
+if(total < 5){
+	need['a'] = total;
+	need['b'] = 0;
+	need['c'] = 0;
+	need['d'] = 0;
+	need['e'] = 0;
+	
+	start['a'] = start_page;
+	start['b'] = 0;
+	start['c'] = 0;
+	start['d'] = 0;
+	start['e'] = 0;
+}else{
+	per = Math.floor(total / 5);
+	need['a'] = per;
+	need['b'] = per;
+	need['c'] = per;
+	need['d'] = per;
+	need['e'] = per;
+	need['a'] += total - per*5;
+	
+	start['a'] = start_page;
+	start['b'] = need['a'] + start['a'];
+	start['c'] = need['b'] + start['b'];
+	start['d'] = need['c'] + start['c'];
+	start['e'] = need['d'] + start['d'];
+}
+
+/**
+ * @param string	t	线程名
+*/
+var page;
+var url;
+function threadHandle(t)
+{
+	status[t] = false;
+	var num = requested[t];
+	if(num > need[t]){
+		return;
+	}
+	page = start[t] + num;
+	url = "?g="+g+"&m="+m+"&a=gather_handler&page="+page+"&ajax=1";
+	$.getJSON(url, function(data){
+								requested[t] += 1;
+								//处理进度条
+								processHandle(t);
+								status[t] = true;
+								//取消定时器
+								clearTimer(t);
+								});
+}
+
+/**
+ * 处理进度条
+ * @param string	t	线程名
+*/
+function processHandle(t)
+{
+	if(need[t] <= 0){
+		return;
+	}
+	var percent = Math.floor((requested[t] / need[t]) * 100);
+	$('#process_' + t).css('width',percent + '%');
+	$('#process_tip_' + t).html(percent + '%');
+}
+
+//检查线程是否空闲
+function checkThreadStatus(t)
+{
+	if(requested[t]==0 &&  need[t]==0){
+		$('#process_' + t).css('width','100%');
+		$('#process_tip_' + t).html('100%');
+		//取消定时器
+		clearTimer(t);
+	}
+	//进入下一次请求
+	if(requested[t] < need[t] && status[t] == true){
+		threadHandle(t);
+	}
+}
+
+//取消定时器
+function clearTimer(t)
+{
+	if(requested[t] >= need[t] && status[t] == true){
+		switch (t){
+			case 'a':
+			clearInterval(threadInterval_a);
+			break;
+			case 'b':
+			clearInterval(threadInterval_b);
+			break;
+			case 'c':
+			clearInterval(threadInterval_c);
+			break;
+			case 'd':
+			clearInterval(threadInterval_d);
+			break;
+			case 'e':
+			clearInterval(threadInterval_e);
+			break;
+		}
+	}
+}
+
+function checkComplete()
+{
+	var finished = true;
+	for(var t in requested){
+		if($('#process_tip_' + t).html() !== '100%'){
+			finished = false;
+			break;
+		}
+	}
+	if(finished){
+		clearInterval(threadInterval_f);
+		$('#btn_finished').addClass('submit_btn');
+		$('#btn_finished').attr('disabled', false);
+		$('#btn_finished').click(function(){
+										  window.location.href = '?g='+g+'&m='+m;
+										  });
+	}
+}
+
+$(document).ready(function(){
+	threadInterval_a=setInterval("checkThreadStatus('a')",1000);
+	threadInterval_b=setInterval("checkThreadStatus('b')",1000);
+	threadInterval_c=setInterval("checkThreadStatus('c')",1000);
+	threadInterval_d=setInterval("checkThreadStatus('d')",1000);
+	threadInterval_e=setInterval("checkThreadStatus('e')",1000);
+	threadInterval_f = setInterval("checkComplete()",1000);
+});
+<!--{/literal}-->
+</script>
+{include file="../Public/footer.html"}
