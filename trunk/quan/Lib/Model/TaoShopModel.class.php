@@ -86,6 +86,13 @@ class TaoShopModel extends Model
     	return $this->where("id='$id'")->find();
     }
     
+    public function getInfoBySid($sid)
+    {
+    	static $shop = array();
+    	if(isset($shop[$sid])) return $shop[$sid];
+    	return $shop[$sid] = $this->where("sid='$sid'")->find();
+    }
+    
     public function search($kw)
     {
     	$where = 'is_active=1';
