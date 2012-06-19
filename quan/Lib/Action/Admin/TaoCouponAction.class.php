@@ -311,10 +311,6 @@ class TaoCouponAction extends AdminCommonAction
 	
 	public function gather_handler()
 	{
-		if($this->isAjax()){
-			sleep(1);
-			$this->ajaxReturn('','',1);
-		}
 		$page = intval($_REQUEST['page']);
 		$snoopy = new Snoopy();
 		$snoopy->referer = "http://www.taobao.com";
@@ -326,9 +322,39 @@ class TaoCouponAction extends AdminCommonAction
 		preg_match_all('/<li class="coupon-item J_CouponItem">(.*)<\/li>/isU',$html,$tt);
 		$temp = $tt[1];
 		$coupon = array();
+		$localTimeObj = LocalTime::getInstance();
+		$taoShopModel = D('TaoShop');
+		$ccModel = D('TaoCoupon');
+		$tcdModel = D('TaoCouponData');
 		foreach ($temp as $c){
-			$coupon[] = $this->_queryCoupon($c);
+			$coupon = $this->_queryCoupon($c);
+			if(!$coupon['money_reduce'] || !$coupon['activity_id'] || !$coupon['seller_id']) continue;
+			$shop = $taoShopModel->getInfoBySid($coupon['sid']);
+			if(!$shop) continue;
+			$data = array(
+						's_id'			=>	$shop['id'],
+						's_title'		=>	$shop['title'],
+						'c_type'		=>	1,
+						'expiry_type'	=>	1,
+						'price_type'	=>	1,
+						'money_max'		=>	$coupon['money_max'],
+						'money_reduce'	=>	$coupon['money_reduce'],
+						'expiry' 		=>  $localTimeObj->local_strtotime($coupon['expiry']),
+						'addtime'		=>	$localTimeObj->gmtime()
+						);
+			$c_id = 0;
+			if($c_id = $ccModel->_add($data)){
+				//插入附属表数据
+				$data = array(
+							'c_id'			=>	$c_id,
+							'activity_id'	=>	$coupon['activity_id'],
+							'seller_id'		=>	$coupon['seller_id'],
+							'fetch_limit'	=>	101
+							);
+				$tcdModel->_add($data);
+			}
 		}
+		$this->ajaxReturn('','',1);
 	}
 	
 	private function _queryCoupon($str)
