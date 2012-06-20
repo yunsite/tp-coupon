@@ -127,7 +127,7 @@ class Taobao
 		}
 		require_once('Request/UserGetRequest.php');
 		$req = new UserGetRequest;
-		$req->setFields("uid,seller_credit,type,location,created");
+		$req->setFields("uid,seller_credit,type,location,created,avatar,nick");
 		$req->setNick($nick);
 		$resp = $this->_topClient->execute($req, $sessionKey);
 		return is_array($resp) && isset($resp['user']) ? $resp['user'] : array();

@@ -68,10 +68,13 @@ return array(
 									'taobao_appkey1_times'=> 'app2调用次数',
 									'taobao_appkey2'	=> 'appKey_3',
 									'taobao_appsecret2'	=> 'appSecret_3',
-									'taobao_appkey2_times'=> 'app3调用次数',
-									'taobao_cache_time'	=> '店铺分类等数据缓存时间',
-									'taobao_shop_cache_time'=> '店铺信息缓存时间',
-									'taobao_coupon_cache_time'=> '店铺优惠券缓存时间',
+									'taobao_appkey2_times'		=> 'app3调用次数',
+									'taobao_cache_time'			=> '店铺分类等数据缓存时间',
+									'taobao_shop_cache_time'	=> '店铺信息缓存时间',
+									'taobao_coupon_cache_time'	=> '店铺优惠券缓存时间',
+									'taobao_login_appkey'		=> '淘宝登陆appKey',
+									'taobao_login_appsecret'	=> '淘宝登陆appSecret',
+									'taobao_login_open'			=> '开启淘宝登陆',
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
@@ -134,6 +137,10 @@ return array(
 															1 =>	'开启'
 															),
 										'sina_wb_open'=> array(
+															0 =>	'不开启',
+															1 =>	'开启'
+															),
+										'taobao_login_open'=> array(
 															0 =>	'不开启',
 															1 =>	'开启'
 															),

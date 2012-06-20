@@ -81,6 +81,14 @@ class HomeCommonAction extends CommonAction
 			}
 		}
 		
+		if($this->_CFG['taobao_login_open']){
+			if(! defined('TAOBAO_LOGIN_APPKEY')) define('TAOBAO_LOGIN_APPKEY', $this->_CFG['taobao_login_appkey']);
+			if(! defined('TAOBAO_LOGIN_APPSECRET')) define('TAOBAO_LOGIN_APPSECRET', $this->_CFG['taobao_login_appsecret']);
+			if(! defined('TAOBAO_LOGIN_CALLBACK')){
+				define('TAOBAO_LOGIN_CALLBACK', 'http://'.$_SERVER['HTTP_HOST'].__ROOT__ . '/tb_callback.php');
+			}
+		}
+		
 		if($this->_CFG['sina_wb_open']){
 			if(! defined('WB_AKEY')) define('WB_AKEY', $this->_CFG['sina_wb_akey']);
 			if(! defined('WB_SKEY')) define('WB_SKEY', $this->_CFG['sina_wb_skey']);

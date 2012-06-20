@@ -46,7 +46,7 @@ $array = array(
 'MEMCACHE_HOST'			=>	'127.0.0.1',
 'MEMCACHE_PORT'			=>	11211,
 
-'OPEN_PLATFORM'			=>	array('sina', 'qq'),//开启的开放平台
+'OPEN_PLATFORM'			=>	array('sina', 'qq', 'taobao'),//开启的开放平台
 );
 
 return array_merge($config,$array);

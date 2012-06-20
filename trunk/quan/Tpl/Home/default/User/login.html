@@ -25,7 +25,7 @@
   <tr>
     <td align="right">&nbsp;</td>
     <td width="150"><input type="submit" value="登陆" name="commit" id="signup-submit" class="formbutton"></td>
-    <td><!--{if $_CFG['sina_wb_open']}--><a href="{echo reUrl('User/login_sina');}"><img src="__PUBLIC__/Images/Home/sina_logo_big.gif" align="absbottom" /></a><!--{/if}-->&nbsp;&nbsp;<!--{if $_CFG['qq_open']}--><a href="{echo reUrl('User/login_qq');}"><img src="__PUBLIC__/Images/Home/qqlogin.png" align="absbottom" /></a><!--{/if}--></td>
+    <td><!--{if $_CFG['sina_wb_open']}--><a href="{echo reUrl('User/login_sina');}"><img src="__PUBLIC__/Images/Home/sina_logo_big.gif" align="absbottom" /></a><!--{/if}--><!--{if $_CFG['qq_open']}-->&nbsp;&nbsp;<a href="{echo reUrl('User/login_qq');}"><img src="__PUBLIC__/Images/Home/qqlogin.png" align="absbottom" /></a><!--{/if}--><!--{if $_CFG['taobao_login_open']}-->&nbsp;&nbsp;<a href="{echo reUrl('User/login_taobao');}"><img src="__PUBLIC__/Images/Taobao/tao.png" align="absbottom" /></a><!--{/if}--></td>
   </tr>
 </table>
 <input name="_hash_" type="hidden" value="{$_hash_}" />
