@@ -429,20 +429,21 @@ li.code u{position:absolute; left:180px; top:0; height:27px; line-height:27px; b
 .main_l_c_q ul{zoom:1; overflow:hidden; height:340px; margin-left:-1px; margin-top:-1px}
 .main_l_c_q li{float:left; width:313px; _height:139px; padding:10px; border-left:0px solid #DCDCDC; border-top:1px solid #DCDCDC; zoom:1; overflow:hidden}
 .main_l_c_q li.hover{background-color:#FdFdFF}
-.img_wrap{position:relative; float:left; display:block; width:120px; height:90px; margin-right:15px; text-align:center; line-height:90px; #font-size:111px; overflow:hidden; text-decoration:none}
+.img_wrap{position:relative; float:left; display:block; width:120px; margin-right:15px; text-align:center; line-height:90px; #font-size:111px; overflow:hidden; text-decoration:none;}
 .img_wrap img{display:inline-block; vertical-align:middle; max-width:120px; _width:120px}
 .img_detail{float:left; width:177px}
-.img_detail .name{width:100%; height:20px; overflow:hidden; margin-top:5px; font-size:12px}
+.img_detail p{line-height:16px;}
+.img_detail .name{width:100%; height:20px; overflow:hidden; margin-top:0px; font-size:12px}
 .img_detail .score_now{padding-top:5px; font-family:Arial; color:#C60808; width:90px; float:left; line-height:22px}
 .img_detail .score_old{color:#AAA; padding-top:0px; width:90px; float:left}
 .img_detail .score_old del{font-family:Arial}
-.img_detail .btn_wrap{margin-top:12px; height:23px; float:right; width:70px}
+.img_detail .btn_wrap{margin-top:8px; height:23px; float:right; width:70px}
 .img_detail .img_wrap:hover{text-decoration:none}
 
 .hot_coupon{margin-left:15px}
-.hot_coupon li{border-bottom:1px solid #dcdcdc; padding-bottom:0px; margin-bottom:5px}
+.hot_coupon li{border-bottom:1px solid #dcdcdc; padding-bottom:10px; margin-bottom:10px}
 .hot_coupon .img_wrap{width:100px}
-.hot_coupon .img_wrap img{max-width:100px; _width:100px}
+.hot_coupon .img_wrap img{max-width:100px; _width:100px; float:left;}
 .hot_coupon .img_detail{width:160px}
 
 #main_l_i_f, .sidebar_f{position:relative; width:670px; height:250px; background:#fff; border:1px solid #eee; overflow:hidden}
@@ -510,7 +511,9 @@ ul.blist li .blist_n .intro {margin:3px 0 5px 0;height:80px;line-height:19px;}
 ul.blist li .blist_n .project {margin:3px 0 5px 0;color:#999;}
 ul.blist li .blist_n .outlink a{font-family: Verdana;}
 
-.search_l li.normal{margin-bottom:10px; border-bottom:1px dashed #eee}
+.search_l li.normal{margin-bottom:10px; border-bottom:1px dashed #eee; overflow:hidden;}
+.search_l li.clear{clear:both; overflow:hidden;}
+
 .search_c, .search_i{margin:0 10px 15px 13px}
 .search_i a{padding:7px 10px}
 .search_i a:hover{background:#FEF8E0}

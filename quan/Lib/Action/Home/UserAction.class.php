@@ -55,6 +55,10 @@ class UserAction extends HomeCommonAction
 						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/qq.class.php' );
 						$qq = new qq();
 						$openid = $qq->get_openid();
+					}elseif ($_REQUEST['type'] == 'taobao'){
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+						$tb = new tb();
+						$openid = $tb->get_openid();
 					}
 					$platform = M('user_platform');
 					$data = array(
@@ -143,6 +147,10 @@ class UserAction extends HomeCommonAction
 						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/qq.class.php' );
 						$qq = new qq();
 						$openid = $qq->get_openid();
+					}elseif ($_REQUEST['type'] == 'taobao'){
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+						$tb = new tb();
+						$openid = $tb->get_openid();
 					}
 					$platform = M('user_platform');
 					if($platform->where("user_id='$user[uid]' AND `type`='$_REQUEST[type]' AND openid='$openid'")->find()){
@@ -291,6 +299,31 @@ class UserAction extends HomeCommonAction
 			$this->error('授权失败');
 		}
 	}
+	
+	public function login_taobao()
+	{
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+		$o = new tb();
+		$login_url = $o->getUrl();
+		redirect($login_url);
+	}
+	
+	public function taobao_callback()
+	{
+		if(isset($_REQUEST['error'])){
+			$this->assign('jumUrl', reUrl('User/login_taobao'));
+			$this->error('淘宝登陆失败：' . $_REQUEST['error']);
+		}
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+		$o = new tb();
+		$token = $o->initToken($_REQUEST['code']);
+		if ($token) {
+			$this->_on_taobao_logined();
+		}else {
+			$this->assign('jumUrl', reUrl('User/login_taobao'));
+			$this->error('授权失败');
+		}
+	}
 
 	/**
      * 开放平台用户绑定帐号
@@ -311,6 +344,8 @@ class UserAction extends HomeCommonAction
 				$this->_on_sina_logined();
 			}elseif($type == 'qq'){
 				$this->_on_qq_logined();
+			}elseif($type == 'taobao'){
+				$this->_on_taobao_logined();
 			}
 		}
 		$nick = '';
@@ -324,6 +359,11 @@ class UserAction extends HomeCommonAction
 			$qq = new qq();
 			$u_info = $qq->userInfo();
 			$nick = $u_info['nickname'];
+		}elseif($type == 'taobao'){
+			include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+			$tb = new tb();
+			$u_info = $tb->userInfo();
+			$nick = $u_info['nick'];
 		}
 		$this->assign('nick', $nick);
 		$this->assign('type', $type);
@@ -389,6 +429,36 @@ class UserAction extends HomeCommonAction
 		//未绑定，跳转到绑定页面
 		else{
 			redirect(reUrl('User/bind?type=qq'));
+		}
+	}
+	
+	private function _on_taobao_logined()
+	{
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+		$tb = new tb();
+		//检查是否已绑定帐号
+		$openid = $tb->get_openid();
+		$platformModel = M('user_platform');
+		$user = $platformModel->field('id,user_id')->where("`type`='taobao' AND openid='$openid'")->find();
+		//已绑定
+		if($user){
+			//从UC中获取资料并同步UC应用
+			$ucService = service('Uc');
+			$userService = service('User');
+			$_user = $ucService->get_user_info($user['user_id'], 1);
+			if($_user === null){
+				$platformModel->where("id='$user[id]'")->delete();
+				redirect(reUrl('User/bind?type=qq'));
+			}
+			$tb_u_info = $tb->userInfo();
+			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$tb_u_info['nick'],'avatar'=>$tb_u_info['avatar']), false);
+			$syncHtml =  $ucService->build_synlogin($_user[0]);
+			$this->assign('jumpUrl', reUrl('User/index'));
+			$this->success('登陆成功'.$syncHtml);
+		}
+		//未绑定，跳转到绑定页面
+		else{
+			redirect(reUrl('User/bind?type=taobao'));
 		}
 	}
 
