@@ -56,9 +56,12 @@ class UserAction extends HomeCommonAction
 						$qq = new qq();
 						$openid = $qq->get_openid();
 					}elseif ($_REQUEST['type'] == 'taobao'){
-						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
-						$tb = new tb();
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
+						$tb = new taouser();
 						$openid = $tb->get_openid();
+					}
+					if(! $openid){
+						$this->ajaxReturn('', '', 0);
 					}
 					$platform = M('user_platform');
 					$data = array(
@@ -148,9 +151,12 @@ class UserAction extends HomeCommonAction
 						$qq = new qq();
 						$openid = $qq->get_openid();
 					}elseif ($_REQUEST['type'] == 'taobao'){
-						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
-						$tb = new tb();
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
+						$tb = new taouser();
 						$openid = $tb->get_openid();
+					}
+					if(! $openid){
+						$this->ajaxReturn('', '', 0);
 					}
 					$platform = M('user_platform');
 					if($platform->where("user_id='$user[uid]' AND `type`='$_REQUEST[type]' AND openid='$openid'")->find()){
@@ -302,21 +308,21 @@ class UserAction extends HomeCommonAction
 	
 	public function login_taobao()
 	{
-		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
-		$o = new tb();
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
+		$o = new taouser();
 		$login_url = $o->getUrl();
 		redirect($login_url);
 	}
 	
 	public function taobao_callback()
 	{
-		if(isset($_REQUEST['error'])){
+		if(!isset($_REQUEST['top_parameters']) || !isset($_REQUEST['top_sign'])){
 			$this->assign('jumUrl', reUrl('User/login_taobao'));
 			$this->error('淘宝登陆失败：' . $_REQUEST['error']);
 		}
-		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
-		$o = new tb();
-		$token = $o->initToken($_REQUEST['code']);
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
+		$o = new taouser();
+		$token = $o->get_openid($_REQUEST);
 		if ($token) {
 			$this->_on_taobao_logined();
 		}else {
@@ -360,10 +366,9 @@ class UserAction extends HomeCommonAction
 			$u_info = $qq->userInfo();
 			$nick = $u_info['nickname'];
 		}elseif($type == 'taobao'){
-			include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
-			$tb = new tb();
-			$u_info = $tb->userInfo();
-			$nick = $u_info['nick'];
+			include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
+			$tb = new taouser();
+			$nick = $tb->get_openid();
 		}
 		$this->assign('nick', $nick);
 		$this->assign('type', $type);
@@ -434,8 +439,8 @@ class UserAction extends HomeCommonAction
 	
 	private function _on_taobao_logined()
 	{
-		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
-		$tb = new tb();
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
+		$tb = new taouser();
 		//检查是否已绑定帐号
 		$openid = $tb->get_openid();
 		$platformModel = M('user_platform');
@@ -448,10 +453,9 @@ class UserAction extends HomeCommonAction
 			$_user = $ucService->get_user_info($user['user_id'], 1);
 			if($_user === null){
 				$platformModel->where("id='$user[id]'")->delete();
-				redirect(reUrl('User/bind?type=qq'));
+				redirect(reUrl('User/bind?type=taobao'));
 			}
-			$tb_u_info = $tb->userInfo();
-			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$tb_u_info['nick'],'avatar'=>$tb_u_info['avatar']), false);
+			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$openid,'avatar'=>''), false);
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
 			$this->assign('jumpUrl', reUrl('User/index'));
 			$this->success('登陆成功'.$syncHtml);
