@@ -12,7 +12,7 @@ class TaoShopCategoryService
 	{
 		$cates = F('tao_shop_cates');
 		if(! $cates){
-			$cates = $this->_createCaches();
+			$cates = self::_createCaches();
 		}
 		return $cates['all'][$id];
 	}
@@ -22,7 +22,7 @@ class TaoShopCategoryService
 		$result = array();
 		$cates = F('tao_shop_cates');
 		if(!$cates || empty($cates['tree'])){
-			$cates = $this->_createCaches();
+			$cates = self::_createCaches();
 		}
 		return $result = $cates['tree'];
 	}
@@ -32,7 +32,7 @@ class TaoShopCategoryService
 		$result = array();
 		$cates = F('tao_shop_cates');
 		if(!$cates || empty($cates['all'])){
-			$cates = $this->_createCaches();
+			$cates = self::_createCaches();
 		}
 		return $result = $cates['all'];
 	}
@@ -42,7 +42,7 @@ class TaoShopCategoryService
 		F('tao_shop_cates', null);
 	}
 	
-	private function _createCaches()
+	private static function _createCaches()
 	{
         $treeObj = new Tree();
         $cccModel = M('tao_shop_category');

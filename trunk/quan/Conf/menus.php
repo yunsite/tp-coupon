@@ -157,6 +157,16 @@ return array(
 																		'displayName'	=>	'添加优惠券',
 																		'params'		=>	array(),
 																		),
+																	array(
+																		'action'		=>	'recs',
+																		'displayName'	=>	'推荐优惠券列表',
+																		'params'		=>	array(),
+																		),
+																	array(
+																		'action'		=>	'rec_pos',
+																		'displayName'	=>	'优惠券推荐位管理',
+																		'params'		=>	array(),
+																		),
 																	),
 											)
 											),

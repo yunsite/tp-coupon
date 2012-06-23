@@ -133,10 +133,10 @@ class TaoCouponModel extends RelationModel
      */
     public function latest($s_id=null, $limit=10)
     {
-    	$fields = 'c.*, m.pic_path';
+    	$fields = 'c.c_id,c.title,c.s_id,c.s_title,c.c_type,c.money_max,c.money_reduce,c.money_amount, m.pic_path';
     	$sql = " FROM " . $this->getTableName() . " AS c LEFT JOIN " . M('tao_shop')->getTableName() . " AS m ON m.id=c.s_id";
     	$sql .= " WHERE c.is_active=1";
-    	if($m_id){
+    	if($s_id){
     		$sql .= " AND c.s_id='$s_id'";
     	}
     	$sql .= " ORDER BY c.c_id DESC,c.expiry DESC LIMIT $limit";

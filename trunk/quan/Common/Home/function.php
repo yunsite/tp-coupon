@@ -86,6 +86,35 @@ function malls_cates($cate_ids, $limit=10)
 	$mallService = service('CouponCodeMall');
 	return $malls = $mallService->malls_cates($cate_ids, $limit);
 }
+/*==========================================淘宝优惠券函数库=====================================================*/
+function tao_shop_logo($pic_path)
+{
+	$logo = 'http://logo.taobao.com/shop-logo'.$pic_path;
+	return $logo;
+}
+/**
+ * 最新淘宝优惠券
+ *
+ * @param int $limit
+ * @return array
+ */
+function tao_coupons_latest($limit)
+{
+	$tcModel = D('TaoCoupon');
+	return $coupons = $tcModel->latest(null, $limit);
+}
+/**
+ * 推荐淘宝商家
+ *
+ * @param int $position_id				推荐位ID
+ */
+function tao_coupon_recs($position_id)
+{
+	static $recs = array();
+	if(isset($recs[$position_id])) return $recs[$position_id];
+	$service = service('TaoCouponRecs');
+    return $recs[$position_id] = $service->recs_by_position($position_id);
+}
 /*==========================================优惠券函数库=========================================================*/
 /**
  * 随机优惠券
