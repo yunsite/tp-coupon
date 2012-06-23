@@ -1,12 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
-<link href="css/tao.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
+{template "../Public/header"}
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/Home/tao.css" />
+{template "../Public/nav"}
 <div class="tao-wrap">
 <div class="lt">
 <div class="tao-filters">
@@ -18,137 +12,57 @@
 </dd>
 </dl>
 <ul>
-<li><a href="http://taobao.miquan.com/list/page/1.html"  title="全部" class="on">全部</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
-<li><a href="http://taobao.miquan.com/list/cate/1.html"  title="流行女装" >流行女装</a></li>
+<li><a href="{echo reUrl('Tao/index?cid=0&p=1')}"  title="全部" {if $cid==0}class="on"{/if}>全部</a></li>
+<!--{loop $categorys $item}-->
+<li><a href="{echo reUrl('Tao/index?cid='.$item[id].'&p=1')}"  title="{$item.name}" {if $cid==$item['id']}class="on"{/if}>{$item.name}</a></li>
+<!--{/loop}-->
 </ul>
 </div>
 
 <div  class="tao-listItem">
+<!--{loop $shops $item}-->
 <dl>
-<dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
+<dt><A class="lazy-img-loader" href="{echo reUrl('Tao/shop?id='.$item[id])}"><IMG src="{echo tao_shop_logo($item['pic_path'])}"  alt="{$item.title}优惠券" ></A></dt>
 <dd>
-<h2><a href="" title="朵朵云母婴">朵朵云母婴</a></h2><h4><a href="http://taobao.miquan.com/shop/33026108.html">朵朵云</a>信誉: <span class="credit credit_19"></span></h4>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p>
+<h2><a href="{echo reUrl('Tao/shop?id='.$item[id])}" title="{$item.title}优惠券">{$item.title}<!--{if $item['type']=='B'}--><span class="tmall-icon"></span><!--{/if}--></a></h2><h4>掌柜：<a href="{echo reUrl('Tao/shop?id='.$item[id])}">{$item.nick}</a>信誉: <span class="credit credit_{$item.level}"></span></h4>
+<p>{$item.desc}</p>
 <div class="coupons">
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
+<!--{loop $item['coupons'] $item2}-->
+<a class="coupon" href="{echo reUrl('Tao/show?id='.$item2[c_id])}"  title="{if $item2['title']}{$item2.title}{else}{$item.title}满{$item2.money_max}减{$item2.money_reduce}元优惠券{/if}">满<span class="condition">{$item2.money_max}</span>减<span class="denominations">{$item2.money_reduce}</span></a>
+<!--{/loop}-->
 </div>
 </dd>
 </dl>
-<dl>
-<dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
-<dd>
-<h2><a href="" title="朵朵云母婴">朵朵云母婴</a></h2><h4>掌柜：<a href="http://taobao.miquan.com/shop/33026108.html">朵朵云</a>信誉: <span class="credit credit_19"></span></h4>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p>
-<div class="coupons">
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-
-</div>
-</dd>
-</dl>
-<dl>
-<dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
-<dd>
-<h2><a href="" title="朵朵云母婴">朵朵云母婴</a></h2><h4>掌柜：<a href="http://taobao.miquan.com/shop/33026108.html">朵朵云</a>信誉: <span class="credit credit_19"></span></h4>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p>
-<div class="coupons">
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-</div>
-</dd>
-</dl>
-<dl>
-<dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
-<dd>
-<h2><a href="" title="朵朵云母婴">朵朵云母婴</a></h2><h4>掌柜：<a href="http://taobao.miquan.com/shop/33026108.html">朵朵云</a>信誉: <span class="credit credit_19"></span></h4>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p>
-<div class="coupons">
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-</div>
-</dd>
-</dl>
-<dl>
-<dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
-<dd>
-<h2><a href="" title="朵朵云母婴">朵朵云母婴</a></h2><h4>掌柜：<a href="http://taobao.miquan.com/shop/33026108.html">朵朵云</a>信誉: <span class="credit credit_19"></span></h4>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p>
-<div class="coupons">
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-<a class="coupon" href=""  title="标题">满<span class="condition">50</span>减<span class="denominations">3</span></a>
-</div>
-</dd>
-</dl>
-
-
+<!--{/loop}-->
+<ul class="pager">{$pagelink}</ul>
 </div>
 </div>
 <div class="ri">
 <div class="shopAllCoupons">
 <ul>
-<li><a href="#"  title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM>
-  <h4><span class="b-num" >朵朵云母婴</span>信誉:<span class="credit credit_19"></span></h4>
+<!--{eval $coupons=tao_coupon_recs(1);}-->
+<!--{loop $coupons $c}-->
+<li><a href="{echo reUrl('Tao/show?id='.$c[c_id])}"  title="{$c.s_title}优惠券 满{$c.money_max}减{$c.money_reduce}"><span>满<span class="condition"><EM class="r-num">{$c.money_max}</EM></span>减<span class="condition"><EM 
+  class="r-num">{$c.money_reduce}</EM>
+  <h4><span class="b-num" >{$c.s_title}</span>信誉:<span class="credit credit_{$c.level}"></span></h4>
   </span>  
   </span><span class="btn-holder"><span class="btn">去领取 
  </span></span><span class="cutter"></span></a>
 </li>
-<li><a href="#"  title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM>
-  <h4><span class="b-num" >朵朵云母婴</span>信誉:<span class="credit credit_19"></span></h4>
-  </span>  
-  </span><span class="btn-holder"><span class="btn">去领取 
- </span></span><span class="cutter"></span></a>
-</li>
-<li><a href="#" title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM>
-  <h4><span class="b-num" >朵朵云母婴</span>信誉:<span class="credit credit_19"></span></h4>
-  </span>  
-  </span><span class="btn-holder"><span class="btn">去领取 
- </span></span><span class="cutter"></span></a>
-</li>
+<!--{/loop}-->
 </ul>
 </div>
 
 <div class="tao-css1">
 <dl><dt>最新淘宝优惠券</dt></dl>
 <ul>
-
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减">土家硒泥坊旗舰店优惠券 满10.01减1</a></li>
+<!--{eval $coupons=tao_coupons_latest(10);}-->
+<!--{loop $coupons $coupon}-->
+<li><a href="{echo reUrl('Tao/show?id='.$coupon[c_id])}"  title="{$coupon.s_title}优惠券 满{$coupon.money_max}减{$coupon.money_reduce}">{if $coupon['title']}{$coupon['title']}{else}{$coupon.s_title}优惠券 满{$coupon.money_max}减{$coupon.money_reduce}{/if}</a></li>
+<!--{/loop}-->
 </ul>
 </div>
 
 </div>
 </div>
-
-
-</body>
-</html>
+{template "../Public/footer"}

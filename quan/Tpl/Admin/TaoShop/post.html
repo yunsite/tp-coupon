@@ -1,4 +1,5 @@
 {include file="../Public/header.html"}
+<script type="text/javascript" src="__PUBLIC__/Js/xheditor-1.1.13/xheditor-1.1.13-zh-cn.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.validate.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/jQuery.validate.message_cn.js"></script>
 <div class="handle-btns">
@@ -70,7 +71,7 @@
 	</tr>
     <tr>
 		<th width="200" class="first">店铺描述：</th>
-		<td><textarea name="desc" id="desc" cols="" rows="" class="textinput" style="height:60px; width:550px;">{$shop.desc}</textarea></td>
+		<td><textarea name="desc" id="desc" cols="" rows="" class="textinput" style="height:150px; width:550px;">{$shop.desc}</textarea></td>
 	</tr>
     <tr>
 		<th width="200" class="first">店铺公告：</th>
@@ -100,13 +101,18 @@
 var g = '{$smarty.const.GROUP_NAME}';
 var m = '{$smarty.const.MODULE_NAME}';
 var a = '{$smarty.const.ACTION_NAME}';
+var upscript_url = '__APP__?g=Public&m=Public&a=upload4xheditor&immediate=1';
+var editor = null;
 <!--{literal}-->
 jQuery(document).ready(function() {
 			$("#form_post").validate({
 						 submitHandler:function(form){
+							 						form.desc.value = $('#desc').val();
 						 							form.submit();
 						 						}
 						 });
+			var options = {elm:'#desc',tools:'full',upscript_url:upscript_url};
+			editor = editorInit_html(options);
 });
 <!--{/literal}-->
 </script>

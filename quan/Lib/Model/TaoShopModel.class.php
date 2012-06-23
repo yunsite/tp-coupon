@@ -9,8 +9,28 @@
 /**
  * 淘宝商家模型类
  */
-class TaoShopModel extends Model
-{   
+class TaoShopModel extends RelationModel 
+{
+	protected $_link = array(
+							'Coupons'	=>	array(
+											'mapping_type'	=>	HAS_MANY,
+											'class_name'	=>	'TaoCoupon',
+											'foreign_key'	=>	's_id',
+											'mapping_name'	=>	'coupons',
+											'mapping_fields'=>	'c_id,title,money_max,money_reduce',
+											'mapping_order'	=>	'sort_order ASC,c_id DESC',
+											'condition'		=>	'is_active=1',
+											'mapping_limit'	=>	8
+											),
+							);
+
+	protected function _initialize()
+	{
+		parent::_initialize();
+		$nowtime = LocalTime::getInstance()->gmtime();
+		$this->_link['Coupons']['condition'] .= ' AND expiry>='.$nowtime;
+	}
+	
     /**
      * 添加
      * 
@@ -175,6 +195,7 @@ class TaoShopModel extends Model
     	}
     	$result['count'] = $this->field($fields)->where($where)->count();
     	$result['data'] = $this->field($fields)->where($where)
+    							->relation(true)
     							->order($order . 'sort_order ASC, id DESC')
     							->limit("$limit[begin], $limit[offset]")->select();
     	return $result;

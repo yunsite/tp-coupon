@@ -1,18 +1,18 @@
 {include file="../Public/header.html"}
 <div class="handle-btns">
-	<div class="link-button"><p><a class="" href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=rec_shops" name="" id="">返回推荐列表</a></p></div>
+	<div class="link-button"><p><a class="" href="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a=recs" name="" id="">返回推荐列表</a></p></div>
 </div>
 <form action="?g={$smarty.const.GROUP_NAME}&m={$smarty.const.MODULE_NAME}&a={$smarty.const.ACTION_NAME}" method="post" name="form_post" id="form_post">
 <table cellspacing="0" cellpadding="4" border="0" class="table-form">
 	<tbody>
     <tr>
-		<th width="200" class="first">店铺名称：</th>
-		<td>{$shop.title}</td>
+		<th width="200" class="first">优惠券名称：</th>
+		<td>{$coupon.s_title}<!--{if $coupon.c_type==1}-->满{$coupon.money_max}减{$coupon.money_reduce}元优惠券<!--{else}-->{$coupon.money_amount}代金券<!--{/if}--></td>
 	</tr>
     <tr>
 		<th width="200" class="first">推荐位：</th>
 		<td><select name="position" class="requireinput required">
-			<!--{foreach from=$mall_rec_position_conf item=item}-->
+			<!--{foreach from=$coupon_rec_position_conf item=item}-->
 			<option value="{$item.id}">{$item.name}</option>
 			<!--{/foreach}-->
 			</select></td>
@@ -25,6 +25,6 @@
 		</td>
 	</tr>
 </tbody></table>
-<input name="id" type="hidden" value="{$shop.id|default:'0'}" />
+<input name="id" type="hidden" value="{$coupon.c_id|default:'0'}" />
 </form>
 {include file="../Public/footer.html"}

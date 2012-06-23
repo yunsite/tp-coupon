@@ -281,6 +281,134 @@ class TaoCouponAction extends AdminCommonAction
 		$this->display();
 	}
 	
+	public function rec_pos()
+	{
+		$rec_pos = M('tao_coupon_rec_pos')->order('id DESC')->select();
+		$this->assign('rec_pos', $rec_pos);
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 推荐位管理');
+		$this->assign('_hash_', buildFormToken());
+		$this->display();
+	}
+	
+	public function add_rec_pos()
+	{
+		if($this->isAjax()){
+			if(!$_REQUEST['name']){
+				exit('data invalid.');
+			}
+			if(M('tao_coupon_rec_pos')->add(array('name'=>$_REQUEST['name']))){
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '', 0);
+			}
+		}
+	}
+	
+	public function del_rec_pos()
+	{
+		if($this->isAjax()){
+			if(!$_REQUEST['id']){
+				exit('data invalid.');
+			}
+			$id = intval($_REQUEST['id']);
+			if(M('tao_coupon_rec_pos')->where("id='$id'")->delete()){
+				M('tao_coupon_rec')->where("position='$id'")->delete();
+				//清除缓存
+				$params = null;
+				B('TaoCouponRecs', $params);
+				$this->ajaxReturn('', '', 1);
+			}else{
+				$this->ajaxReturn('', '', 0);
+			}
+		}
+	}
+	
+	/**
+	 * 推荐
+	 *
+	 */
+	public function rec()
+	{
+		$id = intval($_REQUEST['id']);
+		$ccmModel = D('TaoCoupon');
+		$coupon = $ccmModel->info($id);
+		if($coupon['is_active'] == 0){
+			$this->error('该优惠券已被屏蔽');
+		}
+		if($this->isPost()){
+			$position = $_REQUEST['position'];
+			if(M('tao_coupon_rec')->where("c_id='$id' AND position='$position'")->find()){
+				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME.'&a=recs');
+				$this->success('推荐成功');
+			}
+			$data = array(
+						'c_id'			=>	$id,
+						'position'		=>	$position
+						);
+			if(M('tao_coupon_rec')->data($data)->add()){
+				//清除缓存
+				$params = null;
+				B('TaoCouponRecs', $params);
+				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME.'&a=recs');
+				$this->success('推荐成功');
+			}else{
+				$this->error('操作失败');
+			}
+		}
+		$this->assign('coupon', $coupon);
+		$coupon_rec_position_conf = M('tao_coupon_rec_pos')->order("id DESC")->select();
+		$this->assign('coupon_rec_position_conf', $coupon_rec_position_conf);
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 推荐优惠券');
+		$this->display();
+	}
+	
+	/**
+	 * 取消推荐到首页
+	 *
+	 */
+	public function unrec()
+	{
+		if($this->isAjax()){
+			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST)){
+				die('hack attemp.');
+			}
+			if(empty($_REQUEST['id'])){
+				$this->ajaxReturn('', '请选择优惠券', 0);
+			}
+			$id = $_REQUEST['id'];
+			if(M('tao_coupon_rec')->where("id IN ($id)")->delete()){
+				//清除缓存
+				$params = null;
+				B('TaoCouponRecs', $params);
+				$this->ajaxReturn('', buildFormToken(), 1);
+			}else{
+				$this->ajaxReturn('', '操作失败', 0);
+			}
+		}
+	}
+	
+	/**
+	 * 推荐列表
+	 *
+	 */
+	public function recs()
+	{
+		$ccrsService = service('TaoCouponRecs');
+		$coupons = array();
+		$res = $ccrsService->getAll();
+		foreach ($res as $rs){
+			foreach ($rs as $r){
+				$pos = M('tao_coupon_rec_pos')->where("id='$r[position]'")->find();
+				$r['position'] = $pos['name'];
+				$coupons[] = $r;
+			}
+		}
+		$this->assign('coupons', $coupons);
+		$this->assign('ur_href', '淘宝优惠券管理 &gt; 推荐优惠券列表');
+		$this->assign('_hash_', buildFormToken());
+		$this->display();
+	}
+	
 	/**
 	 * 批量采集第一步
 	 *
