@@ -11,12 +11,12 @@ class TaoShopRecsService
 	public function getAll()
 	{
 		if(! C('DATA_CACHE_ON')){
-			$data = $this->_getAll();
+			$data = self::_getAll();
 			return $data;
 		}
 		$data = F('tao_shop_recs');
 		if(! $data){
-			$data = $this->_getAll();
+			$data = self::_getAll();
 			F('tao_shop_recs', $data);
 		}
 		return $data;
@@ -33,7 +33,7 @@ class TaoShopRecsService
 		if(C('DATA_CACHE_ON')) F('tao_shop_recs', null);
 	}
 	
-	private function _getAll()
+	private static function _getAll()
 	{
 		$rec_table = M('tao_shop_rec')->getTableName();
 		$m_table = M('tao_shop')->getTableName();

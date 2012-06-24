@@ -127,7 +127,7 @@ class Taobao
 		}
 		require_once('Request/UserGetRequest.php');
 		$req = new UserGetRequest;
-		$req->setFields("uid,seller_credit,type,location,created,avatar,nick");
+		$req->setFields("uid,user_id,seller_credit,type,location,created,avatar,nick");
 		$req->setNick($nick);
 		$resp = $this->_topClient->execute($req, $sessionKey);
 		return is_array($resp) && isset($resp['user']) ? $resp['user'] : array();
@@ -174,6 +174,7 @@ class Taobao
 		$return = array();
 		$return['nick'] = $nick;
 		$return['uid'] = $tao_user['uid'];
+		$return['seller_id'] = $tao_user['user_id'];
 		$return['cid'] = $tao_shop['cid'];
 		$return['consumer_protection'] = $tao_user['consumer_protection'] ? 1 : 0;
 		$return['level'] = $tao_user['seller_credit']['level'];
@@ -206,5 +207,38 @@ class Taobao
 		//$req->setActivityId(585448);
 		$resp = $this->_topClient->execute($req);
 		return is_array($resp) && isset($resp['activitys']) ? $resp['activitys'] : array();
+	}
+	
+	public function convertItems($ids)
+	{
+		require_once('Request/TaobaokeItemsConvertRequest.php');
+		$req = new TaobaokeItemsConvertRequest;
+		$req->setFields("num_iid,click_url,iid,commission,commission_rate,commission_num,commission_volume");
+		$req->setNumIids($ids);
+		$req->setPid($this->_taobao_pid);
+		$resp = $this->_topClient->execute($req);
+		return is_array($resp) && isset($resp['taobaoke_items']['taobaoke_item']) ? $resp['taobaoke_items']['taobaoke_item'] : array();
+	}
+	
+	public function getShoprecommendItems($seller_id, $limit=10)
+	{
+		require_once('Request/ShoprecommendItemsGetRequest.php');
+		$req = new ShoprecommendItemsGetRequest;
+		$req->setSellerId($seller_id);
+		$req->setRecommendType(1);
+		$req->setCount($limit);
+		$resp = $this->_topClient->execute($req);
+		$res = is_array($resp) && isset($resp['favorite_items']['favorite_item']) ? $resp['favorite_items']['favorite_item'] : array();
+		$ids = '';
+		$items = array();
+		foreach ($res as $rs){
+			$ids .= $ids ? ','.$rs['item_id'] : $rs['item_id'];
+			$items[$rs['item_id']] = $rs;
+		}
+		$cvitems = $this->convertItems($ids);
+		foreach ($cvitems as $cv){
+			$items[$cv['num_iid']]['click_url'] = $cv['click_url'];
+		}
+		return $items;
 	}
 }
