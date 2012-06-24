@@ -82,6 +82,8 @@ class TaoShopAction extends AdminCommonAction
 						'seo_desc'	=>	$_REQUEST['seo_desc'],
 						);
 			if($taoShopModel->update($id, $data)){
+				$params = array('id'=>$id);
+				B('TaoShop', $params);
 				$this->assign('jumpUrl', '?g='.GROUP_NAME.'&m='.MODULE_NAME);
 				$this->success('编辑成功');
 			}else{
@@ -186,6 +188,37 @@ class TaoShopAction extends AdminCommonAction
 		}
 	}
 	
+	public function del()
+	{
+		if($this->isAjax()){
+			$id = intval($_REQUEST['id']);
+			$ccmModel = D('TaoShop');
+			$shop = $ccmModel->info($id);
+			if($ccmModel->_delete($id)){
+				//删除所有的优惠券、推荐信息及其他相关数据
+				$codes = M('tao_coupon')->field('c_id')->where("s_id='$id'")->select();
+				foreach ($codes as $code){
+					$c_id = $code['c_id'];
+					M('tao_coupon')->where("c_id='$c_id'")->delete();
+					M('tao_coupon_data')->where("c_id='$c_id'")->delete();
+					M('tao_coupon_rec')->where("c_id='$c_id'")->delete();
+					M('tao_coupon_records')->where("c_id='$c_id'")->delete();
+				}
+				M('tao_shop_rec')->where("s_id='$id'")->delete();
+				//清除缓存
+				$params = array('id' => $id, 'seller_id' => $shop['seller_id']);
+				B('TaoShop', $params);
+				$params = null;
+				B('TaoShopRecs', $params);
+				$params = null;
+				B('TaoCouponRecs', $params);
+				$this->ajaxReturn('', buildFormToken(), 1);
+			}else{
+				$this->ajaxReturn('', '删除失败', 0);
+			}
+		}
+	}
+	
 	/**
 	 * 激活
 	 *
@@ -197,6 +230,8 @@ class TaoShopAction extends AdminCommonAction
 			$ccmModel = D('TaoShop');
 			$data = array('is_active' => 1);
 			if($ccmModel->update($id, $data)){
+				$params = array('id'=>$id);
+				B('TaoShop', $params);
 				$this->ajaxReturn('', '', 1);
 			}else{
 				$this->ajaxReturn('', '激活失败', 0);
@@ -219,8 +254,8 @@ class TaoShopAction extends AdminCommonAction
 				M("tao_coupon")->where("s_id='$id'")->save(array('is_active' => 0));
 				M('tao_shop_rec')->where("s_id='$id'")->delete();
 				//清除缓存
-				$params = null;
-				B('TaoShopRecs', $params);
+				$params = array('id'=>$id);
+				B('TaoShop', $params);
 				$this->ajaxReturn('', '', 1);
 			}else{
 				$this->ajaxReturn('', '屏蔽失败', 0);

@@ -21,7 +21,9 @@ function del(id)
 														$('#dialog>p').html('删除失败');
 														$('#dialog').dialog('open');
 													}else{
-														window.location.href = document.URL;
+														$('#dialog').dialog('close');
+														$('#tt-item-'+id).remove();
+														_hash_ = data.info;
 													}
 													});
 						},

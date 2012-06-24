@@ -22,13 +22,13 @@
 <div  class="tao-listItem">
 <!--{loop $shops $item}-->
 <dl>
-<dt><A class="lazy-img-loader" href="{echo reUrl('Tao/shop?id='.$item[id])}"><IMG src="{echo tao_shop_logo($item['pic_path'])}"  alt="{$item.title}优惠券" ></A></dt>
+<dt><A class="lazy-img-loader" href="{echo reUrl('Tao/shop?id='.$item[id])}" target="_blank"><IMG src="{echo tao_shop_logo($item['pic_path'])}"  alt="{$item.title}优惠券" ></A></dt>
 <dd>
-<h2><a href="{echo reUrl('Tao/shop?id='.$item[id])}" title="{$item.title}优惠券">{$item.title}<!--{if $item['type']=='B'}--><span class="tmall-icon"></span><!--{/if}--></a></h2><h4>掌柜：<a href="{echo reUrl('Tao/shop?id='.$item[id])}">{$item.nick}</a>信誉: <span class="credit credit_{$item.level}"></span></h4>
+<h2><a href="{echo reUrl('Tao/shop?id='.$item[id])}" title="{$item.title}优惠券" target="_blank">{$item.title}<!--{if $item['type']=='B'}--><span class="tmall-icon"></span><!--{/if}--></a></h2><h4>掌柜：<a href="{echo reUrl('Tao/shop?id='.$item[id])}" target="_blank">{$item.nick}</a>信誉: <span class="credit credit_{$item.level}"></span></h4>
 <p>{$item.desc}</p>
 <div class="coupons">
 <!--{loop $item['coupons'] $item2}-->
-<a class="coupon" href="{echo reUrl('Tao/show?id='.$item2[c_id])}"  title="{if $item2['title']}{$item2.title}{else}{$item.title}满{$item2.money_max}减{$item2.money_reduce}元优惠券{/if}">满<span class="condition">{$item2.money_max}</span>减<span class="denominations">{$item2.money_reduce}</span></a>
+<a class="coupon" href="{echo reUrl('Tao/show?id='.$item2[c_id])}"  title="{if $item2['title']}{$item2.title}{else}{$item.title}满{$item2.money_max}减{$item2.money_reduce}元优惠券{/if}" target="_blank">满<span class="condition">{$item2.money_max}</span>减<span class="denominations">{$item2.money_reduce}</span></a>
 <!--{/loop}-->
 </div>
 </dd>

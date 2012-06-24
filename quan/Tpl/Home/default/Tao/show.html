@@ -4,18 +4,18 @@
 <div class="tao-wrap">
 <div class="lt">
 <div  class="tao-show">
-<h1>朵朵云母婴店 3元优惠券（满50元可用）</h1>
+<h1>{$detail.title}</h1>
   <dl>
-  <dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
+  <dt><A class="lazy-img-loader" href="{echo reUrl('Tao/shop?id='.$shop[id])}"><IMG src="{echo tao_shop_logo($shop['pic_path'])}"  alt="{$shop.title}优惠券" ></A></dt>
 <dd style="width:300px;">
-<p>优惠金额：满<em> 50</em> 减<em> 3</em></p>
-<p>领取限制：每人限领 1 张</p>
-<p>剩余时间：72 天 11 小时 24 分钟</p>
+<p>优惠金额：<!--{if $detail['c_type']==1}-->满<em>{$detail.money_max}</em>减<em>{$detail.money_reduce}</em><!--{else}--><em>{$detail.money_amount}</em>元代金券<!--{/if}--></p>
+<p>领取限制：{$detail['data']['fetch_limit']}</p>
+<p>剩余时间：<!--{if $detail['expiry_type']==1}--><!--{if $detail['expiry']==0}-->已结束<!--{else}-->还剩 <em><!--{if $detail['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$detail.expiry}<!--{/if}--></em> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></p>
 </dd>
 <dd style="width:200px;">
-<p>售价：<em>0.5</em>元</p>
-<p>已售：1 张</p>
-<p><a href="" title="朵朵云母婴"><img src="images/show-go.jpg" width="91" height="38" /></a><span><a href="" title="如何使用">如何使用?</a></span></p>
+<p>售价：<!--{if $detail['price_type']==1}-->免费<!--{elseif $detail['price_type']==2}--><em>{$detail.price}</em>元<!--{elseif $detail['price_type']==3}--><em>{$detail.price}</em>积分<!--{/if}--></p>
+<p>已领取：<em>{$detail.fetched_amount}</em> 张</p>
+<p><a href="{echo reUrl('Tao/shop?id='.$item[id])}" title="{$shop.title}优惠券"><img src="__PUBLIC__/Images/Taobao/show-go.jpg" width="91" height="38" /></a><span><a href="#how2use" title="如何使用">如何使用?</a></span></p>
 </dd>
 </dl>
 
@@ -24,28 +24,21 @@
 <div class="tao-css4">
   <dl><dt>商家介绍</dt></dl>
  <ul><li>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p> 
-<p>主营产品：母婴用品</p>
+<p>{$shop.desc}</p>
 </li></ul>
 </div>
 <div class="tao-css4">
   <dl><dt>本券说明</dt></dl>
  <ul><li>
-<p>1、本优惠券面值3元，在朵朵云母婴店购物满50元时即可使用；</p>
-
-<p>2、本优惠券在限时打折等商品优惠时可继续使用，聚划算、天猫品牌特卖等商品除外；</p>
-
-<p>3、一张订单仅可以使用一张优惠券，发生退换货将只退还实际支付金额；</p>
-
-<p>4、请在2012年08月31日23点之前使用本优惠券，逾期失效。</p>
-
-<p>* 本优惠券在购买后将不能退换。</p>
+{$detail['data']['directions']}
 </li></ul>
 </div>
-<div class="tao-css4">
+<div class="tao-css4" id="how2use">
   <dl><dt>如何使用</dt></dl>
  <ul><li>
-   <img src="upfile/coupon_how_to1.jpg" width="617" height="169" /> </li>
+   <img src="__PUBLIC__/Images/Taobao/coupon_how_to1.jpg" width="617" height="169" />
+   <img src="__PUBLIC__/Images/Taobao/coupon_how_to2.jpg" width="617" height="169" />
+   <img src="__PUBLIC__/Images/Taobao/coupon_how_to3.jpg" width="617" height="169" /> </li>
  </ul>
 </div>
 </div>
@@ -54,35 +47,23 @@
   <dl><dt>店铺信息</dt></dl>
 <ul>
   <li>
-<h4>商家名称：<a href="">朵朵云母婴店</a></h4>
-<h4>店铺信誉：<span class="credit credit_19"></span></h4>
-<h4>描述属实：<span class="score score_9">4.8分</span></h4>
-<h4>服务态度：<span class="score score_9">4.8分</span></h4>
-<h4>发货速度：<span class="score score_9">4.8分</span></h4>
+<h4>商家名称：<a href="{echo reUrl('Tao/shop?id='.$shop[id])}" title="{$shop.title}优惠券">{$shop.title}</a></h4>
+<h4>店铺信誉：<span class="credit credit_{$shop.level}"></span></h4>
+<h4>描述属实：<span class="score score_9">{$shop.item_score}分</span></h4>
+<h4>服务态度：<span class="score score_9">{$shop.service_score}分</span></h4>
+<h4>发货速度：<span class="score score_9">{$shop.delivery_score}分</span></h4>
   </li>
-  <li><a href=""  title=""><img src="images/shop-buy.jpg" width="88" height="24"  alt=""/></a> <a href=""  title=""><img src="images/shop-li.jpg" width="76" height="24"  alt=""/></a></li>
+  <li><a href="{echo reUrl('Tao/out?id='.$shop[id])}"  title="{$shop.title}优惠券" rel="nofollow" target="_blank"><img src="__PUBLIC__/Images/Taobao/shop-buy.jpg" width="88" height="24"  alt=""/></a></li>
 </ul>
 </div>
   <div class="tao-css3">
   <dl><dt>掌柜热卖</dt></dl>
 <ol>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li><a href=""  title="【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3"><IMG src=""  alt="" >【朵朵云】贝亲婴儿湿巾80片补充装/宝宝湿巾湿纸巾(新款3
-<span>￥31.50</span></a></li>
-<li style=" text-align:right;"><a href=""  title=" ">更多&gt;&gt;</a></li>
+<!--{eval $items=tao_shop_recommend_items($shop['seller_id']);}-->
+<!--{loop $items $item}-->
+<li><a href="__ROOT__/index.php?m={MODULE_NAME}&a=out_item&item_id={$item.item_id}&click_url={echo urlencode($item['click_url'])}&item_url={echo urlencode($item['item_url'])}"  title="{$item.item_name}优惠券" rel="nofollow" target="_blank"><IMG src="{$item.item_pictrue}"  alt="{$item.item_name}优惠券" >{$item.item_name}
+<span>￥{$item.item_price}</span></a></li>
+<!--{/loop}-->
 </ol>
 </div>
 

@@ -115,6 +115,18 @@ function tao_coupon_recs($position_id)
 	$service = service('TaoCouponRecs');
     return $recs[$position_id] = $service->recs_by_position($position_id);
 }
+/**
+ * 淘宝店铺热卖商品
+ *
+ * @param unknown_type $seller_id
+ * @param unknown_type $limit
+ */
+function tao_shop_recommend_items($seller_id, $limit=10)
+{
+	if(! $seller_id) return array();
+	$shopService = service('TaoShop');
+	return $res = $shopService->tao_shop_recommend_items($seller_id, $limit);
+}
 /*==========================================优惠券函数库=========================================================*/
 /**
  * 随机优惠券

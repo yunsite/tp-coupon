@@ -21,4 +21,4 @@ RewriteRule ^(promotion|zhekou)-(detail|out)-id-([0-9]+)\.html$       index\.php
 RewriteRule ^promotion-index-cid-([0-9]+)-p-([0-9]+)\.html$       index\.php\?m=promotion&a=index&cid=$1&p=$2 [L]
 RewriteRule ^zhekou-index-cid-([0-9]+)-t_type-([0-9]+)-p-([0-9]+)\.html$       index\.php\?m=zhekou&a=index&cid=$1&t_type=$2&p=$3 [L]
 RewriteRule ^tao-index-cid-([0-9]+)-p-([0-9]+)\.html$       index\.php\?m=tao&a=index&cid=$1&p=$2 [L]
-RewriteRule ^tao-(shop|show)-id-([0-9]+)\.html$       index\.php\?m=tao&a=$1&id=$2 [L]
+RewriteRule ^tao-(shop|show|out)-id-([0-9]+)\.html$       index\.php\?m=tao&a=$1&id=$2 [L]
