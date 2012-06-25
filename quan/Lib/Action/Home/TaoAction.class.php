@@ -169,7 +169,9 @@ class TaoAction extends HomeCommonAction
     	$tbsign=strtoupper(hash_hmac("md5",$message,TAOBAO_LOGIN_APPSECRET));
     	setcookie("timestamp",$timestamp);
     	setcookie("sign",$tbsign);
-
+    	$this->assign('top_session', $_SESSION['taobao']["top_session"]);
+    	$this->assign('timestamp', $timestamp);
+    	$this->assign('end_time', date('Y-m-d 23:59:59'));
     	$this->assign('page_title', $page_title . ' - ');
 		$this->assign('page_keywords', $detail['data']['seo_keywords'] ? $detail['data']['seo_keywords'] : $this->_CFG['site_keywords']);
 		$this->assign('page_description', $detail['data']['seo_desc'] ? $detail['data']['seo_desc'] : $this->_CFG['site_description']);

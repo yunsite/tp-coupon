@@ -241,4 +241,16 @@ class Taobao
 		}
 		return $items;
 	}
+	
+	public function couponBuyerSearch($sessionKey)
+	{
+		require_once('Request/PromotionCouponBuyerSearchRequest.php');
+		$req = new PromotionCouponBuyerSearchRequest;
+		$req->setStatus("unused");
+		$req->setEndTime(date('Y-m-d 23:59:59'));
+		//$req->setSellerNick("周处");
+		$req->setPageSize(20);
+		$req->setPageNo(1);
+		return $resp = $this->_topClient->execute($req, $sessionKey);
+	}
 }
