@@ -39,7 +39,7 @@ class TaoCouponRecsService
 		$c_table = M('tao_coupon')->getTableName();
 		$s_table = M('tao_shop')->getTableName();
 		$res = M('tao_coupon_rec')
-				->field("$rec_table.*,c.title,c.s_id,c.s_title,c.c_type,c.money_max,c.money_reduce,c.money_amount,s.level,s.pic_path")
+				->field("$rec_table.*,c.title,c.s_id,c.s_title,c.c_type,c.money_max,c.money_reduce,c.money_amount,c.expiry_type,c.expiry,s.level,s.pic_path")
 				->join($c_table." AS c ON c.c_id=$rec_table.c_id")
 				->join($s_table." AS s ON s.id=c.s_id")
 				->order($rec_table.'.sort_order ASC')->select();

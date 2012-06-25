@@ -125,7 +125,7 @@ $(document).ready(function(){
         <select name="cid">
         <option value="0">不限...</option>
         <!--{foreach from=$category item=item key=key}-->
-        <option value="{$item.id}">{$item.prefix}{$item.name}</option>
+        <option value="{$item.cid}">{$item.prefix}{$item.name}</option>
         <!--{/foreach}-->
         </select>
         <span>关键字</span>

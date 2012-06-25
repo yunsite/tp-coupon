@@ -59,8 +59,8 @@ $(document).ready(function(){
 <tbody>
 <!--{foreach from=$category item=item}-->
 <tr id="tt-item-{$item.id}">
-<td class="first">{$item.id}</td>
-<td align="left">{$item.prefix}{$item.name}</td>
+<td class="first">{$item.cid}</td>
+<td align="left">{$item.prefix}<span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="tao_shop_category" pk="" href="javascript:;" onclick="textEdit(this,'{$item.id}','name')">{$item.name}</span></td>
 <td align="left"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="" pk="" href="javascript:;" onclick="textEdit(this,'{$item.id}','sort_order')">{$item.sort_order}</span></td>
 <td align="center"><a onclick="del({$item.id})" href="javascript:;">删除</a></td>
 </tr>

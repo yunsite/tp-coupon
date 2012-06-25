@@ -457,6 +457,9 @@ class TaoCouponAction extends AdminCommonAction
 		foreach ($temp as $c){
 			$coupon = $this->_queryCoupon($c);
 			if(!$coupon['money_reduce'] || !$coupon['activity_id'] || !$coupon['seller_id']) continue;
+			if($tcdModel->field("c_id")->where("activity_id='$coupon[activity_id]' AND seller_id='$coupon[seller_id]'")->find()){
+				continue;
+			}
 			$shop = $taoShopModel->getInfoBySid($coupon['sid']);
 			if(!$shop) continue;
 			$data = array(

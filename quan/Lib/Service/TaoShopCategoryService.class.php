@@ -46,7 +46,7 @@ class TaoShopCategoryService
 	{
         $treeObj = new Tree();
         $cccModel = M('tao_shop_category');
-        $cates = array();
+        $cates = $tree = array();
         $res = $cccModel->order('sort_order ASC')->select();
         foreach ($res as $rs){
         	$cates[$rs['id']] = $rs;
@@ -59,7 +59,11 @@ class TaoShopCategoryService
         if(! empty($category)){
             unset($category[0]);
         }
-        $result = array('tree'=>$category,'all'=>$cates);
+        foreach ($category as $c){
+        	$c['cid'] = $cates[$c['id']]['cid'];
+        	$tree[] = $c;
+        }
+        $result = array('tree'=>$tree,'all'=>$cates);
         F('tao_shop_cates', $result);
         return $result;
 	}

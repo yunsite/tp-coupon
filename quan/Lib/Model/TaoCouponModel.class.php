@@ -106,14 +106,14 @@ class TaoCouponModel extends RelationModel
     public function front(array $params=array(), array $limit=array())
     {
     	$result = array('count'=>0,'data'=>array());
-    	$fields = 'c.*, m.pic_path,c.fetched_amount';
+    	$fields = 'c.*, m.pic_path,m.level';
     	$sql = " FROM " . $this->getTableName() . " AS c LEFT JOIN " . M('tao_shop')->getTableName() . " AS m ON m.id=c.s_id";
     	$sql .= " WHERE c.is_active=1";
     	if(isset($params['addtime']) && $params['addtime']){
     		$sql .= " AND c.addtime>=$params[addtime]";
     	}
-    	if(isset($params['cate_id']) && $params['cate_id']){
-    		$sql .= " AND m.cid IN ($params[cate_id])";
+    	if(isset($params['cid']) && $params['cid']){
+    		$sql .= " AND m.cid='$params[cid]'";
     	}
 	    $res = $this->query("SELECT COUNT(*) AS c_count" . $sql . " LIMIT 1");
 	    $result['count'] = empty($res) ? 0 : $res[0]['c_count'];
@@ -166,9 +166,14 @@ class TaoCouponModel extends RelationModel
      * @param int	$m_id
      * @param int $limit
      */
-    public function all4mall($s_id)
+    public function all4mall($s_id, array $keys=array(), $extra=null)
     {
-    	return $this->where("is_active=1 AND s_id='$s_id'")->order("c_id DESC,expiry DESC")->select();
+    	$fields = empty($keys) ? '*' : implode(',', $keys);
+    	$where = "is_active=1 AND s_id='$s_id'";
+    	if($extra){
+    		$where .= " AND c_id NOT IN ($extra)";
+    	}
+    	return $this->field($fields)->where($where)->order("sort_order ASC, c_id DESC,expiry DESC")->select();
     }
     
     /**
@@ -177,9 +182,12 @@ class TaoCouponModel extends RelationModel
      * @param int	$m_id
      * @param int $limit
      */
-    public function coupons4cate($cate_id, $limit=4)
+    public function coupons4cate($cate_id, $limit=4, array $keys=array())
     {
-    	$fields = 'c.*, m.pic_path';
+    	$fields = 'm.pic_path';
+    	foreach ($keys as $key){
+    		$fields .= ',c.'.$key;
+    	}
     	$sql = " FROM " . $this->getTableName() . " AS c LEFT JOIN " . M('tao_shop')->getTableName() . " AS m ON m.id=c.s_id";
     	$sql .= " WHERE c.is_active=1 AND m.cid IN ($cate_id)";
     	$sql .= " ORDER BY c.sort_order ASC,c.c_id DESC,c.expiry DESC LIMIT $limit";

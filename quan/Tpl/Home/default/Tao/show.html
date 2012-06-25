@@ -1,5 +1,15 @@
 {template "../Public/header"}
 <link rel="stylesheet" type="text/css" href="__PUBLIC__/Css/Home/tao.css" />
+<script src="http://a.tbcdn.cn/apps/top/x/sdk.js?t=120525.js"></script>
+<script type="text/javascript">
+var tb_appkey = '{TAOBAO_LOGIN_APPKEY}';
+var gaJsHost = ("https:" == document.location.protocol) ? "https://" : "http://";
+gaJsHost += window.location.hostname + '{__ROOT__}' + '/';
+TOP.init({
+      appKey : tb_appkey,
+      channelUrl : gaJsHost + 'channel.html'
+});//每个页面只需配置一次系统参数
+</script>
 {template "../Public/nav"}
 <div class="tao-wrap">
 <div class="lt">
@@ -21,18 +31,22 @@
 
 
 </div>
+<!--{if $shop['desc']}-->
 <div class="tao-css4">
   <dl><dt>商家介绍</dt></dl>
  <ul><li>
 <p>{$shop.desc}</p>
 </li></ul>
 </div>
+<!--{/if}-->
+<!--{if $detail['data']['directions']}-->
 <div class="tao-css4">
   <dl><dt>本券说明</dt></dl>
  <ul><li>
 {$detail['data']['directions']}
 </li></ul>
 </div>
+<!--{/if}-->
 <div class="tao-css4" id="how2use">
   <dl><dt>如何使用</dt></dl>
  <ul><li>
@@ -49,13 +63,28 @@
   <li>
 <h4>商家名称：<a href="{echo reUrl('Tao/shop?id='.$shop[id])}" title="{$shop.title}优惠券">{$shop.title}</a></h4>
 <h4>店铺信誉：<span class="credit credit_{$shop.level}"></span></h4>
-<h4>描述属实：<span class="score score_9">{$shop.item_score}分</span></h4>
-<h4>服务态度：<span class="score score_9">{$shop.service_score}分</span></h4>
-<h4>发货速度：<span class="score score_9">{$shop.delivery_score}分</span></h4>
+<h4>描述属实：<span class="score score_{echo floor(($shop['item_score']/5)*10)}">{$shop.item_score}分</span></h4>
+<h4>服务态度：<span class="score score_{echo floor(($shop['service_score']/5)*10)}">{$shop.service_score}分</span></h4>
+<h4>发货速度：<span class="score score_{echo floor(($shop['delivery_score']/5)*10)}">{$shop.delivery_score}分</span></h4>
   </li>
   <li><a href="{echo reUrl('Tao/out?id='.$shop[id])}"  title="{$shop.title}优惠券" rel="nofollow" target="_blank"><img src="__PUBLIC__/Images/Taobao/shop-buy.jpg" width="88" height="24"  alt=""/></a></li>
 </ul>
 </div>
+<!--{if $others}-->
+<div class="shopAllCoupons3">
+<dl><dt>{$shop.title}其他优惠券</dt></dl>
+<ul>
+<!--{loop $others $item}-->
+<li><a title="{if $item['title']}{$item.title}{else}{$item.s_title}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}" href="{echo reUrl('Tao/show?id='.$item[c_id])}">{if $item['title']}<span>{$item.title}</span>{else}<span>{if $item['c_type']==1}满<span class="condition"><EM class="r-num">{$item.money_max}</EM></span>减<span class="condition"><EM class="r-num">{$item.money_reduce}</EM></span>元优惠券{else}<span>{$item.money_amount}元代金券</span>{/if}</span>{/if}<span class="btn-holder"><!--{if $item['expiry_type']==1 && $item['expiry']<=$nowtime}-->
+  <span class="btn1">已过期</span>
+  <!--{else}-->
+  <span class="btn">去领取</span>
+  <!--{/if}--></span><span class="cutter"></span></a>
+</li>
+<!--{/loop}-->
+</ul>
+</div>
+<!--{/if}-->
   <div class="tao-css3">
   <dl><dt>掌柜热卖</dt></dl>
 <ol>

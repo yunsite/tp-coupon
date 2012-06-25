@@ -5,7 +5,7 @@
         </div>
         <div id="main" style="padding-top: 0;">
             <div class="main_l">
-                <h3>{$mall.name}优惠券</h3>
+                <h1>{$mall.name}优惠券</h1><p>{$page_description}</p>
                 <div id="p_top">
                     <div id="p_top_left">
                             <img style="max-width: 260px;" src="{echo FixedUploadedFileUrl($mall[figure_image]);}"></div>
@@ -15,7 +15,7 @@
                         
                         <li><span class="pred">客服电话：</span>{$mall.tel}</li>
                         
-                        <li style="border: 0px"><span class="pred">网站简介：</span>{$mall.description}</li>
+                        <li style="border: 0px">{$mall.description}</li>
                     </div>
                 </div>
                 <div class="dash_line">
