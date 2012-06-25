@@ -4,19 +4,18 @@
 <div class="tao-wrap">
 <div  class="tao-shop">
   <dl>
-  <dt><A class="lazy-img-loader" href="http://taobao.miquan.com/shop/33026108.html"><IMG src=""  alt="" ></A></dt>
+  <dt><A class="lazy-img-loader" href="{echo reUrl('Tao/shop?id='.$shop[id])}" target="_blank"><IMG src="{echo tao_shop_logo($shop['pic_path'])}"  alt="{$shop.title}优惠券" ></A></dt>
 <dd style="width:600px;">
-<h2><a href="" title="朵朵云母婴">朵朵云母婴店</a></h2>
-<p>朵朵云四金冠母婴店/孕妇装/贝亲/新安怡/童装/宝宝玩具/童车床</p>
-<p>商品数量：3592</p>
-<em><a href="" title="朵朵云母婴"><img src="images/shop-go.jpg" width="91" height="38" /></a></em>
+<h2><a href="{echo reUrl('Tao/shop?id='.$shop[id])}" title="{$shop.title}优惠券">{$shop.title}</a></h2>
+<p>{$shop.desc}</p>
+<em><a href="{echo reUrl('Tao/out?id='.$shop[id])}" title="{$shop.title}优惠券" rel="nofollow" target="_blank"><img src="__PUBLIC__/Images/Taobao/shop-go.jpg" width="91" height="38" /></a></em>
 </dd>
 <dd style="width:200px;">
-<h4>店铺掌柜：<a href="http://taobao.miquan.com/shop/33026108.html">朵朵云</a></h4>
-<h4>店铺信誉：<span class="credit credit_19"></span></h4>
-<h4>描述属实：<span class="score score_9">4.8分</span></h4>
-<h4>服务态度：<span class="score score_9">4.8分</span></h4>
-<h4>发货速度：<span class="score score_9">4.8分</span></h4>
+<h4>店铺掌柜：<a href="{echo reUrl('Tao/out?id='.$shop[id])}" rel="nofollow" target="_blank">朵朵云</a></h4>
+<h4>店铺信誉：<span class="credit credit_{$shop.level}"></span></h4>
+<h4>描述属实：<span class="score score_{echo floor(($shop['item_score']/5)*10)}">{$shop.item_score}分</span></h4>
+<h4>服务态度：<span class="score score_{echo floor(($shop['service_score']/5)*10)}">{$shop.service_score}分</span></h4>
+<h4>发货速度：<span class="score score_{echo floor(($shop['delivery_score']/5)*10)}">{$shop.delivery_score}分</span></h4>
 </dd>
 </dl>
 
@@ -26,77 +25,36 @@
 <div class="tao-wrap">
 <div class="lt">
 <div class="shopAllCoupons1">
-<dl><dt>朵朵云母婴店优惠券</dt></dl>
+<dl><dt>{$shop.title}优惠券</dt></dl>
 <ul>
-<li><a href="#"  title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM>
- 
-  </span>  
-  </span><span class="btn-holder"><span class="btn">去领取 
- </span></span><span class="cutter"></span></a>
+<!--{loop $coupons $item}-->
+<li><a href="{echo reUrl('Tao/show?id='.$item[c_id])}"  title="{if $item['title']}{$item.title}{else}{$item.s_title}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}">
+{if $item['title']}<span>{$item.title}</span>{else}<span>{if $item['c_type']==1}满<span class="condition"><EM class="r-num">{$item.money_max}</EM></span>减<span class="condition"><EM class="r-num">{$item.money_reduce}</EM></span>元优惠券{else}<span>{$item.money_amount}元代金券</span>{/if}</span>{/if}
+  <span class="btn-holder">
+   <!--{if $item['expiry_type']==1 && $item['expiry']<=$nowtime}-->
+  <span class="btn1">已过期</span>
+  <!--{else}-->
+  <span class="btn">去领取</span>
+  <!--{/if}-->
+  </span><span class="cutter"></span></a>
 </li>
-<li><a href="#"  title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM>
- 
-  </span>  
-  </span><span class="btn-holder"><span class="btn">去领取 
- </span></span><span class="cutter"></span></a>
-</li>
-<li><a href="#"  title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM>
- 
-  </span>  
-  </span><span class="btn-holder"><span class="btn">去领取 
- </span></span><span class="cutter"></span></a>
-</li>
-<li><a href="#" title="标题"><span>满<span class="condition"><EM class="r-num">50</EM></span>减<span class="condition"><EM 
-  class="r-num">3</EM></span>  
-  </span><span class="btn-holder"><span class="btn">去领取 
- </span></span><span class="cutter"></span></a>
-</li>
+<!--{/loop}-->
 </ul>
 </div>
 
 <div class="tao-css2">
-<dl><dt>朵朵云母婴店精选商品</dt></dl>
+<dl><dt>{$shop.title}精选商品</dt></dl>
 <ul>
+<!--{eval $items=tao_shop_recommend_items($shop['seller_id'], 9);}-->
+<!--{loop $items $item}-->
 <li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
+<a href="__ROOT__/index.php?m={MODULE_NAME}&a=out_item&item_id={$item.item_id}&click_url={echo urlencode($item['click_url'])}&item_url={echo urlencode($item['item_url'])}"  title="{$item.item_name}优惠券" rel="nofollow" target="_blank"><IMG src="{$item.item_pictrue}"  alt="{$item.item_name}优惠券" ></a>
+<a href="__ROOT__/index.php?m={MODULE_NAME}&a=out_item&item_id={$item.item_id}&click_url={echo urlencode($item['click_url'])}&item_url={echo urlencode($item['item_url'])}"  title="{$item.item_name}优惠券" rel="nofollow" target="_blank">{$item.item_name}</a>
+<SPAN>￥<B>{$item.item_price}</B></SPAN>
 </li>
-<li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
-</li>
-<li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
-</li>
-<li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
-</li>
-<li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
-</li>
-<li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
-</li>
-<li>
-<a href=""  target="_blank"><IMG src=""  alt="" ></a>
-<a href=" " title=""   target="_blank">【朵朵云】宝贝可爱NacNac 婴儿湿巾 宝宝湿巾 湿纸巾  80抽/3包</a>
-<SPAN>￥<B>25.99</B></SPAN>
-</li>
+<!--{/loop}-->
 </ul>
-<p><a href=" " title=""   target="_blank">查看更多&gt;&gt;</a></p>
+<p><a href="{echo reUrl('Tao/out?id='.$shop[id])}" title="{$shop.title}优惠券" rel="nofollow" target="_blank">查看更多&gt;&gt;</a></p>
 
 </div>
 </div>
@@ -104,14 +62,11 @@
   <div class="tao-css3">
   <dl><dt>相关推荐</dt></dl>
 <ul>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li><a href=""  title="土家硒泥坊旗舰店优惠券 满10.01减"><IMG src=""  alt="" >起点阳光母婴店优惠券<span>满1188 减 10</span></a></li>
-<li style=" text-align:right;"><a href=""  title=" ">更多&gt;&gt;</a></li>
+<!--{eval $coupons=tao_coupons_cate($shop['cid'], 10);}-->
+<!--{loop $coupons $item}-->
+<li><a href="{echo reUrl('Tao/show?id='.$item[c_id])}"  title="{$item.s_title}优惠券{if $item['title']}{$item.title}{else}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}"><IMG src="{echo tao_shop_logo($item['pic_path'])}"  alt="{$item.s_title}优惠券" >{$item.s_title}优惠券<span>{if $item['title']}{$item.title}{else}{if $item['c_type']==1}满{$item.money_max}减{$item.money_reduce}元优惠券{else}{$item.money_amount}元代金券{/if}{/if}</span></a></li>
+<!--{/loop}-->
+<li style=" text-align:right;"><a href="{echo reUrl('Home/Tao/index?cid='.$shop['cid'].'&p=1')}">更多&gt;&gt;</a></li>
 </ul>
 </div>
 

@@ -37,7 +37,7 @@ class TaoShopRecsService
 	{
 		$rec_table = M('tao_shop_rec')->getTableName();
 		$m_table = M('tao_shop')->getTableName();
-		$res = M('tao_shop_rec')->field("$rec_table.*,m.title,m.pic_path")->join($m_table." AS m ON m.id=$rec_table.s_id")->order($rec_table.'.sort_order ASC')->select();
+		$res = M('tao_shop_rec')->field("$rec_table.*,m.title,m.level,m.pic_path")->join($m_table." AS m ON m.id=$rec_table.s_id")->order($rec_table.'.sort_order ASC')->select();
 		$data = array();
 		foreach ($res as $rs){
 			if (!isset($data[$rs['position']])) {

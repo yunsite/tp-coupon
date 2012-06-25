@@ -17,7 +17,7 @@ class TaoShopModel extends RelationModel
 											'class_name'	=>	'TaoCoupon',
 											'foreign_key'	=>	's_id',
 											'mapping_name'	=>	'coupons',
-											'mapping_fields'=>	'c_id,title,money_max,money_reduce',
+											'mapping_fields'=>	'c_id,title,c_type,money_max,money_reduce,money_amount',
 											'mapping_order'	=>	'sort_order ASC,c_id DESC',
 											'condition'		=>	'is_active=1',
 											'mapping_limit'	=>	8

@@ -104,7 +104,7 @@ function tao_coupons_latest($limit)
 	return $coupons = $tcModel->latest(null, $limit);
 }
 /**
- * 推荐淘宝商家
+ * 推荐淘宝优惠券
  *
  * @param int $position_id				推荐位ID
  */
@@ -113,6 +113,18 @@ function tao_coupon_recs($position_id)
 	static $recs = array();
 	if(isset($recs[$position_id])) return $recs[$position_id];
 	$service = service('TaoCouponRecs');
+    return $recs[$position_id] = $service->recs_by_position($position_id);
+}
+/**
+ * 推荐淘宝商家
+ *
+ * @param int $position_id				推荐位ID
+ */
+function tao_shop_recs($position_id)
+{
+	static $recs = array();
+	if(isset($recs[$position_id])) return $recs[$position_id];
+	$service = service('TaoShopRecs');
     return $recs[$position_id] = $service->recs_by_position($position_id);
 }
 /**
@@ -126,6 +138,13 @@ function tao_shop_recommend_items($seller_id, $limit=10)
 	if(! $seller_id) return array();
 	$shopService = service('TaoShop');
 	return $res = $shopService->tao_shop_recommend_items($seller_id, $limit);
+}
+
+function tao_coupons_cate($cid, $limit=10)
+{
+	$tcModel = D('TaoCoupon');
+	$keys = array('c_id','s_title', 'title','c_type','money_max','money_reduce','money_amount','expiry_type','expiry');
+	return $res = $tcModel->coupons4cate($cid, $limit, $keys);
 }
 /*==========================================优惠券函数库=========================================================*/
 /**

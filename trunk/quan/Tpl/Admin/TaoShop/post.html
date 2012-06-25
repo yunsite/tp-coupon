@@ -12,7 +12,7 @@
 		<th width="200" class="first">店铺分类：</th>
 		<td><select name="cid" class="requireinput required">
 			<!--{foreach from=$category item=item}-->
-			<option value="{$item.id}" {if ($smarty.const.ACTION_NAME eq 'edit') && ($item.id eq $shop.cid)}selected{/if}>{$item.prefix}{$item.name}</option>
+			<option value="{$item.cid}" {if ($smarty.const.ACTION_NAME eq 'edit') && ($item.id eq $shop.cid)}selected{/if}>{$item.prefix}{$item.name}</option>
 			<!--{/foreach}-->
 			</select></td>
 	</tr>

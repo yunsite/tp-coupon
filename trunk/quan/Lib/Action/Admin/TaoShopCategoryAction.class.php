@@ -31,21 +31,17 @@ class TaoShopCategoryAction extends AdminCommonAction
 			}
 			$cid = intval($_REQUEST['id']);
 			$name = $_REQUEST['name'];
-			if(M('tao_shop_category')->field('id')->where("id='$cid'")->find()){
+			$data = array(
+						'cid'	=>	$cid,
+						'name'	=>	$name
+						);
+			if(M('tao_shop_category')->add($data)){
+				//清除缓存
+				$params = null;
+				B('TaoShopCategory', $params);
 				$this->ajaxReturn('', buildFormToken(), 1);
 			}else{
-				$data = array(
-							'id'	=>	$cid,
-							'name'	=>	$name
-							);
-				if(M('tao_shop_category')->add($data)){
-					//清除缓存
-					$params = null;
-					B('TaoShopCategory', $params);
-					$this->ajaxReturn('', buildFormToken(), 1);
-				}else{
-					$this->ajaxReturn('', buildFormToken(), 0);
-				}
+				$this->ajaxReturn('', buildFormToken(), 0);
 			}
 		}
 		import('@.Com.taobao.Taobao');
