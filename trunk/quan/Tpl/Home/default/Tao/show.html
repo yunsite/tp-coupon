@@ -5,6 +5,10 @@
 var tb_appkey = '{TAOBAO_LOGIN_APPKEY}';
 var gaJsHost = ("https:" == document.location.protocol) ? "https://" : "http://";
 gaJsHost += window.location.hostname + '{__ROOT__}' + '/';
+var top_session = '{$top_session}';
+var timestamp = '{$timestamp}';
+var end_time = '{$end_time}';
+var seller_nick = '{$shop.nick}';
 TOP.init({
       appKey : tb_appkey,
       channelUrl : gaJsHost + 'channel.html'
@@ -98,4 +102,21 @@ TOP.init({
 
 </div>
 </div>
+<script type="text/javascript">
+TOP.api('rest','get',{
+       method:'taobao.promotion.coupon.buyer.search',
+       session:top_session,
+       timestamp:timestamp,
+       status:'unused',
+	   end_time:end_time,
+	   seller_nick:seller_nick,
+	   page_size:20,
+	   page_no:1
+},function(resp){
+        if(resp.buyer_coupon_details){
+                  alert('success!');
+         }else{
+                  alert('failure!');
+} });
+</script>
 {template "../Public/footer"}

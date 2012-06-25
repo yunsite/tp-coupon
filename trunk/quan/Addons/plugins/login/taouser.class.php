@@ -10,7 +10,8 @@ class taouser
 {
 	public function getUrl()
 	{
-		$url = 'https://oauth.taobao.com/authorize?response_type=user&client_id='.TAOBAO_LOGIN_APPKEY.'&redirect_uri='.urlencode(TAOBAO_LOGIN_CALLBACK);
+		//$url = 'https://oauth.taobao.com/authorize?response_type=user&client_id='.TAOBAO_LOGIN_APPKEY.'&redirect_uri='.urlencode(TAOBAO_LOGIN_CALLBACK);
+		$url = 'http://container.api.taobao.com/container?encode=utf-8&appkey=' . TAOBAO_LOGIN_APPKEY;
 		return $url;
 	}
 	
@@ -31,8 +32,10 @@ class taouser
 			}
 			*/
 			parse_str($top_parameters);
-			if(isset($nick)){				
-				$_SESSION['taobao']["openid"] = $nick;
+			if(isset($visitor_nick)){				
+				$_SESSION['taobao']["openid"] = $visitor_nick;
+				$_SESSION['taobao']["user_id"] = $visitor_id;
+				$_SESSION['taobao']["top_session"] = $req['top_session'];
 			}else{
 				return null;
 			}
