@@ -11,7 +11,13 @@ class tb
 {
 	public function getUrl()
 	{
-		$url = "https://oauth.taobao.com/authorize?response_type=code&client_id=".TAOBAO_LOGIN_APPKEY."&redirect_uri=".urlencode(TAOBAO_LOGIN_CALLBACK);
+		$url = "https://oauth.taobao.com/authorize?response_type=code&client_id=".TAOBAO_LOGIN_APPKEY."&redirect_uri=".urlencode(TAOBAO_LOGIN_CALLBACK).'&scope=promotion';
+		return $url;
+	}
+	
+	public function getOffUrl()
+	{
+		$url = 'https://oauth.taobao.com/logoff?client_id='.TAOBAO_LOGIN_APPKEY.'&redirect_uri=http://'.$_SERVER['HTTP_HOST'].__ROOT__.'/';
 		return $url;
 	}
 	
@@ -45,7 +51,7 @@ class tb
 	function userInfo()
 	{
 		import('@.Com.taobao.Taobao');
-		$taobaoObj = Taobao::getInstance();
+		$taobaoObj = Taobao::getInstance(TAOBAO_LOGIN_APPKEY, TAOBAO_LOGIN_APPSECRET);
 		$user = $taobaoObj->getUserInfo(null, $_SESSION['taobao']["access_token"]);
 		return $user;
 	}
