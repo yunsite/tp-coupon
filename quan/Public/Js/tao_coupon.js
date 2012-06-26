@@ -21,10 +21,11 @@ var tb_coupon = {
 			}else if(parseInt($(this).attr('ptype'))==3){
 				html += '<font color="#ff6600">确定购买该优惠券吗？<br />';
 				html += '需要支付'+parseInt($(this).attr('price'))+'积分购买该优惠券</font>';
-			}else{
-				self.pull(parseInt($(this).attr('cid')));
-				return;
 			}
+			if(html.length > 0){
+				html += '<br />';
+			}
+			html += '<font color="#ff6600">领取淘宝优惠券需要允许弹出本站窗口</font>';
 			html += '<br /><br />是否继续领取？<br />';
 			$.fn.jmodal({
                     data: { c_id:parseInt($(this).attr('cid')) },
