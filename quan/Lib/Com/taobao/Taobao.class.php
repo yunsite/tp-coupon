@@ -6,23 +6,28 @@ class Taobao
 	private $_taobao_nick = '';
 	private $_taobao_pid = 0;
 	
-	private function __construct()
+	private function __construct($appkey=null, $secretKey=null)
 	{
 		ini_set('include_path', ini_get('include_path').PATH_SEPARATOR. LIB_PATH."Com".DIRECTORY_SEPARATOR."taobao".DIRECTORY_SEPARATOR.'standard'.DIRECTORY_SEPARATOR);
 		require_once('RequestCheckUtil.php');
 		require_once('TopClient.php');
 		$cfg = load_config();
 		$this->_topClient = new TopClient;
-		$this->_topClient->appkey = $cfg['taobao_appkey0'];
-		$this->_topClient->secretKey = $cfg['taobao_appsecret0'];
+		if($appkey !== null && $secretKey !== null){
+			$this->_topClient->appkey = $appkey;
+			$this->_topClient->secretKey = $secretKey;
+		}else{
+			$this->_topClient->appkey = $cfg['taobao_appkey0'];
+			$this->_topClient->secretKey = $cfg['taobao_appsecret0'];
+		}
 		$this->_taobao_nick = $cfg['taobao_nick'];
 		$pid = explode('_', $cfg['taobao_ali_pid']);
 		$this->_taobao_pid = $pid[1];
 	}
 	
-	public static function getInstance()
+	public static function getInstance($appkey=null, $secretKey=null)
 	{
-		return new self();
+		return new self($appkey, $secretKey);
 	}
 	
 	/**

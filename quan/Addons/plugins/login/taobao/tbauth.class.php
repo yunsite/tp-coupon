@@ -114,7 +114,8 @@ class tbauth
 					'code'			=>	$code,
 					'redirect_uri'	=>	$this->_callback,
 					'client_id'		=>	$this->_appkey,
-					'client_secret'	=>	$this->_appsecret
+					'client_secret'	=>	$this->_appsecret,
+					'scope'			=>	'promotion'
 					);
 		$resp = tbauth_utils::post($this->_auth_url, $data);
 		$result = tbauth_utils::parseJson($resp);

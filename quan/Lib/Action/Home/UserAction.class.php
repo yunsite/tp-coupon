@@ -56,8 +56,8 @@ class UserAction extends HomeCommonAction
 						$qq = new qq();
 						$openid = $qq->get_openid();
 					}elseif ($_REQUEST['type'] == 'taobao'){
-						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
-						$tb = new taouser();
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+						$tb = new tb();
 						$openid = $tb->get_openid();
 					}
 					if(! $openid){
@@ -99,11 +99,17 @@ class UserAction extends HomeCommonAction
 
 	public function logout()
 	{
+		$tb_logined = $_SESSION['taobao']["access_token"] ? true : false;
 		$userService = service('User');
 		$userService->after_logouted();
 		$ucService = service('Uc');
 		$syncHtml = $ucService->build_synlogout();
 		$this->assign('jumpUrl', __ROOT__ . '/');
+		if($this->_CFG['taobao_login_open'] && $tb_logined){
+			include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+			$tb = new tb();
+			$syncHtml .= '<script>window.open("'.$tb->getOffUrl().'");</script>';
+		}
 		$this->success('退出成功'.$syncHtml);
 	}
 
@@ -151,8 +157,8 @@ class UserAction extends HomeCommonAction
 						$qq = new qq();
 						$openid = $qq->get_openid();
 					}elseif ($_REQUEST['type'] == 'taobao'){
-						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
-						$tb = new taouser();
+						include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+						$tb = new tb();
 						$openid = $tb->get_openid();
 					}
 					if(! $openid){
@@ -174,7 +180,12 @@ class UserAction extends HomeCommonAction
 				$avatar = $ucService->get_avatar($user['uid']);
 				$userService->after_logined(array('user_id'=>$user['uid'],'nick'=>$user['username'],'avatar'=>$avatar), $save);
 				$syncHtml =  $ucService->build_synlogin($user['uid']);
-				$this->assign('jumpUrl', reUrl('User/index'));
+				if(cookie('r_url')){
+					$this->assign('jumpUrl', cookie('r_url'));
+					cookie('r_url', null);
+				}else{
+					$this->assign('jumpUrl', reUrl('User/index'));
+				}
 				$this->success('登陆成功'.$syncHtml);
 			}else{
 				if($this->isAjax()){
@@ -184,6 +195,7 @@ class UserAction extends HomeCommonAction
 				}
 			}
 		}
+		cookie('r_url', (isset($_GET['r_url']) && $_GET['r_url']) ? $_GET['r_url'] : $this->_refererUrl);
 		$this->assign('_hash_', buildFormToken());
 		$this->assign('page_title', '用户登陆 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
@@ -308,21 +320,22 @@ class UserAction extends HomeCommonAction
 	
 	public function login_taobao()
 	{
-		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
-		$o = new taouser();
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+		$o = new tb();
 		$login_url = $o->getUrl();
 		redirect($login_url);
 	}
 	
 	public function taobao_callback()
 	{
-		if(!isset($_REQUEST['top_parameters']) || !isset($_REQUEST['top_sign'])){
+		if(isset($_REQUEST['error'])){
 			$this->assign('jumUrl', reUrl('User/login_taobao'));
-			$this->error('淘宝登陆失败：' . $_REQUEST['error']);
+			$this->error('淘宝登陆失败：' . $_REQUEST['error_description']);
 		}
-		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
-		$o = new taouser();
-		$token = $o->get_openid($_REQUEST);
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+		$o = new tb();
+		//$token = $o->get_openid($_REQUEST);
+		$token = $o->initToken($_REQUEST['code']);
 		if ($token) {
 			$this->_on_taobao_logined();
 		}else {
@@ -366,8 +379,8 @@ class UserAction extends HomeCommonAction
 			$u_info = $qq->userInfo();
 			$nick = $u_info['nickname'];
 		}elseif($type == 'taobao'){
-			include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
-			$tb = new taouser();
+			include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+			$tb = new tb();
 			$nick = $tb->get_openid();
 		}
 		$this->assign('nick', $nick);
@@ -398,7 +411,12 @@ class UserAction extends HomeCommonAction
 			$sina_u_info = $sina->userInfo();
 			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$sina_u_info['screen_name'],'avatar'=>$sina_u_info['profile_image_url']), false);
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
-			$this->assign('jumpUrl', reUrl('User/index'));
+			if(cookie('r_url')){
+				$this->assign('jumpUrl', cookie('r_url'));
+				cookie('r_url', null);
+			}else{
+				$this->assign('jumpUrl', reUrl('User/index'));
+			}
 			$this->success('登陆成功'.$syncHtml);
 		}
 		//未绑定，跳转到绑定页面
@@ -428,7 +446,12 @@ class UserAction extends HomeCommonAction
 			$qq_u_info = $qq->userInfo();
 			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$qq_u_info['nickname'],'avatar'=>$qq_u_info['figureurl_2']), false);
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
-			$this->assign('jumpUrl', reUrl('User/index'));
+			if(cookie('r_url')){
+				$this->assign('jumpUrl', cookie('r_url'));
+				cookie('r_url', null);
+			}else{
+				$this->assign('jumpUrl', reUrl('User/index'));
+			}
 			$this->success('登陆成功'.$syncHtml);
 		}
 		//未绑定，跳转到绑定页面
@@ -439,8 +462,8 @@ class UserAction extends HomeCommonAction
 	
 	private function _on_taobao_logined()
 	{
-		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/taouser.class.php' );
-		$tb = new taouser();
+		include_once( DOC_ROOT_PATH . 'Addons/plugins/login/tb.class.php' );
+		$tb = new tb();
 		//检查是否已绑定帐号
 		$openid = $tb->get_openid();
 		$platformModel = M('user_platform');
@@ -457,7 +480,12 @@ class UserAction extends HomeCommonAction
 			}
 			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$openid,'avatar'=>''), false);
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
-			$this->assign('jumpUrl', reUrl('User/index'));
+			if(cookie('r_url')){
+				$this->assign('jumpUrl', cookie('r_url'));
+				cookie('r_url', null);
+			}else{
+				$this->assign('jumpUrl', reUrl('User/index'));
+			}
 			$this->success('登陆成功'.$syncHtml);
 		}
 		//未绑定，跳转到绑定页面

@@ -4,7 +4,14 @@ var coupon = {
 		var self=this;
 		$('a#pull').click(function() {
 			if(user.user_id == 0){
-				window.location.href = login_url;
+				if (/MSIE (\d+\.\d+);/.test(navigator.userAgent) || /MSIE(\d+\.\d+);/.test(navigator.userAgent)){
+					var referLink = document.createElement('a');
+					referLink.href = login_url;
+					document.body.appendChild(referLink);
+					referLink.click();
+				} else {
+					window.location.href = login_url;
+				}
 				return false;
 			}
 			var html = '';

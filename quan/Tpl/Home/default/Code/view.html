@@ -26,6 +26,7 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                         
                         <div class="normal_m nw500">
                             <h1>{$detail.title}</h1>
+                            <p class="first">{$page_description}</p>
                             <ul class="normal_m_u detail clear">
                             	<li><em>购买价格：</em><!--{if $detail['price_type']==1}-->免费<!--{elseif $detail['price_type']==2}--><i>{$detail.price}</i>元<!--{elseif $detail['price_type']==3}--><i>{$detail.price}</i>积分<!--{/if}--></li>
                                 <li><em>优&nbsp;&nbsp;惠&nbsp;&nbsp;额：</em><!--{if $detail['c_type']==1}-->满<i>{$detail.money_max}</i>减<i>{$detail.money_reduce}</i><!--{else}--><i>{$detail.money_amount}</i>元代金券<!--{/if}--></li>
