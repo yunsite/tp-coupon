@@ -1,0 +1,120 @@
+{template '../Public/header'}
+<link rel="Stylesheet" type="text/css" href="__PUBLIC__/Js/jmodal/jquery.jmodal.css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jmodal/jquery.jmodal.js"></script>
+{template '../Public/nav'}
+<div class="w990 clear">
+        <div id="main">
+            <div class="main_l">
+                <div id="main_l_l" class="clear">
+                    <h2 class="login_t">马上激活帐号，完成注册</h2>
+                    <ul class="clear">
+                    <table width="100%" border="0" class="login_form">
+  <tr>
+    <td width="10" align="right">&nbsp;</td>
+    <td align="left">{$_CFG.site_name}向 {$user.email} 发送了一封激活邮件，你需要点击邮箱里的激活链接完成注册。</td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td align="left"><input type="button" value="查看激活邮件" name="commit" id="email-submit" class="formbutton"></td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td align="left">没有收到激活邮件？</td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td align="left">试试到邮箱中的垃圾邮件、广告邮件目录中找找</td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td align="left">或者，<a href="javascript:;" onclick="remail({$user.user_id})">重发确认邮件</a></td>
+  </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td align="left">或者，向{$_CFG.smtp_mail}发送邮件，2分钟后即可登录{$_CFG.site_name}</td>
+  </tr>
+</table>
+				</ul>
+                </div>
+            </div>
+            <div class="main_r" style="width: 320px;">
+    <ul class="sidebar">
+            
+
+        <li class="yellow">
+            <h3>还没有{$_CFG['site_name']}帐号？</h3>
+            <div class="sidebar_s clear">
+            	<div class="sidebar_s_l">
+                    <a class="signUp" href="{echo reUrl('User/reg');}"></a>
+                </div>
+            </div>
+        </li>
+   
+             </ul>
+</div>
+        </div>
+    </div>
+<script type="text/javascript">
+var g = '{GROUP_NAME}';
+var m = '{MODULE_NAME}';
+var a = '{ACTION_NAME}';
+var root_path = '__ROOT__';
+var mail = "{$user.email}";
+var mailMap = {
+"gmail.com":"http://gmail.com",
+"hotmail.com":"http://www.hotmail.com",
+"live.com":"http://www.hotmail.com",
+"126.com":"http://mail.126.com",
+"163.com":"http://mail.163.com",
+"sina.com":"http://mail.sina.com.cn",
+"sina.cn":"http://mail.sina.com.cn",
+"qq.com":"http://mail.qq.com",
+"vip.qq.com":"http://mail.qq.com",
+"foxmail.com":"http://mail.qq.com",
+"yahoo.com":"http://mail.yahoo.com",
+"yahoo.com.tw":"http://mail.yahoo.com.tw",
+"yahoo.com.hk":"http://mail.yahoo.com.hk",
+"sohu.com":"http://mail.sohu.com",
+"yeah.net":"http://wwww.yeah.net"
+};
+var mailNo = mail.indexOf("@") > 0 ? mail.indexOf("@") : "";
+var gomail = '';
+var send_mail = true;
+if(mailNo == ""){
+	send_mail = false;
+}else{
+	mail = mail.substring(mailNo+1);
+}
+if(mailMap[mail]){
+	gomail = mailMap[mail];
+}else{
+	gomail = "http://" + mail;
+}
+$(document).ready(function() {
+	if(send_mail){
+		$('#email-submit').click(function(){
+									  window.open(gomail);
+									  });
+	}
+});
+
+function remail(uid){
+	var url = root_path + '/index.php?m='+m+'&a='+a+'&ac=remail&uid='+uid;
+	$.getJSON(url, function(data){
+							if(data.status==1){
+								 $.fn.jmodal({
+											data: {},
+                    						title: '温馨提示',
+                    						content: '已重新发送激活邮件到您的邮箱',
+                    						buttonText: { ok: '确定', cancel: '' },
+                    						fixed: false,
+											marginTop: 200,
+											okEvent: function(data, args) {
+                        									args.hide();
+                    						}
+                				});
+							}
+							});
+}
+</script>
+{template "../Public/footer"}
