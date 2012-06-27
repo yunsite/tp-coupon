@@ -41,9 +41,13 @@
             <span class="right">
                 
                 <em class="free"><!--{if $item['price_type']==1}-->免费<!--{elseif $item['price_type']==2}-->{$item.price}元<!--{elseif $item['price_type']==3}-->{$item.price}积分<!--{/if}--></em>
-                
-                <span class="get"><b></b>立即领取</span>
-                
+                <!--{if $item['fetched_amount'] < $item['amount'] && (($item['expiry_type']==1 && $item['expiry']>0)||$item['expiry_type']==2)}-->
+				<span class="get"><b></b>立即领取</span>
+				<!--{elseif $item['fetched_amount'] >= $item['amount']}-->
+				<span class="pulled"><b></b>已经领完</span>
+				<!--{elseif $item['expiry_type']==1 && $item['expiry']==0}-->
+				<span class="expire"><b></b>已到期</span>
+				<!--{/if}-->
             </span></a>
         
         <div class="info">

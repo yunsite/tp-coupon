@@ -33,7 +33,7 @@ class UserService
     {
     	//$_SESSION[C('SESSION_PREFIX') . 'user_id'] = 0;
     	//$_SESSION[C('SESSION_PREFIX') . 'nick'] = '';
-    	unset($_SESSION['qq'], $_SESSION['sina'], $_SESSION['taobao']);
+    	unset($_SESSION['qq'], $_SESSION['sina'], $_SESSION['taobao'], $_SESSION['login_type']);
     	cookie('auth', null);
     	cookie('avatar', null);
     }

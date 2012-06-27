@@ -19,9 +19,23 @@ class UserAction extends HomeCommonAction
 
 	public function reg()
 	{
+		//验证码
+		$enabled_captcha = false;
+		$captcha=intval($this->_CFG['captcha']);
+		if (($captcha & CAPTCHA_REGISTER) && !isset($_REQUEST['ac'])){
+			$enabled_captcha=true;
+		}
 		if($this->isPost()){
 			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST, 'hash')){
 				die('hack attemp.');
+			}
+			if ($enabled_captcha && isset($_SESSION[CAPTCHA_CODE]) && !empty($_SESSION[CAPTCHA_CODE]))
+			{
+				/* 检查验证码是否正确 */
+				if (empty($_REQUEST['verify']) || ! SeccodeUtil::check_word(CAPTCHA_CODE,$_REQUEST['verify']))
+				{
+					$this->ajaxReturn('','验证码输入错误',0);
+				}
 			}
 			if(!$_REQUEST['nick'] || !$_REQUEST['email'] || !$_REQUEST['pw']){
 				exit('data invalid.');
@@ -80,6 +94,8 @@ class UserAction extends HomeCommonAction
 			cookie('invite', authcode($_REQUEST['invite'], 'AECODE', C('AUTH')));
 		}
 		$this->assign('hash', buildFormToken('hash'));
+		$this->assign('captcha',$enabled_captcha);
+		$this->assign('mt',mt_rand());
 		$this->assign('page_title', '用户注册 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
@@ -115,9 +131,24 @@ class UserAction extends HomeCommonAction
 
 	public function login()
 	{
+		//验证码
+		$enabled_captcha = false;
+		$captcha=intval($this->_CFG['captcha']);
+		if (($captcha & CAPTCHA_LOGIN) && !isset($_REQUEST['ac'])){
+			$enabled_captcha=true;
+		}
 		if($this->isPost()){
 			if(C('TOKEN_ON') && ! checkFormToken($_REQUEST)){
 				die('hack attemp.');
+			}
+			if ($enabled_captcha && isset($_SESSION[CAPTCHA_CODE]) && !empty($_SESSION[CAPTCHA_CODE]))
+			{
+				/* 检查验证码是否正确 */
+				if (empty($_REQUEST['verify']) || ! SeccodeUtil::check_word(CAPTCHA_CODE,$_REQUEST['verify']))
+				{
+					$this->assign('jumpUrl', reUrl('User/login'));
+					$this->error('验证码输入错误');
+				}
 			}
 			if(!$_REQUEST['nick'] || !$_REQUEST['pw']){
 				exit('data invalid.');
@@ -179,6 +210,7 @@ class UserAction extends HomeCommonAction
 				$userService = service('User');
 				$avatar = $ucService->get_avatar($user['uid']);
 				$userService->after_logined(array('user_id'=>$user['uid'],'nick'=>$user['username'],'avatar'=>$avatar), $save);
+				$_SESSION['login_type'] = '200';
 				$syncHtml =  $ucService->build_synlogin($user['uid']);
 				if(cookie('r_url')){
 					$this->assign('jumpUrl', cookie('r_url'));
@@ -195,8 +227,15 @@ class UserAction extends HomeCommonAction
 				}
 			}
 		}
-		cookie('r_url', (isset($_GET['r_url']) && $_GET['r_url']) ? $_GET['r_url'] : $this->_refererUrl);
+		$r_url = (isset($_GET['r_url']) && $_GET['r_url']) ? $_GET['r_url'] : $this->_refererUrl;
+		if($r_url == 'http://'.$_SERVER['HTTP_HOST'].reUrl('User/login')
+		   || $r_url == 'http://'.$_SERVER['HTTP_HOST'].reUrl('User/reg')){
+			$r_url = '';
+		}
+		cookie('r_url', $r_url);
 		$this->assign('_hash_', buildFormToken());
+		$this->assign('captcha',$enabled_captcha);
+		$this->assign('mt',mt_rand());
 		$this->assign('page_title', '用户登陆 - ');
 		$this->assign('page_keywords', $this->_CFG['site_keywords']);
 		$this->assign('page_description', $this->_CFG['site_description']);
@@ -410,6 +449,7 @@ class UserAction extends HomeCommonAction
 			}
 			$sina_u_info = $sina->userInfo();
 			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$sina_u_info['screen_name'],'avatar'=>$sina_u_info['profile_image_url']), false);
+			$_SESSION['login_type'] = '102';
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
 			if(cookie('r_url')){
 				$this->assign('jumpUrl', cookie('r_url'));
@@ -445,6 +485,7 @@ class UserAction extends HomeCommonAction
 			}
 			$qq_u_info = $qq->userInfo();
 			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$qq_u_info['nickname'],'avatar'=>$qq_u_info['figureurl_2']), false);
+			$_SESSION['login_type'] = '101';
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
 			if(cookie('r_url')){
 				$this->assign('jumpUrl', cookie('r_url'));
@@ -479,6 +520,7 @@ class UserAction extends HomeCommonAction
 				redirect(reUrl('User/bind?type=taobao'));
 			}
 			$userService->after_logined(array('user_id'=>$_user[0],'nick'=>$openid,'avatar'=>''), false);
+			$_SESSION['login_type'] = '103';
 			$syncHtml =  $ucService->build_synlogin($_user[0]);
 			if(cookie('r_url')){
 				$this->assign('jumpUrl', cookie('r_url'));

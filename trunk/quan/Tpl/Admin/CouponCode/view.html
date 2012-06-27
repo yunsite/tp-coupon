@@ -17,8 +17,12 @@
 		<td><!--{if $code.expiry_type==1}-->{$code.expiry}<!--{else}-->无限制<!--{/if}--></td>
 	</tr>
     <tr>
-		<th width="200" class="first">领取限制：</th>
+		<th width="200" class="first">领取数量限制：</th>
 		<td>{$code.fetch_limit}</td>
+	</tr>
+    <tr>
+		<th width="200" class="first">领取帐号限制：</th>
+		<td>{$code.fetch_account_limit}</td>
 	</tr>
     <tr>
 		<th width="200" class="first">付费：</th>

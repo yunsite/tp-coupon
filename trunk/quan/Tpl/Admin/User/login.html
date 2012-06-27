@@ -37,7 +37,7 @@ var AJAX_ERROR = 'AJAX请求发生错误！';
   <tr>
     <td align="right" height="50" valign="middle">验证码：</td>
     <td valign="middle"><input type="text" name="verify" size="8" />
-	<img src="?g=Public&m=Public&a=verifycode&mt={$mt}" align="absmiddle" alt="captcha" height="{$_CFG.captcha_height}" width="{$_CFG.captcha_width}" style="vertical-align: middle;cursor: pointer;" onClick="this.src='?g=Public&m=Public&a=verifycode&mt='+Math.random()" /></td>
+	<img src="?g=Public&m=Public&a=verifycode&mt={$mt}" align="absmiddle" alt="captcha" height="{$_CFG.captcha_height}" width="{$_CFG.captcha_width}" style="vertical-align: middle;cursor: pointer;" onClick="this.src='?g=Public&m=Public&a=verifycode&mt='+Math.random()" id="verifyImg" /></td>
   </tr>
   <!--{/if}-->
   <tr>

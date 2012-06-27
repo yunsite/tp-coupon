@@ -121,6 +121,7 @@ class CouponCodeAction extends AdminCommonAction
 				$data = array(
 							'c_id'			=>	$c_id,
 							'fetch_limit'	=>	$_REQUEST['fetch_limit'],
+							'fetch_account_limit'	=>	$_REQUEST['fetch_account_limit'],
 							'directions'	=>	$_REQUEST['directions'],
 							'prompt'		=>	$_REQUEST['prompt'],
 							'seo_title'		=>	$_REQUEST['seo_title'],
@@ -140,6 +141,7 @@ class CouponCodeAction extends AdminCommonAction
 		$this->assign('code_price_conf', $this->_code_price_conf);
 		$this->assign('code_expiry_conf', $this->_code_expiry_conf);
 		$this->assign('fetch_limit_conf', CouponCodeConf::fetch_limit_conf());
+		$this->assign('fetch_account_limit_conf', CouponCodeConf::fetch_account_limit_conf());
 		$this->assign('ur_href', '优惠券管理 &gt; 添加优惠券');
 		$this->assign('_hash_', buildFormToken('hash'));
 		$this->display('post');
@@ -193,6 +195,7 @@ class CouponCodeAction extends AdminCommonAction
 				//插入附属表数据
 				$data = array(
 							'fetch_limit'	=>	$_REQUEST['fetch_limit'],
+							'fetch_account_limit'	=>	$_REQUEST['fetch_account_limit'],
 							'directions'	=>	$_REQUEST['directions'],
 							'prompt'		=>	$_REQUEST['prompt'],
 							'seo_title'		=>	$_REQUEST['seo_title'],
@@ -216,6 +219,7 @@ class CouponCodeAction extends AdminCommonAction
 		$this->assign('code_price_conf', $this->_code_price_conf);
 		$this->assign('code_expiry_conf', $this->_code_expiry_conf);
 		$this->assign('fetch_limit_conf', CouponCodeConf::fetch_limit_conf());
+		$this->assign('fetch_account_limit_conf', CouponCodeConf::fetch_account_limit_conf());
 		$this->assign('ur_href', '优惠券管理 &gt; 编辑优惠券');
 		$this->assign('_hash_', buildFormToken('hash'));
 		$this->display('post');
@@ -245,7 +249,9 @@ class CouponCodeAction extends AdminCommonAction
     		$code['expiry'] = $localTimeObj->local_date($this->_CFG['date_format'], $code['expiry']);
     	}
     	$fetch_limit_conf = CouponCodeConf::fetch_limit_conf();
+    	$fetch_account_limit_conf = CouponCodeConf::fetch_account_limit_conf();
     	$code['fetch_limit'] = $fetch_limit_conf[$code['data']['fetch_limit']];
+    	$code['fetch_account_limit'] = $fetch_account_limit_conf[$code['data']['fetch_account_limit']];
     	$code['data']['directions'] = Ubb::ubb2html($code['data']['directions']);
     	$code['data']['prompt'] = Ubb::ubb2html($code['data']['prompt']);
     	$this->assign('code', $code);

@@ -29,8 +29,8 @@
                     <div class="search_f">
                         <form action="__ROOT__/index.php" method="get" id="searchform" name="searchform" onSubmit="if(this.kw.value==this.kw.defaultValue)return false;">
                         <ul>
-                            <li id="search_c">
-                                <input type="text" value="输入要搜索的商家名称，比如：京东或当当" autocomplete="off" id="search_i" name="kw" onFocus="if(this.value==this.defaultValue)this.value=''" onBlur="if(!this.value.length)this.value=this.defaultValue"></li>
+                            <li ><select class="select1" name="type"><option value="101">商城优惠券</option><option value="102">淘宝优惠券</option></select></li>
+                                 <li id="search_c"><input type="text" value="输入要搜索的商家名称，比如：京东或当当" autocomplete="off" id="search_i" name="kw" onFocus="if(this.value==this.defaultValue)this.value=''" onBlur="if(!this.value.length)this.value=this.defaultValue"></li>
                         </ul>
                         <div id="search_b"><input name="sub" type="image" value="搜索" src="__PUBLIC__/Images/Home/search.jpg"></div>
                         <input name="m" type="hidden" value="mall">

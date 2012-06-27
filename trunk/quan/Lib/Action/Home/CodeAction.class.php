@@ -273,6 +273,10 @@ class CodeAction extends HomeCommonAction
 			$page_title = $title;
 		}
 		$detail['title'] = $title;
+		$fetch_limit_conf = CouponCodeConf::fetch_limit_conf();
+    	$fetch_account_limit_conf = CouponCodeConf::fetch_account_limit_conf();
+    	$detail['fetch_limit'] = $fetch_limit_conf[$detail['data']['fetch_limit']];
+    	$detail['fetch_account_limit'] = $fetch_account_limit_conf[$detail['data']['fetch_account_limit']];
 		import('@.Com.Util.Ubb');
 		$detail['data']['directions'] = Ubb::ubb2html($detail['data']['directions']);
 		$detail['data']['prompt'] = Ubb::ubb2html($detail['data']['prompt']);
@@ -301,6 +305,17 @@ class CodeAction extends HomeCommonAction
 	{
 		if($this->isAjax()){
 			$this->_check_login();
+			$localTimeObj = LocalTime::getInstance();
+			$nowtime = $localTimeObj->gmtime();
+			$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
+			$cccModel = D('CouponCodeCodes');
+			$ip = get_client_ip();
+			//同一IP领取数量限制
+			$begin_time = $localTimeObj->local_strtotime(date('Y-m-d 00:00:00'));
+			if($this->_CFG['ip_fetch_limit']
+			 && $cccModel->where("fetch_time>='$begin_time' AND fetch_time<='$today' AND ip='$ip'")->count()>=intval($this->_CFG['ip_fetch_limit'])){
+				$this->ajaxReturn('', '您今天领取的优惠券数量已超过限制，请明天再来', 0);
+			}
 			$c_id = intval($_REQUEST['c_id']);
 			$c_id or die('id invalid.');
 			$ccModel = D('CouponCode');
@@ -309,9 +324,6 @@ class CodeAction extends HomeCommonAction
 			if($detail['is_active'] == 0){
 				$this->ajaxReturn('', '该优惠券已下架，请选择商家其他的优惠券', 0);
 			}
-			$localTimeObj = LocalTime::getInstance();
-			$nowtime = $localTimeObj->gmtime();
-			$today = $localTimeObj->local_strtotime(date('Y-m-d 23:59:59'));
 			//是否过期
 			if($detail['expiry_type'] == 1 && $detail['expiry'] < $today){
 				$this->ajaxReturn('', '该优惠券已过期，请选择商家其他的优惠券', 0);
@@ -320,8 +332,13 @@ class CodeAction extends HomeCommonAction
 			if($detail['fetched_amount'] >= $detail['amount']){
 				$this->ajaxReturn('', '该优惠券已发放完毕，请选择其他的优惠券', 0);
 			}
-			//领取限制
-			$cccModel = D('CouponCodeCodes');
+			//领取帐号限制
+			if($detail['data']['fetch_account_limit'] != 200
+			 && intval($_SESSION['login_type']) != $detail['data']['fetch_account_limit']){
+			 	$fetch_account_limit_conf = CouponCodeConf::fetch_account_limit_conf();
+				$this->ajaxReturn('', $fetch_account_limit_conf[$detail['data']['fetch_account_limit']], 0);
+			}
+			//领取数量限制
 			//每个账户一张
 			if($detail['data']['fetch_limit'] == 101){
 				if($cccModel->getOneByUid($this->_user['user_id'], $c_id)){
@@ -362,7 +379,7 @@ class CodeAction extends HomeCommonAction
 					$this->ajaxReturn('', '支付失败，请重试', 0);
 				}
 			}
-			$code = $cccModel->pull($c_id, $this->_user['user_id'], $this->_user['nick'], $nowtime);
+			$code = $cccModel->pull($c_id, $this->_user['user_id'], $this->_user['nick'], $nowtime, $ip);
 			if($code){
 				//更新领取数量
 				$ccModel->update($c_id, array('fetched_amount'=>($detail['fetched_amount']+1)));

@@ -9,10 +9,10 @@
 class SearchIndexAction extends AdminCommonAction
 {
 	/**
-	 * 更新全文索引
+	 * 更新商城全文索引
 	 *
 	 */
-	public function update()
+	public function updateCouponCodeMall()
 	{
 		if($this->isPost() && $this->isAjax()){
 			if(C('TOKEN_ON') && ! checkFormToken($_POST)){
@@ -24,7 +24,27 @@ class SearchIndexAction extends AdminCommonAction
 			$this->ajaxReturn('', buildFormToken(), 1);
 		}
 		$this->assign('_hash_', buildFormToken());
-		$this->assign('ur_href', '更新整站全文索引');
+		$this->assign('ur_href', '更新商城全文索引');
+		$this->display();
+	}
+	
+	/**
+	 * 更新淘宝店铺全文索引
+	 *
+	 */
+	public function updateTaoShop()
+	{
+		if($this->isPost() && $this->isAjax()){
+			if(C('TOKEN_ON') && ! checkFormToken($_POST)){
+				die('hack attemp.');
+			}
+			set_time_limit(0);
+			$shopModel = D('TaoShop');
+			$shopModel->_updateFullIndex();
+			$this->ajaxReturn('', buildFormToken(), 1);
+		}
+		$this->assign('_hash_', buildFormToken());
+		$this->assign('ur_href', '更新淘宝店铺全文索引');
 		$this->display();
 	}
 }

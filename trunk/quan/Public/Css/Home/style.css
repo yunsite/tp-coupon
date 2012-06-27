@@ -158,10 +158,11 @@ ul.img li img{width:90px; height:45px}
 .logo{float:left; display:inline;margin-right:25px;}
 .search{float:left; padding-top:10px}
 .search_t{font-size:12px; display:block; margin-top:13px;clear:both;_margin-top:-5px;}
-.search_f{float:left; width:400px; margin-top:5px}
-.search_f ul{float:left; position:relative; border-left:1px solid #dcdddd; font-size:12px; width:324px; height:28px; display:block; background:url(Images/search_bg.gif) repeat-x; text-align:center; color:#808080; z-index:20}
-.search_f ul li{list-style-type:none; float:left; position:absolute; left:0; top:0}
-.search_f ul li#search_n{left:70px}
+.search_f{float:left; width:490px; margin-top:5px}
+.search_f ul{float:left; position:relative; border-left:1px solid #dcdddd; font-size:12px; width:414px; height:28px; display:block; background:url(Images/search_bg.gif) repeat-x; text-align:center; color:#808080; z-index:20}
+.search_f ul li{list-style-type:none; float:left; left:0; top:0}
+.search_f ul li .select1{width:100px; margin:3px 0 0 2px; display:block; border:0;height:22px;}
+.search_f ul li#search_n{left:90px}
 
 #search_c{width:70px; background:url(Images/search_type.gif) 60px 10px no-repeat; cursor:pointer; position:relative}
 #search_c span{width:65px; display:block; line-height:28px}
