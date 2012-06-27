@@ -2,6 +2,23 @@
 return array(
 'Admin'	=>	array
 (
+					'index'=>array(
+							'id' 	  => 'index',
+							'name' 	  => '首页',
+							'sub_nav' => array(
+											array(
+											'module'		=>	'Index',
+											'displayName'	=>	'管理中心',
+											'actions'		=>	array(
+																	array(
+																		'action'		=>	'main',
+																		'displayName'	=>	'首页',
+																		'params'		=>	array(),
+																		),
+																	),
+											)
+											),
+					),
 					'couponCode'=>array(
 							'id' 	  => 'couponCode',
 							'name' 	  => '网购优惠券',
@@ -385,8 +402,13 @@ return array(
 											'displayName'	=>	'更新全文索引',
 											'actions'		=>	array(
 																	array(
-																		'action'		=>	'update',
-																		'displayName'	=>	'更新全文索引',
+																		'action'		=>	'updateCouponCodeMall',
+																		'displayName'	=>	'更新商城全文索引',
+																		'params'		=>	array(),
+																		),
+																	array(
+																		'action'		=>	'updateTaoShop',
+																		'displayName'	=>	'更新淘宝店铺全文索引',
 																		'params'		=>	array(),
 																		),
 																	),

@@ -28,6 +28,13 @@
     <td align="right">确认密码：</td>
     <td><input name="confirm_pw" id="confirm_pw" type="password" style="width:200px;" /></td>
   </tr>
+  <!--{if $captcha}-->
+  <tr>
+    <td align="right">验证码：</td>
+    <td><input type="text" name="verify" size="8" />
+	<img src="__ROOT__/index.php?g=Public&m=Public&a=verifycode&mt={$mt}" align="absmiddle" alt="captcha" height="{$_CFG.captcha_height}" width="{$_CFG.captcha_width}" style="vertical-align: middle;cursor: pointer;" onClick="this.src='__ROOT__/index.php?g=Public&m=Public&a=verifycode&mt='+Math.random()" id="verifyImg" /></td>
+  </tr>
+  <!--{/if}-->
   <tr>
     <td align="right">&nbsp;</td>
     <td><input name="agree" id="agree" type="checkbox" value="1" />&nbsp;<a href="__ROOT__/Html/policy.html" target="_blank" id="label_agree">同意注册协议</a></td>
@@ -66,6 +73,17 @@ var a = '{ACTION_NAME}';
 var reg_url = "{echo reUrl('User/reg')}";
 var u_index_url = "{echo reUrl('User/index')}";
 var dosubmit = false;
+var root_path = '__ROOT__';
+<!--{if $captcha}-->
+var captcha = true;
+<!--{else}-->
+var captcha = false;
+<!--{/if}-->
+function fleshVerify()
+{
+	var time = new Date().getTime();
+	$("#verifyImg").attr('src',root_path+"/index.php?g=Public"+"&m=Public"+"&a=verifycode"+"&mt="+time);
+}
 function check_nick_valid()
 {
 	var nick = $('#nick').val();
@@ -118,6 +136,9 @@ function reg()
                     fixed: false,
 					marginTop: 200,
 					okEvent: function(data, args) {
+						if(captcha){
+							fleshVerify();
+						}
                         args.hide();
                     }
                 });

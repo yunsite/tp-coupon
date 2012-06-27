@@ -18,6 +18,13 @@
     <td align="right">密码：</td>
     <td colspan="2"><input name="pw" id="pw" type="password" style="width:200px;" />&nbsp;<a href="{echo reUrl('User/getpwd');}">忘记密码？</a></td>
   </tr>
+  <!--{if $captcha}-->
+  <tr>
+    <td align="right">验证码：</td>
+    <td colspan="2"><input type="text" name="verify" size="8" />
+	<img src="__ROOT__/index.php?g=Public&m=Public&a=verifycode&mt={$mt}" align="absmiddle" alt="captcha" height="{$_CFG.captcha_height}" width="{$_CFG.captcha_width}" style="vertical-align: middle;cursor: pointer;" onClick="this.src='__ROOT__/index.php?g=Public&m=Public&a=verifycode&mt='+Math.random()" id="verifyImg" /></td>
+  </tr>
+  <!--{/if}-->
   <tr>
     <td align="right">&nbsp;</td>
     <td colspan="2"><input name="save" id="save" type="checkbox" value="1" /><span id="label_save">下次自动登陆？</span></td>

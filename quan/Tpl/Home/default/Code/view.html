@@ -34,7 +34,8 @@ var shopping_url = "{echo reUrl('Mall/out?id='.$detail['m_id']);}";
                                 <li><em>有&nbsp;&nbsp;效&nbsp;&nbsp;期：</em><!--{if $detail['expiry_type']==1}--><!--{if $detail['expiry']==0}-->已结束<!--{else}-->还剩 <i><!--{if $detail['expiry']>$_CFG['max_left_days']}-->{$_CFG['max_left_days']}<!--{else}-->{$detail.expiry}<!--{/if}--></i> 天<!--{/if}--><!--{else}-->长期有效<!--{/if}--></li>
                                 
                                 <li><em>领取数量：</em> 已发放 <i>{$detail.fetched_amount}</i> 张</li>
-                                
+                                <li><em>领取数量限制：</em> {$detail.fetch_limit}</li>
+                                <li><em>领取帐号限制：</em> {$detail.fetch_account_limit}</li>
                                 <li><em>更多优惠券：</em>其它<a target="_blank" href="{echo reUrl('Mall/view?id='.$detail['m_id']);}">{$mall.name}优惠券</a></li>
                                 
                                 <li><em>使用说明：</em><br>{$detail['data']['directions']}</li>

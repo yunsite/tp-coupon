@@ -5,17 +5,16 @@
 <div class="lt">
 <div class="tao-filters">
 <dl>
-<dd>
 <FORM id="filterForm"  method="get" action=""> 
-       关键词： <INPUT name="q" type="text"> <BUTTON id="resetQuery" type="submit">搜索</BUTTON>
+<dd> 关键词：</dd><dd><INPUT name="q" type="text"></dd><dd><BUTTON id="resetQuery" type="submit">搜索</BUTTON></dd>
 </FORM>
-</dd>
 </dl>
-<ul>
-<li><a href="{echo reUrl('Tao/shops?cid=0&p=1')}"  title="全部" {if $cid==0}class="on"{/if}>全部</a></li>
+<ul><li>
+<a href="{echo reUrl('Tao/shops?cid=0&p=1')}"  title="全部" {if $cid==0}class="on"{/if}>全部</a>
 <!--{loop $categorys $item}-->
-<li><a href="{echo reUrl('Tao/shops?cid='.$item[id].'&p=1')}"  title="{$item.name}" {if $cid==$item['id']}class="on"{/if}>{$item.name}</a></li>
+<a href="{echo reUrl('Tao/shops?cid='.$item[id].'&p=1')}"  title="{$item.name}" {if $cid==$item['id']}class="on"{/if}>{$item.name}</a>
 <!--{/loop}-->
+</li>
 </ul>
 </div>
 

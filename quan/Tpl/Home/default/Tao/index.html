@@ -4,7 +4,7 @@
 <div class="tao-wrap">
 <div class="lt">
 <div class="tao-filters">
-<p>推荐淘宝店<a href="{echo reUrl('Home/Tao/shops')}"  title="淘宝优惠券" target="_blank">更多淘宝店 &gt;&gt;</a></p>
+<p><a href="{echo reUrl('Home/Tao/shops')}"  title="淘宝优惠券" target="_blank">更多淘宝店 &gt;&gt;</a>推荐淘宝店</p>
 <ol>
 <!--{eval $shops=tao_shop_recs(1);}-->
 <!--{loop $shops $shop}-->
@@ -12,18 +12,16 @@
 <!--{/loop}-->
 </ol>
 <ul>
-<li><a href="{echo reUrl('Tao/index?cid=0&t_type='.$t_type.'&p=1')}" {if $cid==0}class="on"{/if}>全部</a></li>
+<li><a href="{echo reUrl('Tao/index?cid=0&t_type='.$t_type.'&p=1')}" {if $cid==0}class="on"{/if}>全部</a>
 <!--{loop $categorys $item}-->
-<li><a href="{echo reUrl('Tao/index?cid='.$item[id].'&t_type='.$t_type.'&p=1')}" {if $cid==$item['id']}class="on"{/if}>{$item.name}</a></li>
+<a href="{echo reUrl('Tao/index?cid='.$item[id].'&t_type='.$t_type.'&p=1')}" {if $cid==$item['id']}class="on"{/if}>{$item.name}</a>
 <!--{/loop}-->
-</ul>
-
-<ul>
-<li><a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=0&p=1')}" {if $t_type==0}class="on"{/if}>不限</a></li>
-<li><a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=1&p=1')}" {if $t_type==1}class="on"{/if}>今天</a></li>
-<li><a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=2&p=1')}" {if $t_type==2}class="on"{/if}>三天内</a></li>
-<li><a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=3&p=1')}" {if $t_type==3}class="on"{/if}>一周内</a></li>
-<li><a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=4&p=1')}" {if $t_type==4}class="on"{/if}>一月内</a></li>
+</li>
+<li><a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=0&p=1')}" {if $t_type==0}class="on"{/if}>不限</a>
+<a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=1&p=1')}" {if $t_type==1}class="on"{/if}>今天</a>
+<a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=2&p=1')}" {if $t_type==2}class="on"{/if}>三天内</a>
+<a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=3&p=1')}" {if $t_type==3}class="on"{/if}>一周内</a>
+<a href="{echo reUrl('Tao/index?cid='.$cid.'&t_type=4&p=1')}" {if $t_type==4}class="on"{/if}>一月内</a></li>
 </ul>
 
 </div>
@@ -50,9 +48,12 @@
 <!--{/loop}-->
 </ul>
 </div>
+<div>
 <ul class="pager">{$pagelink}</ul>
 </div>
+</div>
 <div class="ri">
+<div style="margin-bottom:12px;"><a href="{echo reUrl('Home/Tao/shops')}"  title="淘宝优惠券" target="_blank" ><img src="__PUBLIC__/Images/Taobao/taobaomore.jpg" width="268" height="42" border="0" alt="淘宝优惠券" /></a></div>
 <div class="shopAllCoupons">
 <ul>
 <!--{eval $coupons=tao_coupon_recs(1);}-->

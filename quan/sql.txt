@@ -11,10 +11,15 @@ ALTER TABLE `dbs_coupon_code_data` ADD `seo_title` VARCHAR( 255 ) CHARACTER SET 
 
 ALTER TABLE `dbs_coupon_code_data` ADD `is_secret` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '0'
 
+ALTER TABLE `dbs_coupon_code_data` ADD `fetch_account_limit` TINYINT( 3 ) UNSIGNED NOT NULL DEFAULT '200' COMMENT '领取帐号限制' AFTER `fetch_limit` 
+
 
 ALTER TABLE `dbs_coupon_code_codes` CHANGE `code` `code` VARCHAR( 150 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
 
 ALTER TABLE `dbs_coupon_code_codes` ADD `password` VARCHAR( 50 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `code` 
+ALTER TABLE `dbs_coupon_code_codes` ADD `ip` VARCHAR( 20 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '领取时的IP' AFTER `nick` 
+
+ALTER TABLE `dbs_user` ADD `is_verifyed` TINYINT( 1 ) UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否已通过邮箱验证',ADD INDEX ( `is_verifyed` ) 
 
 ALTER TABLE `dbs_mall_promotion` ADD `detail` TEXT CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL 
 
@@ -37,10 +42,14 @@ INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`,
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_shop_cache_time', 'text', '', '', '', '1');
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_coupon_cache_time', 'text', '', '', '', '1');
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_last_cache_time', 'hidden', '', '', '0', '1');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '954', 'taobao_shop_items_cache_time', 'text', '', '', '120', '1');
 
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, 945, 'taobao_login_appkey', 'text', '', '', '', 33);
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, 945, 'taobao_login_appsecret', 'text', '', '', '', 34);
 INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, 945, 'taobao_login_open', 'select', '0,1', '', '0', 35);
+
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '1', 'reg_verify_enable', 'options', '0,1', '', '0', '36');
+INSERT INTO `dbs_site_config` (`id`, `parent_id`, `code`, `type`, `store_range`, `store_dir`, `value`, `sort_order`) VALUES (NULL, '1', 'ip_fetch_limit', 'text', '', '', '0', '37');
 
 
 CREATE TABLE IF NOT EXISTS `dbs_tao_shop` (

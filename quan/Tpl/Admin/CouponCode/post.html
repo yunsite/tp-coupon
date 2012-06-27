@@ -34,8 +34,12 @@
 		<td><select name="expiry_type" onchange="sel_expiry_type(this.value)"><!--{foreach from=$code_expiry_conf item=item key=key}--><option value="{$key}" {if $code.expiry_type==$key}selected{/if}>{$item}</option><!--{/foreach}--></select><span id="expiry_type_elm_1">有效期至<input type="Text" name="expiry" class="Wdate textinput requireinput"  id="expiry" onFocus="WdatePicker({literal}{{/literal}skin:'ext',dateFmt:'yyyy-MM-dd',isShowToday:false,lang:'zh_cn',readOnly:true{literal}}{/literal})" style="cursor: hand; width:160px;" value="{$code.expiry}"></span></td>
 	</tr>
     <tr>
-		<th width="200" class="first">领取限制：</th>
+		<th width="200" class="first">领取数量限制：</th>
 		<td><select name="fetch_limit"><!--{foreach from=$fetch_limit_conf item=item key=key}--><option value="{$key}" {if $code.data.fetch_limit==$key}selected{/if}>{$item}</option><!--{/foreach}--></select></td>
+	</tr>
+    <tr>
+		<th width="200" class="first">领取帐号限制：</th>
+		<td><select name="fetch_account_limit"><!--{foreach from=$fetch_account_limit_conf item=item key=key}--><option value="{$key}" {if $code.data.fetch_account_limit==$key}selected{/if}>{$item}</option><!--{/foreach}--></select></td>
 	</tr>
     <tr>
 		<th width="200" class="first">付费：</th>

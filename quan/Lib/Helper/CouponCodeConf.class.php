@@ -17,6 +17,16 @@ class CouponCodeConf
 							);
 	}
 	
+	public static function fetch_account_limit_conf()
+	{
+		return $conf = array(
+							'200'		=>	'不限制',
+							'101'		=>	'仅QQ帐号登陆可领取',
+							'102'		=>	'仅新浪微博帐号登陆可领取',
+							'103'		=>	'仅淘宝帐号登陆可领取',
+							);
+	}
+	
 	/**
 	 * 商家推荐位置配置
 	 *

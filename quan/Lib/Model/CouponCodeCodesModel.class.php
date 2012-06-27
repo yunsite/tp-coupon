@@ -77,7 +77,7 @@ class CouponCodeCodesModel extends Model
     	return $this->where($where)->find();
     }
     
-    public function pull($c_id, $user_id, $nick, $fetch_time)
+    public function pull($c_id, $user_id, $nick, $fetch_time, $ip=null)
     {
     	$code = $this->field("id,code,password")->where("c_id='$c_id' AND user_id=0")->find();
     	if(! $code) return null;
@@ -86,6 +86,9 @@ class CouponCodeCodesModel extends Model
     				'nick'			=>	$nick,
     				'fetch_time'	=>	$fetch_time
     				);
+    	if($ip){
+    		$data['ip'] = $ip;
+    	}
     	$this->where("id='$code[id]'")->save($data);
     	return $code;
     }

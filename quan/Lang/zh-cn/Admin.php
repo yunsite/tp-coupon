@@ -72,9 +72,12 @@ return array(
 									'taobao_cache_time'			=> '店铺分类等数据缓存时间',
 									'taobao_shop_cache_time'	=> '店铺信息缓存时间',
 									'taobao_coupon_cache_time'	=> '店铺优惠券缓存时间',
+									'taobao_shop_items_cache_time'=>  '店铺商品缓存时间',
 									'taobao_login_appkey'		=> '淘宝登陆appKey',
 									'taobao_login_appsecret'	=> '淘宝登陆appSecret',
 									'taobao_login_open'			=> '开启淘宝登陆',
+									'reg_verify_enable'			=> '开启注册邮箱验证',
+									'ip_fetch_limit'			=> '同一IP每天可领取的优惠券数量'
 									),
 					'save_success' => '保存网站设置成功',
 					'cfg_range' => array(
@@ -144,6 +147,10 @@ return array(
 															0 =>	'不开启',
 															1 =>	'开启'
 															),
+										'reg_verify_enable'=> array(
+															0 =>	'不开启',
+															1 =>	'开启'
+															),
 										),
 					'cfg_desc'	=>	array(
 										'data_cache_time'	=>	'(单位：小时)',
@@ -157,6 +164,9 @@ return array(
 										'taobao_cache_time'			=> '单位：分钟',
 										'taobao_shop_cache_time'	=> '单位：分钟',
 										'taobao_coupon_cache_time'	=> '单位：分钟',
+										'taobao_shop_items_cache_time' =>  '单位：分钟',
+										'taobao_login_appkey'	=>  '应用的回调地址必须是:网站路径/tb_callback.php,如：http://www.tp-coupon.com/tb_callback.php',
+										'ip_fetch_limit'	=>	'0为不限制'
 										),
 					),
 );

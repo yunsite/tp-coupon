@@ -13,7 +13,8 @@ class TaoShopService
 	public function __construct()
 	{
 		$_cfg = load_config();
-		$this->_expire = 3600*floatval($_cfg['data_cache_time']);
+		$cache_time = $_cfg['taobao_shop_items_cache_time'] ? $_cfg['taobao_shop_items_cache_time'] : 120;
+		$this->_expire = 60*floatval($cache_time);
 	}
 	
 	public function info($id)
