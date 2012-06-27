@@ -104,6 +104,7 @@ return array(
 									'all'			=>	array('action'=>'', 'name'=>'模块管理'),
 									'index'			=>	array('action'=>'index', 'name'=>'查看会员列表'),
 									'User_is_locked'=>	array('action'=>'User_is_locked', 'name'=>'锁定'),
+									'User_is_verifyed'=>	array('action'=>'User_is_verifyed', 'name'=>'邮箱激活'),
 									),
 				'Payment'	=>	array(
 									'all'			=>	array('action'=>'', 'name'=>'模块管理'),

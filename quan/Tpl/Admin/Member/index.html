@@ -40,6 +40,7 @@ $(document).ready(function(){
 <th width="150">最后登陆时间</th>
 <th width="100">最后登陆IP</th>
 <th width="60">锁定</th>
+<th width="80">邮箱激活</th>
 <th width="130">操作</th>
 </tr>
 </thead>
@@ -54,6 +55,7 @@ $(document).ready(function(){
 <td align="center">{$item.last_login}</td>
 <td align="center">{$item.last_ip}</td>
 <td align="center"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="User" pk="" href="javascript:;" onclick="toggleStatus(this,'{$item.user_id}','is_locked')"><img src="__PUBLIC__/Css/Admin/Images/status-{$item.is_locked}.gif" class="status" status="{$item.is_locked}" /></span></td>
+<td align="center"><span class="pointer" module="{$smarty.const.MODULE_NAME}" group="{$smarty.const.GROUP_NAME}" model="User" pk="" href="javascript:;" onclick="toggleStatus(this,'{$item.user_id}','is_verifyed')"><img src="__PUBLIC__/Css/Admin/Images/status-{$item.is_verifyed}.gif" class="status" status="{$item.is_verifyed}" /></span></td>
 <td align="center"><a href="?g={$smarty.const.GROUP_NAME}&m=Payment&nick={$item.nick|escape:'url'}">充值记录</a>
 </td>
 </tr>

@@ -91,7 +91,7 @@ function check_nick_valid()
 		$('#tip_nick').text('');
 		return false;
 	}
-	var url = "index.php?g="+g+"&m="+m+"&ajax=1&a=check_nick_valid&nick="+encodeURIComponent(nick);
+	var url = root_path+"/index.php?g="+g+"&m="+m+"&ajax=1&a=check_nick_valid&nick="+encodeURIComponent(nick);
 		$.getJSON(url, function(data){
 									if(data.status == 0){
 										$('#tip_nick').html('该帐号已存在');
@@ -116,15 +116,23 @@ function reg()
 		},
 		success: function(result){
 			if(result.status==1){
+				var tips = '注册成功<br>现在您可以会员身份登陆';
+				if(result.data.verifyed==0){
+					tips = '我们已经给您的邮箱发送了一封验证邮件，请登陆您的邮箱查看。';
+				}
 				$.fn.jmodal({
                     data: {},
                     title: '温馨提示',
-                    content: '注册成功<br>现在您可以会员身份登陆',
+                    content: tips,
                     buttonText: { ok: '确定', cancel: '' },
                     fixed: false,
 					marginTop: 200,
 					okEvent: function(data, args) {
-                        window.location.href = u_index_url;
+						if(result.data.verifyed==1){
+                        	window.location.href = u_index_url;
+						}else{
+							window.location.href = root_path+"/index.php?g="+g+"&m="+m+"&a=reverify&&uid="+result.info;
+						}
                     }
                 });
 			}else{

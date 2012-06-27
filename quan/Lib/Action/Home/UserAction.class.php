@@ -47,6 +47,8 @@ class UserAction extends HomeCommonAction
 			$uid = $ucService->register($nick, $pw, $email);
 			//成功注册到UC
 			if(!is_string($uid)){
+				$send_email = false;
+				$is_verifyed = 1;
 				//本地注册
 				$uModel = D('User');
 				if(! $uModel->info($uid)){
@@ -58,7 +60,19 @@ class UserAction extends HomeCommonAction
 						Consume::increase($invite, $this->_CFG['invite_credit'], Consume::TYPE_CREDIT);
 					}
 					$addtime = LocalTime::getInstance()->gmtime();
-					$uModel->_add(array('user_id'=>$uid,'nick'=>$nick, 'email'=>$email,'password'=>md5($pw),'invite'=>$invite,'addtime'=>$addtime));
+					if($this->_CFG['reg_verify_enable'] && (!isset($_REQUEST['ac']) || $_REQUEST['ac'] != 'dobind')){
+						$is_verifyed = 0;
+						$send_email = true;
+					}
+					$udata = array('user_id'	=>$uid,
+									'nick'		=>$nick,
+									'email'		=>$email,
+									'password'	=>md5($pw),
+									'invite'	=>$invite,
+									'addtime'	=>$addtime,
+									'is_verifyed' => $is_verifyed
+									);
+					$uModel->_add($udata);
 				}
 				if(isset($_REQUEST['ac']) && $_REQUEST['ac'] == 'dobind'){
 					if($_REQUEST['type'] == 'sina'){
@@ -85,7 +99,12 @@ class UserAction extends HomeCommonAction
 					);
 					$platform->data($data)->add();
 				}
-				$this->ajaxReturn('', $uid, 1);
+				//发送验证邮件
+				if($send_email){
+					$this->_send_verify_email($uid, $nick, $email);
+				}
+				$return = array('verifyed' => $is_verifyed);
+				$this->ajaxReturn($return, $uid, 1);
 			}else{
 				$this->ajaxReturn('', $uid, 0);
 			}
@@ -427,6 +446,75 @@ class UserAction extends HomeCommonAction
 		$this->assign('_hash_', buildFormToken());
 		$this->assign('hash', buildFormToken('hash'));
 		$this->display();
+	}
+	
+	/**
+	 * 验证邮箱
+	 *
+	 */
+	public function verify()
+	{
+		if(! isset($_REQUEST['code'])){
+			$this->assign('jumpUrl', __ROOT_.'/');
+			$this->error('非法操作');
+		}
+		$content = authcode($_REQUEST['code'], 'DECODE', C('AUTH'));
+		if(! $content){
+			$this->assign('jumpUrl', __ROOT_.'/');
+			$this->error('非法操作');
+		}
+		$content = explode("\t", $content);
+		if(time() - $content[1] > 3600*24){
+			//重新发送验证邮件
+			$uModel = D('User');
+			$user = $uModel->info($content[0], array('nick', 'email'));
+			if($user){
+				$this->_send_verify_email($content[0], $user['nick'], $user['email']);
+			}
+			$this->assign('jumpUrl', 'index.php?m='.MODULE_NAME.'&a=reverify&uid='.$content[0]);
+			$this->error('验证链接已过有效期');
+		}else{
+			$uModel = D('User');
+			if($uModel->update(intval($content[0]), array('is_verifyed' => 1))){
+				$this->assign('jumpUrl', reUrl('User/login'));
+				$this->success('验证成功，现在您可以会员身份登陆本站.');
+			}else{
+				$this->assign('jumpUrl', 'index.php?m='.MODULE_NAME.'&a=reverify&uid='.$content[0]);
+				$this->error('验证失败');
+			}
+		}
+	}
+	
+	/**
+	 * 重新验证
+	 *
+	 */
+	public function reverify()
+	{
+		$uid = intval($_REQUEST['uid']);
+		$uModel = D('User');
+		$user = $uModel->info($uid, array('user_id', 'nick', 'email'));
+		if($this->isAjax() && isset($_REQUEST['ac']) && $_REQUEST['ac'] == 'remail'){
+			$this->_send_verify_email($uid, $user['nick'], $user['email']);
+			$this->ajaxReturn('', '', 1);
+		}
+		if(! $user){
+			$this->assign('jumpUrl', __ROOT_.'/');
+			$this->error('非法操作');
+		}
+		$this->assign('user', $user);
+		$this->display();
+	}
+	
+	private function _send_verify_email($uid, $nick, $email)
+	{
+		$string = $uid."\t".time()."\t".rand_string(6, 0);
+		$subject = '亲爱的'.$nick.',请激活您的'.$this->_CFG['site_name'] . '帐号，完成注册';
+		$content = $nick.'：<br />感谢您注册成为'.$this->_CFG['site_name'].'会员。<br />请点击下面的链接完成注册：<br />';
+		$content .= 'http://' . $_SERVER['HTTP_HOST'] . __ROOT__ . '/' . 'index.php?m=User&a=verify&code=';
+		$content .= authcode($string, 'ENCODE', C('AUTH'));
+		$content .= '<br />如果以上链接无法点击，请将上面的地址复制到你的浏览器(如IE)的地址栏进入'.$this->_CFG['site_name'].'。';
+		send_mail($nick, $email, $subject, $content, 1);
 	}
 
 	private function _on_sina_logined()

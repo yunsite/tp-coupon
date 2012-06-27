@@ -6,7 +6,7 @@ return array(
 'LOGIN_MODULES'			=> array('User', 'Payment'),//需要登陆的模块
 'NOT_LOGIN_ACTIONS'		=> array('User.reg', 'User.login', 'User.logout', 'User.check_nick_valid', 'User.login_sina',
 								 'User.sina_callback', 'User.login_qq', 'User.qq_callback', 'User.login_taobao', 'User.taobao_callback',
-								 'User.bind',
+								 'User.bind','User.verify','User.reverify',
 								 'User.uc_synlogin', 'User.uc_deleteuser', 'User.uc_updatepw', 'User.uc_renameuser',
 								 'User.uc_updatecredit', 'User.getpwd', 'Payment.pay_callback', 'Payment.pay_notify'),//不需要登陆的操作
 'TOKEN_ON'				=> true,
